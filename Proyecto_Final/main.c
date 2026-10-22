@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "stm32g431xx.h" 
+#include "setup_seguridad.h"
 #include "connect.h"
 #include "monitor.h"
 
@@ -20,6 +21,10 @@ void Test_Call(void) {
 
 int main(void) {
     
+    // Configuración de seguridad y liberación de pines (esquemático Setup_Seguridad)
+    // Debe ir antes de cualquier otra inicialización
+    Setup_Seguridad();
+
     // Inicializa el hardware y relojes
     UART_Init();
     
