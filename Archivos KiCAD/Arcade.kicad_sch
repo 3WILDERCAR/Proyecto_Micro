@@ -1,0 +1,46 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "b5cb831a-0384-411e-84ed-3094e17e23f3")
+	(paper "A3")
+	(title_block
+		(title "Arcade")
+		(date "2026-10-20")
+		(rev "1")
+		(company "Universidad Galileo - FISICC - Microprocesadores")
+		(comment 1 "MicroProject-2026")
+		(comment 2 "Placa perforada (wire wrap) con NUCLEO-G431KB")
+		(comment 3 "Solder bridges: peor caso = configuración por defecto (UM2397 §6.7, Tabla 9)")
+	)
+	(lib_symbols)
+	(text "ARCADE - breakout"
+		(exclude_from_sim no)
+		(at 12.7 19.05 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "252c6037-6c0e-431b-b691-e59a157b4ce9")
+	)
+	(text "Hoja pendiente: se desarrollará después de Green_Card."
+		(exclude_from_sim no)
+		(at 12.7 26.67 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+			(justify left bottom)
+		)
+		(uuid "2ef530c8-c174-40f2-935d-cbf03849c84a")
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)

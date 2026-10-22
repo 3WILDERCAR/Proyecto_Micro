@@ -1,0 +1,8150 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "17c26aa7-e975-40d6-9d5f-ac0eb7674101")
+	(paper "A3")
+	(title_block
+		(title "Setup_Seguridad")
+		(date "2026-10-20")
+		(rev "1")
+		(company "Universidad Galileo - FISICC - Microprocesadores")
+		(comment 1 "MicroProject-2026")
+		(comment 2 "Placa perforada (wire wrap) con NUCLEO-G431KB")
+		(comment 3 "Solder bridges: peor caso = configuración por defecto (UM2397 6.7, Tabla 9)")
+	)
+	(lib_symbols
+		(symbol "MicroProject-2026:+3V3_IO"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "+3V3_IO"
+				(at 0 3.556 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Salida de U3 (LD1117V33): lógica e indicadores"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "+3V3_IO_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+3V3_IO_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(hide yes)
+					(name "+3V3_IO"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:+3V3_LCD"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "+3V3_LCD"
+				(at 0 3.556 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Salida de U4 (LD1117V33): Nokia 5110"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "+3V3_LCD_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+3V3_LCD_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(hide yes)
+					(name "+3V3_LCD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:+5V_EXT"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "+5V_EXT"
+				(at 0 3.556 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Salida de U2 (LM7805), dominio externo"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "+5V_EXT_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+5V_EXT_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(hide yes)
+					(name "+5V_EXT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:Bornera_2P"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "J"
+				(at 0 5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Bornera 2P"
+				(at 0 -5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Bornera de 2 polos para la fuente externa"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Bornera_2P_0_1"
+				(rectangle
+					(start -3.81 3.81)
+					(end 2.54 -3.81)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "Bornera_2P_1_1"
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:C"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "C"
+				(at 2.54 -1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Capacitor cerámico"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:C_Electrolitico"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "100uF/25V"
+				(at 2.54 -1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Capacitor electrolítico de aluminio (polarizado, pin 1 = +)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_Electrolitico_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -2.032 -0.508)
+					(end 2.032 -1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 2.286) (xy -0.762 2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.794) (xy -1.27 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_Electrolitico_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:C_Tantalio"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "10uF"
+				(at 2.54 -1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Capacitor de tantalio (polarizado, pin 1 = +)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_Tantalio_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -2.032 -0.508)
+					(end 2.032 -1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 2.286) (xy -0.762 2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.794) (xy -1.27 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_Tantalio_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:Diodo"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "1N4007"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Diodo rectificador (pin 1 = K, pin 2 = A)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Diodo_0_1"
+				(polyline
+					(pts
+						(xy -1.27 1.27) (xy -1.27 -1.27) (xy 1.27 0) (xy -1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 1.27) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Diodo_1_1"
+				(pin passive line
+					(at 5.08 0 180)
+					(length 3.81)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:Fusible"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "F"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "1A"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Fusible con portafusible"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Fusible_0_1"
+				(rectangle
+					(start -2.54 0.762)
+					(end 2.54 -0.762)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 0) (xy 2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Fusible_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:GND"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "GND"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Tierra común (tarjeta + dominio externo)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "GND_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "GND_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(hide yes)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:LD1117V33_TO220"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "U"
+				(at 0 6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LD1117V33"
+				(at 0 3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Regulador 3.3 V, TO-220 (1 GND, 2 OUT, 3 IN) - VERIFICAR"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "LD1117V33_TO220_0_1"
+				(rectangle
+					(start -7.62 2.54)
+					(end 7.62 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "LD1117V33_TO220_1_1"
+				(pin power_in line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 10.16 0 180)
+					(length 2.54)
+					(name "OUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -10.16 0 0)
+					(length 2.54)
+					(name "IN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:LED"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "D"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LED"
+				(at 2.54 -1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "LED (pin 1 = K, pin 2 = A)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "LED_0_1"
+				(polyline
+					(pts
+						(xy -3.048 0) (xy -3.048 0.762)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.048 0) (xy -2.286 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.048 -1.524) (xy -3.048 -0.762)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.048 -1.524) (xy -2.286 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 1.27) (xy -3.048 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -0.254) (xy -3.048 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 1.27) (xy 1.27 1.27) (xy 0 -1.27) (xy -1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -1.27) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "LED_1_1"
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 3.81)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 5.08 270)
+					(length 3.81)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:LM7805_TO220"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "U"
+				(at 0 6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LM7805"
+				(at 0 3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Regulador 5 V, TO-220 (1 IN, 2 GND, 3 OUT) - VERIFICAR"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "LM7805_TO220_0_1"
+				(rectangle
+					(start -7.62 2.54)
+					(end 7.62 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "LM7805_TO220_1_1"
+				(pin power_in line
+					(at -10.16 0 0)
+					(length 2.54)
+					(name "IN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 10.16 0 180)
+					(length 2.54)
+					(name "OUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:NUCLEO-G431KB"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "U"
+				(at 0 49.53 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "NUCLEO-G431KB"
+				(at 0 -40.64 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "NUCLEO-G431KB (MB1430), conectores ARDUINO Nano CN3/CN4 vistos desde arriba (UM2397 7.2)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "NUCLEO-G431KB_0_1"
+				(rectangle
+					(start -20.32 38.1)
+					(end 20.32 -38.1)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(rectangle
+					(start -5.08 44.45)
+					(end 5.08 38.1)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(text "CN3"
+					(at -22.86 40.64 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+							(bold yes)
+						)
+					)
+				)
+				(text "CN1 USB"
+					(at 0 41.275 0)
+					(effects
+						(font
+							(size 1 1)
+						)
+					)
+				)
+				(text "NUCLEO"
+					(at 0 1.27 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+							(bold yes)
+						)
+					)
+				)
+				(text "G431KB"
+					(at 0 -1.27 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+							(bold yes)
+						)
+					)
+				)
+				(text "CN4"
+					(at 22.86 40.64 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+							(bold yes)
+						)
+					)
+				)
+			)
+			(symbol "NUCLEO-G431KB_1_1"
+				(pin passive line
+					(at -27.94 35.56 0)
+					(length 7.62)
+					(name "VIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -27.94 30.48 0)
+					(length 7.62)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -27.94 25.4 0)
+					(length 7.62)
+					(name "NRST"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -27.94 20.32 0)
+					(length 7.62)
+					(name "+5V"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -27.94 15.24 0)
+					(length 7.62)
+					(name "A7/PA2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -27.94 10.16 0)
+					(length 7.62)
+					(name "A6/PA7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -27.94 5.08 0)
+					(length 7.62)
+					(name "A5/PA6+PA15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -27.94 0 0)
+					(length 7.62)
+					(name "A4/PA5+PB7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -27.94 -5.08 0)
+					(length 7.62)
+					(name "A3/PA4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -27.94 -10.16 0)
+					(length 7.62)
+					(name "A2/(PA3)"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -27.94 -15.24 0)
+					(length 7.62)
+					(name "A1/PA1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -27.94 -20.32 0)
+					(length 7.62)
+					(name "A0/PA0"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -27.94 -25.4 0)
+					(length 7.62)
+					(name "AREF/AVDD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -27.94 -30.48 0)
+					(length 7.62)
+					(name "+3V3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -27.94 -35.56 0)
+					(length 7.62)
+					(name "D13/PB3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN3-15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 35.56 180)
+					(length 7.62)
+					(name "D1/PA9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 30.48 180)
+					(length 7.62)
+					(name "D0/PA10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 25.4 180)
+					(length 7.62)
+					(name "NRST"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 20.32 180)
+					(length 7.62)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 15.24 180)
+					(length 7.62)
+					(name "D2/PA12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 10.16 180)
+					(length 7.62)
+					(name "D3/PB0"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 5.08 180)
+					(length 7.62)
+					(name "D4/(PB7)"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 0 180)
+					(length 7.62)
+					(name "D5/(PA15)"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 -5.08 180)
+					(length 7.62)
+					(name "D6/PB6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 -10.16 180)
+					(length 7.62)
+					(name "D7/(PF0)"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 -15.24 180)
+					(length 7.62)
+					(name "D8/(PF1)"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 -20.32 180)
+					(length 7.62)
+					(name "D9/PA8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 -25.4 180)
+					(length 7.62)
+					(name "D10/PA11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 -30.48 180)
+					(length 7.62)
+					(name "D11/PB5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 -35.56 180)
+					(length 7.62)
+					(name "D12/PB4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "CN4-15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:PWR_FLAG"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#FLG"
+				(at 0 1.905 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "PWR_FLAG"
+				(at 0 3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Indica al ERC que la red tiene una fuente; no es un componente físico"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_1_1"
+				(pin power_out line
+					(at 0 0 90)
+					(length 0)
+					(name "pwr"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:R"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 2.54 -1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Resistencia"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 2.54)
+					(end 1.016 -2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "MicroProject-2026:SW_Push"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "SW"
+				(at 0 4.445 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SW_Push"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Pulsador normalmente abierto"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "SW_Push_0_1"
+				(polyline
+					(pts
+						(xy -3.048 1.27) (xy 3.048 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 1.27) (xy 0 3.048)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_Push_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(rectangle
+		(start 250.19 22.86)
+		(end 406.4 172.72)
+		(stroke
+			(width 0.254)
+			(type dash)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "216bc959-4c5a-4191-8287-90d0372f1531")
+	)
+	(rectangle
+		(start 12.7 22.86)
+		(end 247.65 172.72)
+		(stroke
+			(width 0.254)
+			(type dash)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "601b7d06-909a-448b-85b4-aebce7c4434a")
+	)
+	(text "LIBRE - candidato a USART1_TX / FTDI (pendiente)"
+		(exclude_from_sim no)
+		(at 167.64 63.5 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "014d414e-bf90-4731-b336-953c3c81e129")
+	)
+	(text "RESERVADO - solo alimentación del potenciómetro"
+		(exclude_from_sim no)
+		(at 86.36 124.46 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "0fd67976-831c-48a6-b149-4f6050f9d546")
+	)
+	(text "NO USAR - SB8 OFF: PF0 sin conexión (UM2397 6.5)"
+		(exclude_from_sim no)
+		(at 167.64 109.22 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "10472fb3-f94d-4c48-af7d-24699b021085")
+	)
+	(text "RESET (mismo nodo que CN3-3)"
+		(exclude_from_sim no)
+		(at 167.64 73.66 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "12a03b46-b8c3-4f87-b294-9c1c64342e15")
+	)
+	(text "+3V3_LCD -> Nokia 5110 y su backlight"
+		(exclude_from_sim no)
+		(at 342.9 124.46 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "2ac66d02-c0cf-4b9e-8813-630b55060392")
+	)
+	(text "LIBRE"
+		(exclude_from_sim no)
+		(at 167.64 119.38 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "2f517bfd-0683-4075-8042-1db4446da4b1")
+	)
+	(text "NO USAR - con SB2 ON, PB7 sale por A4 (UM2397 6.7)"
+		(exclude_from_sim no)
+		(at 167.64 93.98 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "2f7fd66a-b7ab-4277-8494-8c9e72ec9abc")
+	)
+	(text "TARJETA NUCLEO-G431KB - conectores CN3 / CN4 vistos desde arriba (En base al Pinout)"
+		(exclude_from_sim no)
+		(at 12.7 26.67 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "35a3f1a5-07fb-4533-9306-7df32fca5174")
+	)
+	(text "NO USAR - SB11 OFF: PF1 sin conexión (UM2397 6.5)"
+		(exclude_from_sim no)
+		(at 167.64 114.3 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "3a46de39-5eee-48ab-a3c4-c40bb7d8572c")
+	)
+	(text "LIBRE"
+		(exclude_from_sim no)
+		(at 167.64 124.46 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "47abf935-ed3e-4435-bb56-b0d8b8c542c8")
+	)
+	(text "ESTADO (CN3)"
+		(exclude_from_sim no)
+		(at 86.36 58.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(bold yes)
+			)
+			(justify right)
+		)
+		(uuid "47f40ac1-8467-489a-a28d-7585d1ca5005")
+	)
+	(text "SETUP_SEGURIDAD - Seguridad de la tarjeta, alimentación y configuración base"
+		(exclude_from_sim no)
+		(at 12.7 19.05 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "4a1ed41b-7733-468a-8197-f01e971ea19b")
+	)
+	(text "LIBRE (pull-down UCPD deshabilitado en código)"
+		(exclude_from_sim no)
+		(at 167.64 104.14 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "4dcf32c1-c98a-4380-bec8-981f6de6455a")
+	)
+	(text "NO USAR - con SB3 ON, PA15 sale por A5 (UM2397 6.7)"
+		(exclude_from_sim no)
+		(at 167.64 99.06 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "5bd7cca2-509b-4a4f-8e42-35aa9941c447")
+	)
+	(text "GND común"
+		(exclude_from_sim no)
+		(at 167.64 78.74 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "6078607f-e874-467b-8611-d623d8630542")
+	)
+	(text "LIBRE"
+		(exclude_from_sim no)
+		(at 86.36 114.3 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "68365d94-95db-4a15-ad76-71e85e36c082")
+	)
+	(text "Etiquetas de red = nombre del pin del STM32 (en Green_Card y Arcade: FUNCION(PIN))"
+		(exclude_from_sim no)
+		(at 12.7 29.845 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(italic yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "6f93f1f0-a16b-4b6a-ac9d-1ccc6ca38e73")
+	)
+	(text "RESERVADO - PA2 = USART2_TX al VCP, SB1 ON (UM2397 6.6.4)"
+		(exclude_from_sim no)
+		(at 86.36 83.82 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "75aafe37-db67-44cd-a6de-91a0b5761df6")
+	)
+	(text "LIBRE (JTAG y pull-down UCPD liberados en código)"
+		(exclude_from_sim no)
+		(at 167.64 134.62 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "77a68e5e-41ed-450c-afb4-77971ab0c894")
+	)
+	(text "LIBRE (PA15) - PA6 en entrada flotante, SB3 ON (UM2397 6.7)"
+		(exclude_from_sim no)
+		(at 86.36 93.98 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "7eb6af70-a393-4828-aca1-6cb52bd59329")
+	)
+	(text "ESTADO (CN4)"
+		(exclude_from_sim no)
+		(at 167.64 58.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "8a08dab5-7906-4db2-afb4-eb78944a95ca")
+	)
+	(text "SW1: reset externo en el borde de la placa (pulsador SPST de la lista de materiales). No consume GPIO.\nNRST tiene pull-up interno permanente de 25-55 kOhm (DS12589 5.3.15, Tabla 57); misma conexión que B1 (UM2397 6.6.2)."
+		(exclude_from_sim no)
+		(at 50.8 163.83 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "8d45daba-aa1e-47cd-9d4a-50b1c23a6289")
+	)
+	(text "LIBRE"
+		(exclude_from_sim no)
+		(at 86.36 88.9 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "8fb3b241-c6a8-4733-aa1d-8b850882d23f")
+	)
+	(text "PWR_FLAG: solo para el ERC (VIN_PROT y GND no tienen otra salida de potencia)"
+		(exclude_from_sim no)
+		(at 252.73 83.82 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left bottom)
+		)
+		(uuid "904dbcd5-4258-4adf-b5f3-09d15645d815")
+	)
+	(text "Alimenta solo a los periféricos (Green_Card / Arcade). La tarjeta NUCLEO va por su micro-USB."
+		(exclude_from_sim no)
+		(at 252.73 29.845 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(italic yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "9105f1b9-52b8-446a-afa3-335c53cbe718")
+	)
+	(text "LIBRE"
+		(exclude_from_sim no)
+		(at 86.36 104.14 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "97907ab9-9fce-4b13-beba-97f7a8a743b4")
+	)
+	(text "NO USAR - SB14 OFF: A2 sin conexión (UM2397 6.7)"
+		(exclude_from_sim no)
+		(at 86.36 109.22 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "989b59ed-3565-4f05-9ecf-df8385cddd38")
+	)
+	(text "+5V_EXT -> entrada de U3/U4 y cargas de 5 V conmutadas con 2N3904 (buzzer, ánodo del RGB).\nD2 encendido = dominio externo energizado (verificar antes de conectar el USB)."
+		(exclude_from_sim no)
+		(at 283.21 76.2 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left bottom)
+		)
+		(uuid "99b5bd6e-74d6-43a6-ad34-6934a57ce91b")
+	)
+	(text "CONDICIONADO - T_SWO (SB4 ON); LD2 si SB6 ON (6.7)"
+		(exclude_from_sim no)
+		(at 86.36 134.62 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "9cc7ce9b-3781-4a2b-8c20-9a69299a5177")
+	)
+	(text "RESET -> SW1 (DS12589 5.3.15)"
+		(exclude_from_sim no)
+		(at 86.36 73.66 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "a9a0a30b-ffa7-4b90-8e70-7edf5adc0972")
+	)
+	(text "LIBRE - candidato a USART1_RX / FTDI (pendiente)"
+		(exclude_from_sim no)
+		(at 167.64 68.58 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "ab7afb91-b332-4cd2-88eb-2ec490496da1")
+	)
+	(text "+3V3_IO -> MCP23017 x2, LEDs, segmentos,\nswitches, teclado y pull-ups del I2C"
+		(exclude_from_sim no)
+		(at 342.9 96.52 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "b2dfed96-27d1-4ec7-9b2c-3bd35c6f24ba")
+	)
+	(text "NO CONECTAR - sin cargas; no unir con +5V_EXT (UM2397 6.4)"
+		(exclude_from_sim no)
+		(at 86.36 78.74 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "bcd7c175-bb68-42fc-ab87-7c5f189a0c32")
+	)
+	(text "LIBRE (PB7) - PA5 en entrada flotante, SB2 ON (UM2397 6.7)"
+		(exclude_from_sim no)
+		(at 86.36 99.06 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "c0c329db-98f5-4aa3-8081-ecfe841214a9")
+	)
+	(text "NO CONECTAR - entrada 7-12 V; la tarjeta va por USB (UM2397 6.4)"
+		(exclude_from_sim no)
+		(at 86.36 63.5 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "ca91c915-7e38-4d7e-81f8-5f4584a16a61")
+	)
+	(text "LIBRE"
+		(exclude_from_sim no)
+		(at 86.36 119.38 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "d0e08838-4360-4cca-836a-462cbec60d13")
+	)
+	(text "LIBRE"
+		(exclude_from_sim no)
+		(at 167.64 129.54 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "d3b1c87d-d6a3-4b32-ab11-69da5e39639c")
+	)
+	(text "NO CONECTAR - salida de U9; no unir con +3V3_* (6.4, SB15)"
+		(exclude_from_sim no)
+		(at 86.36 129.54 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "dc97da51-87e7-4ac1-844a-e40ba91e773a")
+	)
+	(text "LIBRE"
+		(exclude_from_sim no)
+		(at 167.64 88.9 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "ddacd51d-bc76-4781-bc92-5dd821562f8d")
+	)
+	(text "LIBRE"
+		(exclude_from_sim no)
+		(at 167.64 83.82 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify left)
+		)
+		(uuid "f5f25ace-5e37-4110-a076-2e82623e35ae")
+	)
+	(text "DOMINIO EXTERNO DE ALIMENTACIÓN - fuente DC fija en 9 V"
+		(exclude_from_sim no)
+		(at 252.73 26.67 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "f6128110-fcd4-40dd-b9a8-970fa892b001")
+	)
+	(text "GND común: tarjeta + dominio externo"
+		(exclude_from_sim no)
+		(at 86.36 68.58 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+			)
+			(justify right)
+		)
+		(uuid "fca1da72-efd4-4ffd-a0ca-9193e47fac2f")
+	)
+	(text_box "CONFIGURACIÓN DE CÓDIGO - setup_seguridad.c\nSetup_Seguridad() va al inicio de main(), antes de UART_Init(). Cada pin se limpia por completo (MODER, OTYPER, OSPEEDR, PUPDR, AFR) y luego se configura.\n1. Relojes GPIOAEN y GPIOBEN (RCC_AHB2ENR) y PWREN (RCC_APB1ENR1). RM0440 7.4.15 y 7.4.17.\n2. UCPD1_DBDIS = 1 en PWR_CR3: quita los pull-down de 5.1 kOhm de PB4/PB6. DS12589 4.10, Tabla 12, nota 6.\n3. PA13/PA14 (SWD) restaurados a su configuración de reset. RM0440 9.3.1, 9.4.1, 9.4.3, 9.4.4, 9.4.10.\n4. PA5 y PA6 en entrada flotante (SB2/SB3 ON). UM2397 6.7, Tabla 9; RM0440 9.3.9.\n5. JTAG liberado: PA15, PB3 y PB4 en analógico sin pull. RM0440 9.3.1 y 9.3.12.\n6. Pines LIBRES en analógico sin pull: PA0, PA1, PA4, PA7-PA12, PB0, PB5-PB7. RM0440 9.3.12.\n7. PB8 (LD2/BOOT0) como salida push-pull en 0. RM0440 9.3.15; DS12589 Tabla 12, nota 7.\n8. Bloqueo de PA13/PA14 con GPIOA_LCKR, una vez por reset. RM0440 9.3.6 y 9.4.8. Verificación en el monitor: MD 4800001C 48000020 -> 00 60 01 00.\nNo se tocan PA2/PA3 (USART2, los configura UART_Init) ni NRST (option bytes)."
+		(exclude_from_sim no)
+		(at 12.7 176.53 0)
+		(size 142.24 76.2)
+		(margins 1.477 1.477 1.477 1.477)
+		(stroke
+			(width 0.254)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.8 1.8)
+			)
+			(justify left top)
+		)
+		(uuid "6414d473-a889-4531-9b05-f21632970527")
+	)
+	(text_box "LEYENDA DE ETIQUETAS Y SÍMBOLOS\nPAx / PBx: red con el nombre del pin del STM32G431KB. En Green_Card y Arcade se nombran FUNCION(PIN), ej. I2C1_SCL(PA15).\nNRST: reset del MCU (CN3-3 y CN4-3 son el mismo nodo) hacia SW1.\nAVDD: salida de referencia analógica de la tarjeta (CN3-13); solo para el potenciómetro.\nGND: tierra común de la tarjeta y del dominio externo.\nVIN_RAW: entrada de la fuente después de la bornera J1.\nVIN_PROT: entrada protegida por F1 (fusible) y D1 (polaridad invertida) hacia U2.\n+5V_EXT: salida de U2 (LM7805). +3V3_IO: salida de U3 (LD1117V33). +3V3_LCD: salida de U4 (LD1117V33).\nPWR_FLAG: le indica al ERC que la red tiene fuente; no es un componente.\nX (no-connect): pin que NO se conecta a nada en la placa.\nPin entre paréntesis, ej. D7/(PF0): no llega al header con los solder bridges por defecto.\nEstados: LIBRE = disponible para Green_Card/Arcade; RESERVADO = uso fijo; CONDICIONADO = usable con restricciones; NO USAR / NO CONECTAR = prohibido."
+		(exclude_from_sim no)
+		(at 157.48 176.53 0)
+		(size 142.24 76.2)
+		(margins 1.477 1.477 1.477 1.477)
+		(stroke
+			(width 0.254)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.8 1.8)
+			)
+			(justify left top)
+		)
+		(uuid "771b1938-2bb6-43ee-912a-dedec6258eea")
+	)
+	(text_box "ATENCIÓN - DOS DOMINIOS DE ALIMENTACIÓN\n- NO unir +5V_EXT con CN3-4 (+5V) ni +3V3_IO / +3V3_LCD con CN3-14 (+3V3): alimentaría la tarjeta por pines de salida y pondría reguladores en paralelo (UM2397 6.4; Tabla 9, SB15). VIN (CN3-1) tampoco se conecta.\n- GND es común a ambos dominios: obligatorio para que las señales tengan referencia.\n- Encendido: 1) fuente en 9 V y verificar D2; 2) conectar el USB. Apagado: 1) USB; 2) fuente. Con la tarjeta apagada, 3.3 V en sus pines quedan dentro de los límites absolutos (DS12589 5.2, Tablas 14 y 15).\n- U2 disipa aprox. (VIN_PROT - 5 V) x I_5V: con la fuente en 9 V requiere disipador TO-220.\n- C10 (electrolítico 100 uF / 25 V) en VIN_PROT: reserva de carga para U2 frente a la inductancia de los cables de la fuente y a los picos de corriente de las cargas conmutadas (buzzer, display multiplexado); C1 (100 nF) cubre las frecuencias altas. Va después de D1 para que nunca reciba polaridad invertida y 25 V deja margen sobre los 9 V de la fuente."
+		(exclude_from_sim no)
+		(at 252.73 137.16 0)
+		(size 151.13 34.29)
+		(margins 1.402 1.402 1.402 1.402)
+		(stroke
+			(width 0.254)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.45 1.45)
+			)
+			(justify left top)
+		)
+		(uuid "809b89d0-ce15-470c-a1d5-b4d63cc6651f")
+	)
+	(text_box "SOLDER BRIDGES ASUMIDOS (peor caso = defecto)\nUM2397 6.5 y 6.7, Tabla 9\nSB1, SB12 ON: PA2/PA3 al VCP del ST-LINK\nSB2, SB3 ON: PB7 a A4 con PA5; PA15 a A5 con PA6\nSB4 ON: T_SWO en PB3\nSB6 OFF, SB7 ON: LD2 en PB8\nSB8, SB11 OFF: PF0/PF1 sin conexión a D7/D8\nSB9, SB10, SB13 OFF: reloj por HSI\nSB14 OFF: A2 sin conexión\nSB5, SB15, SB16 ON: VDDA = VDD, U9 da 3.3 V, AGND = GND\n\nVERIFICAR (fuera del contexto del proyecto)\n- Pinout TO-220: LM7805 (1 IN, 2 GND, 3 OUT); LD1117V33 (1 GND, 2 OUT, 3 IN).\n- Voltaje nominal de los tantalios (>= 10 V en +5V_EXT).\n- Valor de F1 tras el presupuesto de Green_Card.\n- Corriente de D2 según su V_F (R1 = 1 kOhm).\n- Offset y bit de PWR_CR3 (UCPD1_DBDIS)."
+		(exclude_from_sim no)
+		(at 302.26 176.53 0)
+		(size 104.14 76.2)
+		(margins 1.402 1.402 1.402 1.402)
+		(stroke
+			(width 0.254)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.7 1.7)
+			)
+			(justify left top)
+		)
+		(uuid "c4943807-3b95-4c95-b3d9-592fd4c07394")
+	)
+	(text_box "NOTAS GENERALES\n1. La NUCLEO-G431KB se alimenta por su micro-USB CN1, igual que en la pre-entrega de los comandos amarillos (UM2397 6.4, opción 1). El USB alimenta solo la tarjeta: límite de 500 mA del switch U7 y revisión obligatoria si el consumo supera 300 mA (UM2397 6.4).\n2. Los periféricos se alimentan del dominio externo (fuente fija en 9 V); ver el recuadro ATENCIÓN.\n3. Límites del MCU: 20 mA por pin y 100 mA en total por las I/O (DS12589 5.2, Tabla 15); 4.0 V máximo en pines TT_a (Tabla 14).\n4. Esta hoja contiene la tarjeta real (U1). Las copias en Green_Card y Arcade irán con Exclude from BOM / board."
+		(exclude_from_sim no)
+		(at 12.7 255.27 0)
+		(size 287.02 29.21)
+		(margins 1.402 1.402 1.402 1.402)
+		(stroke
+			(width 0.254)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.7 1.7)
+			)
+			(justify left top)
+		)
+		(uuid "dc3ad22d-0b51-4739-b825-83c975cf5254")
+	)
+	(junction
+		(at 325.12 124.46)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "02741be4-5973-47a4-b03f-217fb5f8abfa")
+	)
+	(junction
+		(at 276.86 124.46)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "12af9e8c-3fdc-48f9-99a2-0bce4203c9ee")
+	)
+	(junction
+		(at 312.42 124.46)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "32a24e6f-1bde-4d50-9e2c-7b5f7ccd237b")
+	)
+	(junction
+		(at 304.8 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "63079e6f-cad1-470e-b6d1-1e9435e395b4")
+	)
+	(junction
+		(at 312.42 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6cb9f972-41da-430e-bd67-6e47053fedab")
+	)
+	(junction
+		(at 378.46 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "701d71c7-ebf1-4afa-9c6c-6d51874a3bed")
+	)
+	(junction
+		(at 353.06 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "71387100-6f05-452b-8f82-2323dc91367b")
+	)
+	(junction
+		(at 276.86 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7aa2af3b-6b13-4046-a202-257568835e9e")
+	)
+	(junction
+		(at 325.12 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7e683945-4a2a-4900-b115-3a2f33d1c971")
+	)
+	(junction
+		(at 317.5 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8167b315-3081-4542-a27b-7a80d18ed4ef")
+	)
+	(junction
+		(at 302.26 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8ddd6aff-ceb8-4f7e-ab39-e121bb6c36c9")
+	)
+	(junction
+		(at 365.76 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b956dc4a-1694-43eb-8f0c-e65df46c0908")
+	)
+	(no_connect
+		(at 99.06 83.82)
+		(uuid "0634cb39-379b-4328-84b1-816b7beaa6fe")
+	)
+	(no_connect
+		(at 99.06 63.5)
+		(uuid "3395ea88-f448-4e50-b3ea-c4bd759ba7b4")
+	)
+	(no_connect
+		(at 154.94 93.98)
+		(uuid "529921b1-d72c-4239-baac-410154f4c89a")
+	)
+	(no_connect
+		(at 99.06 109.22)
+		(uuid "58b8820c-7b60-41c1-ad39-c872ec9b2147")
+	)
+	(no_connect
+		(at 154.94 99.06)
+		(uuid "63fefb84-7033-4120-b3b1-69bc706251fc")
+	)
+	(no_connect
+		(at 154.94 114.3)
+		(uuid "78fd6cbd-d0cf-44bb-9dc6-5bb3bcf5e7a1")
+	)
+	(no_connect
+		(at 154.94 109.22)
+		(uuid "b2bc7f85-3d9b-4a98-bc5e-dc4dfd064737")
+	)
+	(no_connect
+		(at 99.06 129.54)
+		(uuid "ece2e8c3-dfe3-44b3-b6cc-41ac622616b4")
+	)
+	(no_connect
+		(at 99.06 78.74)
+		(uuid "fbf14e69-c065-4efc-b839-3c18f8d875ae")
+	)
+	(wire
+		(pts
+			(xy 154.94 104.14) (xy 160.02 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "024059f3-f6c3-4b6d-aaa2-d68330da48d8")
+	)
+	(wire
+		(pts
+			(xy 276.86 96.52) (xy 287.02 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "05e85fd5-c0b6-4850-bd22-b057bef94342")
+	)
+	(wire
+		(pts
+			(xy 154.94 83.82) (xy 160.02 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "060bedd8-c660-41a1-92be-f6b0f45f3a6a")
+	)
+	(wire
+		(pts
+			(xy 154.94 73.66) (xy 160.02 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "09e13b28-6a00-4eb1-a1d0-50252db2d0b7")
+	)
+	(wire
+		(pts
+			(xy 365.76 50.8) (xy 378.46 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ed78897-cd30-49d6-90b8-4a33f9641fb5")
+	)
+	(wire
+		(pts
+			(xy 99.06 134.62) (xy 93.98 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "104265d9-782b-4302-9375-3d70082b7f17")
+	)
+	(wire
+		(pts
+			(xy 114.3 154.94) (xy 121.92 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "18d23e7a-fd4c-4c30-99f9-17d45ea29692")
+	)
+	(wire
+		(pts
+			(xy 154.94 88.9) (xy 160.02 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2954afb4-c73e-4dda-a1b8-e46489d0300e")
+	)
+	(wire
+		(pts
+			(xy 304.8 50.8) (xy 317.5 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36458273-9a71-4442-a36d-e26089bd4943")
+	)
+	(wire
+		(pts
+			(xy 378.46 50.8) (xy 391.16 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3b9e87c8-582a-4f60-b6a8-7b643531abd5")
+	)
+	(wire
+		(pts
+			(xy 99.06 99.06) (xy 93.98 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3ce6adaf-62db-4544-a5f4-944f76061da7")
+	)
+	(wire
+		(pts
+			(xy 154.94 63.5) (xy 160.02 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "41fdc108-da55-4dda-bbc8-e0f260d59a1d")
+	)
+	(wire
+		(pts
+			(xy 99.06 73.66) (xy 93.98 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b844734-a1ff-4de5-845f-0029f0ba6573")
+	)
+	(wire
+		(pts
+			(xy 302.26 50.8) (xy 304.8 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4c1f7d91-26f8-4199-b520-6a06d56fa7df")
+	)
+	(wire
+		(pts
+			(xy 271.78 124.46) (xy 276.86 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4fcc25f8-0845-4676-83dd-812c5e18c7ac")
+	)
+	(wire
+		(pts
+			(xy 154.94 78.74) (xy 160.02 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "519ce4e0-0fed-49cb-8c38-c85e76c5fb59")
+	)
+	(wire
+		(pts
+			(xy 276.86 124.46) (xy 287.02 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "549a6653-a385-4529-a42c-bae17c7f98f2")
+	)
+	(wire
+		(pts
+			(xy 99.06 124.46) (xy 93.98 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5811a862-e413-4642-b5b6-2652c4b52820")
+	)
+	(wire
+		(pts
+			(xy 154.94 124.46) (xy 160.02 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5d374490-22ef-4597-82e9-4f8274bcd932")
+	)
+	(wire
+		(pts
+			(xy 154.94 119.38) (xy 160.02 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5edacc99-6bbd-44db-8812-844b159116ae")
+	)
+	(wire
+		(pts
+			(xy 99.06 93.98) (xy 93.98 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5f57b680-1154-48fa-a245-07ec2348bd24")
+	)
+	(wire
+		(pts
+			(xy 312.42 124.46) (xy 325.12 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e0eb818-4415-4477-a8ca-45d2a6e485a3")
+	)
+	(wire
+		(pts
+			(xy 307.34 124.46) (xy 312.42 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "82651099-6e02-4f73-a65d-b25f539520c9")
+	)
+	(wire
+		(pts
+			(xy 325.12 124.46) (xy 337.82 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8e5988fb-4ec5-483b-962d-2ef7b9637a55")
+	)
+	(wire
+		(pts
+			(xy 99.06 114.3) (xy 93.98 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9451da47-7c24-4360-9a30-024eb8987246")
+	)
+	(wire
+		(pts
+			(xy 271.78 96.52) (xy 276.86 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "95c9c198-0306-4c41-ae05-b9a656138677")
+	)
+	(wire
+		(pts
+			(xy 325.12 96.52) (xy 337.82 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9c88c00f-bfcc-4f1f-b14a-b23cf4796798")
+	)
+	(wire
+		(pts
+			(xy 312.42 96.52) (xy 325.12 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9d3199a7-2a92-4889-9407-09e641cc6b05")
+	)
+	(wire
+		(pts
+			(xy 132.08 154.94) (xy 137.16 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ab473d1d-6c6d-42e6-b1dd-b123b0795004")
+	)
+	(wire
+		(pts
+			(xy 281.94 50.8) (xy 289.56 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b4c2cd48-2dec-4dea-86f8-805618cd3370")
+	)
+	(wire
+		(pts
+			(xy 99.06 88.9) (xy 93.98 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd65e23a-6908-4de5-8075-a624be71032c")
+	)
+	(wire
+		(pts
+			(xy 261.62 55.88) (xy 266.7 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c40858a6-2fa9-4173-b36d-53f5b7bbdf43")
+	)
+	(wire
+		(pts
+			(xy 317.5 50.8) (xy 327.66 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d43d64de-c4a3-416c-8a95-0f53e02f2da1")
+	)
+	(wire
+		(pts
+			(xy 99.06 68.58) (xy 93.98 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d465f35e-dceb-46ae-bfa0-86318d92bd48")
+	)
+	(wire
+		(pts
+			(xy 307.34 96.52) (xy 312.42 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4bf02cd-abdf-4f2d-80be-0b68c25fcf9e")
+	)
+	(wire
+		(pts
+			(xy 99.06 104.14) (xy 93.98 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4c02ca1-6b39-4316-be6b-fe636a779f38")
+	)
+	(wire
+		(pts
+			(xy 154.94 129.54) (xy 160.02 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d88048e1-fc31-4084-8ced-fec4eb86e69b")
+	)
+	(wire
+		(pts
+			(xy 99.06 119.38) (xy 93.98 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d890c7c1-e4f9-4690-acdc-4055dab190c9")
+	)
+	(wire
+		(pts
+			(xy 353.06 50.8) (xy 365.76 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "da97679b-8e06-443e-9fc0-904ee54c85cc")
+	)
+	(wire
+		(pts
+			(xy 347.98 50.8) (xy 353.06 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dcfb3c70-4e1c-44a6-bc54-bb5528a1fecb")
+	)
+	(wire
+		(pts
+			(xy 261.62 50.8) (xy 271.78 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e368a01b-1fbf-4afe-9d4e-85e9dc2dfbbb")
+	)
+	(wire
+		(pts
+			(xy 154.94 68.58) (xy 160.02 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ee1b34d4-6587-42b8-9abf-c2737314ae26")
+	)
+	(wire
+		(pts
+			(xy 154.94 134.62) (xy 160.02 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f1d74a62-7e44-4c52-bc7d-d1e3ec6deaa0")
+	)
+	(wire
+		(pts
+			(xy 299.72 50.8) (xy 302.26 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f54e631b-40ec-4089-b49b-cd270d1e3146")
+	)
+	(label "VIN_RAW"
+		(at 262.89 50.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2a794044-f94e-41a6-955d-c76c8cb87dc4")
+	)
+	(label "AVDD"
+		(at 93.98 124.46 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3292c235-a97b-4a26-8119-7b9364b9ff38")
+	)
+	(label "VIN_PROT"
+		(at 306.07 50.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "37114ca1-3300-406b-bc6f-755fed526225")
+	)
+	(label "PA11"
+		(at 160.02 124.46 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "58b0baab-da4e-458e-b778-541ef362f041")
+	)
+	(label "PA0"
+		(at 93.98 119.38 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5f673931-607c-475c-b64f-a27c85339f45")
+	)
+	(label "PB6"
+		(at 160.02 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "600b35b8-14ab-4dd2-b0d1-15f0af1be8a9")
+	)
+	(label "NRST"
+		(at 114.3 154.94 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "610dae11-1344-4307-9b5b-6826a9f0c822")
+	)
+	(label "NRST"
+		(at 160.02 73.66 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "667240e9-e3f0-4312-9795-4468fc0cdfe8")
+	)
+	(label "PB4"
+		(at 160.02 134.62 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "79925cb4-4891-41b5-b9dc-85fb9a9d4acf")
+	)
+	(label "PA12"
+		(at 160.02 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8d809eba-eb7f-49f6-a154-bf15c01e3a01")
+	)
+	(label "PA1"
+		(at 93.98 114.3 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8f1e57ab-8be2-4a01-8cc2-49849d5f24ae")
+	)
+	(label "PA10"
+		(at 160.02 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "96506ef5-1b85-45c1-8ed1-84844cde0356")
+	)
+	(label "PA15"
+		(at 93.98 93.98 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b12faffe-e264-4a57-a27f-50120f003b6b")
+	)
+	(label "PB3"
+		(at 93.98 134.62 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b79c695a-c124-4dac-a2a6-e812078d9324")
+	)
+	(label "NRST"
+		(at 93.98 73.66 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b7bc908e-7a57-4366-9a51-74a74318076f")
+	)
+	(label "PA7"
+		(at 93.98 88.9 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "cb43efb6-4458-44c0-aa74-4e807f8ec24c")
+	)
+	(label "PB7"
+		(at 93.98 99.06 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "cfa68e44-1a16-4aac-821c-d5f601d98bf8")
+	)
+	(label "PA8"
+		(at 160.02 119.38 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d506e174-825b-4855-accb-7c1dc80e7a51")
+	)
+	(label "PA4"
+		(at 93.98 104.14 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "e1884eb8-8394-4b4b-b3f8-7908385484e0")
+	)
+	(label "PA9"
+		(at 160.02 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "eb9fa813-8074-4fdf-8795-0a2144bcdcfd")
+	)
+	(label "PB5"
+		(at 160.02 129.54 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "fcb11e5c-6265-4a54-9a4f-852343bd304c")
+	)
+	(label "PB0"
+		(at 160.02 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "fcdcd80f-430f-4389-95bf-db140076c0b5")
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 312.42 104.14 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "0549f4aa-096d-43cb-a6ef-60b0aa7bb7f9")
+		(property "Reference" "#PWR15"
+			(at 312.42 110.49 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 312.42 107.95 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 312.42 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 312.42 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 312.42 104.14 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "cda5eb63-8205-4cdf-98b9-7afbd66722b6")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR15")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 256.54 73.66 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "1def79d7-e1e9-4069-8d0b-c3d7bac2965a")
+		(property "Reference" "#PWR11"
+			(at 256.54 80.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 256.54 77.47 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 256.54 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 256.54 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 256.54 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "bee80e09-6d25-46ee-9f88-b55bb62acfd9")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR11")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 391.16 68.58 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "2199afcf-32f7-4ab5-8c15-9a644a1d9163")
+		(property "Reference" "#PWR09"
+			(at 391.16 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 391.16 72.39 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 391.16 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 391.16 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 391.16 68.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d97a22c8-746f-471c-b7c9-bf1dc1f2964a")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:PWR_FLAG")
+		(at 256.54 73.66 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "24cf9602-c348-4738-ba4b-8d0e4782d2de")
+		(property "Reference" "#FLG02"
+			(at 256.54 71.755 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 259.08 71.12 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 256.54 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 256.54 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 256.54 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "97fa81d5-1e2c-4433-a5dc-c7ebd4c6c60b")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#FLG02")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#FLG02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 317.5 58.42 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "2cf926e5-c899-4a35-bdc7-5a61c8f0f633")
+		(property "Reference" "#PWR24"
+			(at 317.5 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 317.5 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 317.5 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 317.5 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 317.5 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "715d225f-0d44-4247-8e14-74aecae1f1da")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR24")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR24")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 337.82 58.42 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "2e7d02a2-152e-4f8b-8a9f-7ae6a279bb66")
+		(property "Reference" "#PWR05"
+			(at 337.82 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 337.82 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 337.82 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 337.82 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 337.82 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ac8d3b08-14bc-4be9-b26b-9168780d0c15")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:C")
+		(at 276.86 128.27 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "342ba2f5-1294-4e72-a115-3833c42d0ff9")
+		(property "Reference" "C7"
+			(at 279.4 127 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 279.4 129.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 276.86 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 276.86 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 276.86 128.27 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d9694f7d-1796-4980-a4e7-de51c63db93a")
+		)
+		(pin "2"
+			(uuid "0397952d-f08f-4297-af7a-d6e17218b54c")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "C7")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "C7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:+3V3_IO")
+		(at 337.82 96.52 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "38811102-6de1-4176-b723-be570940c3b2")
+		(property "Reference" "#PWR17"
+			(at 337.82 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3_IO"
+			(at 337.82 92.964 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 337.82 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 337.82 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 337.82 96.52 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "db5ba455-5e81-4c36-b55b-d19a702de5e5")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR17")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:C")
+		(at 276.86 100.33 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "3b35077b-324f-42ee-b995-8acf09b509ac")
+		(property "Reference" "C4"
+			(at 279.4 99.06 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 279.4 101.6 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 276.86 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 276.86 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 276.86 100.33 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "03796496-a12e-4101-9c95-c1da8302e82d")
+		)
+		(pin "2"
+			(uuid "25a52db7-a965-43e3-b565-200b3320cc88")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "C4")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 365.76 58.42 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "42331802-8127-4be2-89ed-830df207907f")
+		(property "Reference" "#PWR07"
+			(at 365.76 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 365.76 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 365.76 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 365.76 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 365.76 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "58159e97-4046-4d2b-bce5-715a7f4686cd")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:LD1117V33_TO220")
+		(at 297.18 96.52 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "4aa81b11-5c9b-4f76-b223-947934b0e215")
+		(property "Reference" "U3"
+			(at 297.18 90.17 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LD1117V33"
+			(at 297.18 92.71 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 297.18 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 297.18 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 297.18 96.52 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "3"
+			(uuid "8b0d6388-5c29-4716-81bc-34c33d55d9ec")
+		)
+		(pin "2"
+			(uuid "ba8580db-7cd7-4a79-bbcb-d7d34d03b50d")
+		)
+		(pin "1"
+			(uuid "49362a70-bd28-42d1-bbc0-47dad0934330")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "U3")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "U3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:C_Tantalio")
+		(at 312.42 128.27 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "4bb34155-72c6-4a88-ad4f-e3c001484ec1")
+		(property "Reference" "C8"
+			(at 314.96 127 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10uF"
+			(at 314.96 129.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 312.42 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 312.42 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 312.42 128.27 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f68eeb1c-3533-42f1-93c3-7e072c918264")
+		)
+		(pin "2"
+			(uuid "4705683a-d6a3-4827-8185-3b36138da278")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "C8")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "C8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:SW_Push")
+		(at 127 154.94 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "4c71bd2f-7443-4351-948f-9f4939077f21")
+		(property "Reference" "SW1"
+			(at 127 150.495 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "RESET EXT."
+			(at 127 157.48 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 127 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 127 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 127 154.94 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a5e370ae-8fb1-4671-93d1-646ab4028f4f")
+		)
+		(pin "2"
+			(uuid "6c7f40e0-be24-4043-8f3c-f5e9898ab2d2")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "SW1")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "SW1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 93.98 68.58 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "50a564ab-a691-41ca-80ed-575cdac428d6")
+		(property "Reference" "#PWR01"
+			(at 93.98 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 93.98 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 93.98 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 93.98 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 93.98 68.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ac952eb6-51b1-45fd-9c42-bd0854b5bcfa")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 160.02 78.74 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "569c5939-1824-47f1-a123-597a3d5981ce")
+		(property "Reference" "#PWR02"
+			(at 160.02 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 160.02 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 160.02 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 160.02 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 160.02 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "10ce0f1a-a6cf-4494-8e8c-20071fcfa755")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 137.16 154.94 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "60561dd1-291a-4344-9895-b17754e02b7b")
+		(property "Reference" "#PWR03"
+			(at 137.16 161.29 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 137.16 158.75 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 137.16 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 137.16 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 137.16 154.94 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "85ac8aa0-ef1d-4793-aa92-f9b25b02df94")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR03")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:C")
+		(at 325.12 100.33 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "688b3ce4-2f4f-4feb-9441-53399adc81d6")
+		(property "Reference" "C6"
+			(at 327.66 99.06 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 327.66 101.6 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 325.12 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 325.12 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 325.12 100.33 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "184e15a3-cc16-4b51-bb00-5632416f65b9")
+		)
+		(pin "2"
+			(uuid "ff9d8631-f4a3-410f-86c3-630a684f9d62")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "C6")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "C6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:C_Tantalio")
+		(at 353.06 54.61 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "6c0d5797-93e7-4375-9c95-2257be37883c")
+		(property "Reference" "C2"
+			(at 355.6 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10uF"
+			(at 355.6 55.88 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 353.06 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 353.06 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 353.06 54.61 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d72aa71c-9b4f-4e39-b246-ede2d4f5c573")
+		)
+		(pin "2"
+			(uuid "00783b8a-9f56-4769-b70e-6149ba7d4709")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "C2")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "C2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:+5V_EXT")
+		(at 378.46 50.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "70b23a02-dcd9-4202-9370-990b811b8380")
+		(property "Reference" "#PWR08"
+			(at 378.46 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+5V_EXT"
+			(at 378.46 47.244 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 378.46 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 378.46 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 378.46 50.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "1f1adfb6-856c-43e5-974f-fdfc4b377028")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 304.8 58.42 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "736c403a-ad47-497e-ae48-410aba37bfd2")
+		(property "Reference" "#PWR04"
+			(at 304.8 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 304.8 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 304.8 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 304.8 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 304.8 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "27cbbe26-5a3a-4016-baa2-ccc2c7399780")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR04")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 266.7 55.88 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "819275ab-4868-434e-9867-1f770fc6e895")
+		(property "Reference" "#PWR10"
+			(at 266.7 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 266.7 59.69 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 266.7 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 266.7 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 266.7 55.88 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "7980087c-ab37-4c4e-a8ed-9c3f4ab88997")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR10")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:+3V3_LCD")
+		(at 337.82 124.46 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "833df106-a39b-40a9-80fa-84c31bb70ed1")
+		(property "Reference" "#PWR23"
+			(at 337.82 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3_LCD"
+			(at 337.82 120.904 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 337.82 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 337.82 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 337.82 124.46 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "03f96c70-3820-4b49-9486-be1059fc23dd")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR23")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:C")
+		(at 365.76 54.61 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "8c25d1e5-b650-4338-965a-a6825183b237")
+		(property "Reference" "C3"
+			(at 368.3 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 368.3 55.88 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 365.76 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 365.76 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 365.76 54.61 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "00debf62-e4db-4e2c-ab60-50b167445362")
+		)
+		(pin "2"
+			(uuid "06c4a998-033f-4f49-aad7-28af68bfec0b")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "C3")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "C3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:LD1117V33_TO220")
+		(at 297.18 124.46 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "95377cae-95d2-4730-84e7-1cd504d8af3e")
+		(property "Reference" "U4"
+			(at 297.18 118.11 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LD1117V33"
+			(at 297.18 120.65 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 297.18 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 297.18 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 297.18 124.46 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "3"
+			(uuid "2c7f09a5-7cb7-4aa2-a293-640011c9ae2e")
+		)
+		(pin "2"
+			(uuid "0d5446c1-4a12-4769-812c-acff79c4e0be")
+		)
+		(pin "1"
+			(uuid "d7c4194b-3126-42fd-a03c-803c9a2ae5f1")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "U4")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "U4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 276.86 104.14 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "982193f3-5d95-4343-8a8c-bbb353807ce9")
+		(property "Reference" "#PWR13"
+			(at 276.86 110.49 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 276.86 107.95 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 276.86 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 276.86 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 276.86 104.14 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3e10532c-101e-4da1-abf9-53bd3a9dffd2")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR13")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:Diodo")
+		(at 294.64 50.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "98599911-9f4e-4178-8712-7600d4848586")
+		(property "Reference" "D1"
+			(at 294.64 48.26 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1N4007"
+			(at 294.64 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 294.64 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 294.64 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 294.64 50.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3712647f-7429-4095-9a10-5922a4fdbc66")
+		)
+		(pin "2"
+			(uuid "db451f36-4492-4663-84a8-4f525b22a6b9")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "D1")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "D1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:Fusible")
+		(at 276.86 50.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "a21e93ef-82fe-4d26-9677-c93a0269eeff")
+		(property "Reference" "F1"
+			(at 276.86 48.26 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1A"
+			(at 276.86 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 276.86 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 276.86 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 276.86 50.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "cd88d1a8-a308-46c4-a839-80f292b68ba6")
+		)
+		(pin "2"
+			(uuid "33e49961-7aac-44a2-856e-fa5898ff8938")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "F1")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "F1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:NUCLEO-G431KB")
+		(at 127 99.06 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "a5269836-93f4-463f-99ac-da9800d7ede2")
+		(property "Reference" "U1"
+			(at 127 49.53 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "NUCLEO-G431KB"
+			(at 127 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 127 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 127 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 127 99.06 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "CN3-1"
+			(uuid "4f4566ce-e3c0-4097-aed5-e2449fb04c88")
+		)
+		(pin "CN3-2"
+			(uuid "519861a6-d2a5-45af-9a89-fa4066fdedde")
+		)
+		(pin "CN3-3"
+			(uuid "8de06a76-c1e8-4fc0-aacb-ddf2cdefc03d")
+		)
+		(pin "CN3-4"
+			(uuid "ec5ba692-31b4-4799-9353-97b49d581118")
+		)
+		(pin "CN3-5"
+			(uuid "95ec194a-a9fe-4754-b330-5a3bc9b6cf83")
+		)
+		(pin "CN3-6"
+			(uuid "6dbd7cb9-d20d-49b8-8834-d70501adfe0e")
+		)
+		(pin "CN3-7"
+			(uuid "4b928c69-b3a5-427c-9e77-5eea281afa4f")
+		)
+		(pin "CN3-8"
+			(uuid "8f090a85-3557-4c7c-b9a7-5dc878d5ed62")
+		)
+		(pin "CN3-9"
+			(uuid "ca576a7f-f5b9-476f-ad96-1b26b890f2b9")
+		)
+		(pin "CN3-10"
+			(uuid "adfed9d6-0807-4849-bc46-c3aba57e8d2a")
+		)
+		(pin "CN3-11"
+			(uuid "0083295e-03d5-478b-9f78-3ecf9e10555c")
+		)
+		(pin "CN3-12"
+			(uuid "302b9ded-eb7f-4f07-bb53-4d30af10a056")
+		)
+		(pin "CN3-13"
+			(uuid "f5a1355b-029a-47e0-9bee-a0b7393b11c9")
+		)
+		(pin "CN3-14"
+			(uuid "7169a640-c6af-4497-a25b-a866b147552a")
+		)
+		(pin "CN3-15"
+			(uuid "9355eb83-d346-40d6-b8b9-e386e27efbb5")
+		)
+		(pin "CN4-1"
+			(uuid "3934661e-5fb9-452d-9ae9-526a5fafb16a")
+		)
+		(pin "CN4-2"
+			(uuid "ec0411c8-e178-4956-b520-077b4e454124")
+		)
+		(pin "CN4-3"
+			(uuid "68e46ab6-f444-40ac-8a67-17acbcdae8b2")
+		)
+		(pin "CN4-4"
+			(uuid "9d1da122-a5db-4209-a532-87daea36363d")
+		)
+		(pin "CN4-5"
+			(uuid "420136a6-5b64-4d3e-889d-621b118a0eb7")
+		)
+		(pin "CN4-6"
+			(uuid "132d49d8-b3b5-4590-9eec-ed8262dd9603")
+		)
+		(pin "CN4-7"
+			(uuid "56e47b71-7d53-4400-934d-df50c843d272")
+		)
+		(pin "CN4-8"
+			(uuid "321c896b-b62c-49c0-80c2-45e8f9491a26")
+		)
+		(pin "CN4-9"
+			(uuid "c674c77c-3100-4d7c-b225-ac4ee2f91857")
+		)
+		(pin "CN4-10"
+			(uuid "bab7f5cc-84d0-40be-bd3b-dc355b0d8ccb")
+		)
+		(pin "CN4-11"
+			(uuid "d944e902-e97b-48c7-8753-ee3e0ff8b020")
+		)
+		(pin "CN4-12"
+			(uuid "60499668-b489-492e-9b2f-f793bbb69fc9")
+		)
+		(pin "CN4-13"
+			(uuid "8296aa12-c42f-4f4d-9f1d-65aa093ac76f")
+		)
+		(pin "CN4-14"
+			(uuid "a01cc373-3fb0-4e6a-a270-ff4eeb2b1660")
+		)
+		(pin "CN4-15"
+			(uuid "2dc9e1c4-308b-49f9-894a-daf779e8abf0")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "U1")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:+5V_EXT")
+		(at 271.78 124.46 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "a92e2586-fa6c-4f55-a4d5-5f1ae8660c83")
+		(property "Reference" "#PWR18"
+			(at 271.78 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+5V_EXT"
+			(at 271.78 120.904 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 271.78 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 271.78 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 271.78 124.46 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "bcf9eb1d-4ebd-427f-9269-2a560d4b0fcb")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR18")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR18")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 297.18 104.14 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "ac7614dd-9868-45e5-983f-5e685e39c157")
+		(property "Reference" "#PWR14"
+			(at 297.18 110.49 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 297.18 107.95 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 297.18 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 297.18 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 297.18 104.14 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d4313d59-de71-4d93-a2dd-98c3ef9f7982")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR14")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 297.18 132.08 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "aef98191-0b1e-427b-8ce9-4ea47f75dc01")
+		(property "Reference" "#PWR20"
+			(at 297.18 138.43 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 297.18 135.89 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 297.18 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 297.18 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 297.18 132.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "6a3efef5-663a-4a20-94be-41e2bcb31464")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR20")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 353.06 58.42 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "b8cd465d-ead7-40b3-948f-808fbeba2510")
+		(property "Reference" "#PWR06"
+			(at 353.06 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 353.06 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 353.06 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 353.06 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 353.06 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "1ceb5ded-cc65-45e0-96c7-bc19ec64f62a")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR06")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR06")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:C_Electrolitico")
+		(at 317.5 54.61 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "bee384dd-4077-40bd-bd53-201c2a2c985f")
+		(property "Reference" "C10"
+			(at 320.04 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100uF/25V"
+			(at 319.786 57.404 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 317.5 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 317.5 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 317.5 54.61 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "1268f523-cffb-492c-8a5e-57083d01bd67")
+		)
+		(pin "2"
+			(uuid "f0e6c672-73f5-462b-89cc-47d729541966")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "C10")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "C10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:Bornera_2P")
+		(at 256.54 53.34 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "c2134104-eb1e-40f5-ab6a-1d4e14998a6f")
+		(property "Reference" "J1"
+			(at 256.54 48.26 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Bornera 2P"
+			(at 256.54 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 256.54 53.34 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 256.54 53.34 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 256.54 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "359576ed-a93d-47f3-be0f-fb5f7909f12c")
+		)
+		(pin "2"
+			(uuid "c0a2af36-0122-429c-acf1-0c421a255cb7")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "J1")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "J1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:+5V_EXT")
+		(at 271.78 96.52 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "cc0c121c-db59-46b7-ad75-aec55acc3fd8")
+		(property "Reference" "#PWR12"
+			(at 271.78 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+5V_EXT"
+			(at 271.78 92.964 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 271.78 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 271.78 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 271.78 96.52 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4d928c37-3408-4bbf-925f-a55d2faab7e0")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR12")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:R")
+		(at 391.16 54.61 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "cf737d31-f4fd-4834-8d03-fcd5145edd00")
+		(property "Reference" "R1"
+			(at 393.7 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1k"
+			(at 393.7 55.88 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 391.16 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 391.16 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 391.16 54.61 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f932315b-caa0-43cd-a9e5-8c933293c394")
+		)
+		(pin "2"
+			(uuid "e71311ac-8df7-478f-9dbd-8c2b68a051a4")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "R1")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:C")
+		(at 325.12 128.27 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "d024f286-969a-4291-8f11-c27b711f317a")
+		(property "Reference" "C9"
+			(at 327.66 127 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 327.66 129.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 325.12 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 325.12 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 325.12 128.27 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "10c64693-907b-49fd-8628-4afa1aaa585f")
+		)
+		(pin "2"
+			(uuid "71c17d27-0b28-4769-b1e9-aa2b0475f796")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "C9")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "C9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 276.86 132.08 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "d0971a0d-6cfc-43cc-883f-ddbafcff3ef0")
+		(property "Reference" "#PWR19"
+			(at 276.86 138.43 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 276.86 135.89 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 276.86 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 276.86 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 276.86 132.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "04557f40-d306-45f5-877a-645c5f45b583")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR19")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:LM7805_TO220")
+		(at 337.82 50.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "d2c69773-5d07-4fbe-847f-7d32db7b3774")
+		(property "Reference" "U2"
+			(at 337.82 44.45 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LM7805"
+			(at 337.82 46.99 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 337.82 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 337.82 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 337.82 50.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4e7249f3-5265-447f-8022-28fdf4fe59c3")
+		)
+		(pin "3"
+			(uuid "78cf0bb7-726d-45ab-9779-37ceab2b7437")
+		)
+		(pin "2"
+			(uuid "409f71c0-686c-47f7-8bca-d668768f292c")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "U2")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "U2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 325.12 104.14 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "d51a36e4-ccbd-4a99-a7f9-e4c0e62db090")
+		(property "Reference" "#PWR16"
+			(at 325.12 110.49 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 325.12 107.95 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 325.12 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 325.12 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 325.12 104.14 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "b7af1f08-46a7-4947-85e3-e596a68bfd3d")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR16")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 325.12 132.08 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "d643bc56-f138-469d-bb3f-703a6ee0f49b")
+		(property "Reference" "#PWR22"
+			(at 325.12 138.43 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 325.12 135.89 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 325.12 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 325.12 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 325.12 132.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ca4dd4cd-7f8a-4a54-991c-0f5b1132a795")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR22")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:C_Tantalio")
+		(at 312.42 100.33 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "e2cb01d5-8c5e-4a4f-8380-d73261ba9e05")
+		(property "Reference" "C5"
+			(at 314.96 99.06 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10uF"
+			(at 314.96 101.6 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 312.42 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 312.42 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 312.42 100.33 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "41b21eba-da44-4951-a967-422f87731626")
+		)
+		(pin "2"
+			(uuid "1ae65a8d-fad1-4359-8751-0c8578c0d8d5")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "C5")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "C5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:LED")
+		(at 391.16 63.5 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "e8f3c0b3-afd1-4833-ad2d-04a87eaeeb71")
+		(property "Reference" "D2"
+			(at 393.7 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "LED piloto"
+			(at 393.7 64.77 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 391.16 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 391.16 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 391.16 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "44ca9faf-34fc-4cc4-9996-7b7c7864e92f")
+		)
+		(pin "1"
+			(uuid "37e699c4-730a-4652-97cb-47ca287207af")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "D2")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "D2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:C")
+		(at 304.8 54.61 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "e92cf1f3-492c-4cd6-a872-65ada99aa476")
+		(property "Reference" "C1"
+			(at 307.34 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 307.34 55.88 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 304.8 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 304.8 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 304.8 54.61 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "0ecb2998-9a4a-457c-bb8a-0f79808c8d6d")
+		)
+		(pin "2"
+			(uuid "b4dab8d1-3097-4156-af6f-1e5066d9e73c")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "C1")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "C1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:GND")
+		(at 312.42 132.08 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "ee349a97-3fec-4122-8603-8e2b23a6fe93")
+		(property "Reference" "#PWR21"
+			(at 312.42 138.43 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 312.42 135.89 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 312.42 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 312.42 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 312.42 132.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f8ddbd3a-b02c-49b9-8b95-ed72e97d45c0")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#PWR21")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#PWR21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MicroProject-2026:PWR_FLAG")
+		(at 302.26 50.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "f43c141d-4ccc-4ee1-bba7-e7477e3b23e2")
+		(property "Reference" "#FLG01"
+			(at 302.26 48.895 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 302.26 46.99 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 302.26 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 302.26 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 302.26 50.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f448eeb5-c664-4bbd-b63c-dce5050aa367")
+		)
+		(instances
+			(project "Setup_Seguridad"
+				(path "/17c26aa7-e975-40d6-9d5f-ac0eb7674101"
+					(reference "#FLG01")
+					(unit 1)
+				)
+			)
+			(project "MicroProject-2026"
+				(path "/4813ab47-dfb9-42b1-9f22-9afbcb840c0a/8587ec37-e835-41b0-a1b3-ea7c022b21a9"
+					(reference "#FLG01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)

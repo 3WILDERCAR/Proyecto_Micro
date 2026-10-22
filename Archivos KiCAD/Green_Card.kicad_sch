@@ -1,0 +1,46 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "7013a6f5-082e-46e3-8713-03d13cc898b4")
+	(paper "A3")
+	(title_block
+		(title "Green_Card")
+		(date "2026-10-20")
+		(rev "1")
+		(company "Universidad Galileo - FISICC - Microprocesadores")
+		(comment 1 "MicroProject-2026")
+		(comment 2 "Placa perforada (wire wrap) con NUCLEO-G431KB")
+		(comment 3 "Solder bridges: peor caso = configuración por defecto (UM2397 §6.7, Tabla 9)")
+	)
+	(lib_symbols)
+	(text "Hoja pendiente: se desarrollará después de Setup_Seguridad."
+		(exclude_from_sim no)
+		(at 12.7 26.67 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+			(justify left bottom)
+		)
+		(uuid "0bba42a6-0790-4609-8c5f-7949e8d68814")
+	)
+	(text "GREEN_CARD - comandos verdes"
+		(exclude_from_sim no)
+		(at 12.7 19.05 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "c8905191-c822-4715-ad10-ed186d7118c1")
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)

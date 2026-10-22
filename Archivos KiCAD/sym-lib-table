@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name "MicroProject-2026")(type "KiCad")(uri "${KIPRJMOD}/MicroProject-2026.kicad_sym")(options "")(descr "Símbolos de MicroProject-2026"))
+)
