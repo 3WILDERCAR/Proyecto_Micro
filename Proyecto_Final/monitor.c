@@ -1,6 +1,6 @@
 #include "memory.h"
 #include "monitor.h"
-#include "connect.h"
+#include "ftdi_con.h"   // Antes: connect.h. UART_Tx/UART_Rx (USART2) se cambiaron por FTDI_Tx/FTDI_Rx (USART1, cable FTDI)
 #include <string.h>   // Para strncmp (string comparator)
 #include <stdint.h>
 
@@ -17,7 +17,7 @@ uint8_t buffer_index = 0;
 // Función de apoyo para imprimir textos completos fácilmente
 void UART_Print(const char *str) {
     while (*str) {
-        UART_Tx(*str++);
+        FTDI_Tx(*str++);   // Antes: UART_Tx
     }
 }
 
@@ -32,7 +32,7 @@ void UART_PrintHex32(uint32_t val) {
     const char hex_chars[] = "0123456789ABCDEF";
     UART_Print("0x");
     for (int i = 28; i >= 0; i -= 4) {
-        UART_Tx(hex_chars[(val >> i) & 0xF]);
+        FTDI_Tx(hex_chars[(val >> i) & 0xF]);   // Antes: UART_Tx
     }
 }
 
@@ -221,7 +221,7 @@ void Monitor_Run(void) {
     UART_Print("Wisho> "); // Simulación para el prompt de la terminal
 
     while(1) {
-        c = UART_Rx();
+        c = FTDI_Rx();   // Antes: UART_Rx
         
         if (c == '\r') {
             // Enter detectado: finalizar cadena, saltar línea y evaluar
@@ -244,7 +244,7 @@ void Monitor_Run(void) {
             // Guardar el carácter escrito si aún hay espacio en el buffer
             if (buffer_index < BUFFER_SIZE - 1) {
                 cmd_buffer[buffer_index++] = c;
-                UART_Tx(c); // Eco del carácter para que el usuario vea lo que escribe
+                FTDI_Tx(c); // Eco del carácter para que el usuario vea lo que escribe (antes: UART_Tx)
             }
         }
     }

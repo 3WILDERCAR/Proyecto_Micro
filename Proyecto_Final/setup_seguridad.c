@@ -15,10 +15,14 @@
 // CN1 (UM2397 6.4, opción 1); los periféricos por el dominio externo de 9 V.
 //
 // Pines que esta rutina NO reconfigura:
-//   PA2  / PA3  -> USART2 TX / RX hacia el VCP del ST-LINK, los configura UART_Init()
-//                  (UM2397 6.6.4 Tabla 8, SB1 y SB12 en ON)
 //   PG10-NRST   -> Se mantiene como NRST, no se modifican option bytes (RM0440 9.3.16)
 // PA13 / PA14 (SWD) solo se restauran a su configuración de reset y se bloquean.
+//
+// Cambios por el cable FTDI (el monitor ahora usa USART1 en PA9/PA10, ver ftdi_con.c):
+//   - PA2 / PA3 (USART2 hacia el VCP del ST-LINK) ya no los configura nadie, por eso ahora
+//     se dejan en analógico en Setup_PinesLibres().
+//   - PA9 / PA10 se dejan en analógico aquí y FTDI_Init() los configura después.
+// Cambio en PB8: ahora queda como entrada con pull-down porque comparte D13 con PB3 (sección 7).
 
 // Macro para un solo bit (ej. activar relojes o flags)
 // Se usa 1U (sin signo) para poder desplazar hasta el bit 31 sin desbordar un int con signo
@@ -43,9 +47,9 @@
 #define RCC_APB1ENR1  (*((volatile uint32_t *)(RCC_BASE + 0x58)))   // RM0440 7.4.17
 
 // Registro de control 3 del PWR
-// FALTA POR VERIFICAR: el capítulo de PWR del RM0440 (registros en 6.4, mapa en 6.4.23) NO está en el
-// extracto del proyecto. El offset 0x08 y el bit 14 deben confirmarse en el RM0440 completo o
-// comparando con PWR_CR3_UCPD_DBDIS_Pos del archivo stm32g431xx.h que ya incluye main.c
+// El capítulo de PWR del RM0440 (registros en 6.4) no está en el extracto del proyecto, así que
+// el offset 0x08 y el bit 14 se verificaron en el archivo oficial de ST stm32g431xx.h (CMSIS):
+// PWR_TypeDef tiene CR3 en el offset 0x08 y PWR_CR3_UCPD_DBDIS_Pos vale 14.
 #define PWR_CR3       (*((volatile uint32_t *)(PWR_BASE + 0x08)))
 
 // Registros de GPIO, válidos para cualquier puerto pasando su dirección base (RM0440 9.4)
@@ -63,7 +67,7 @@
 #define RCC_GPIOBEN       1    // RCC_AHB2ENR, RM0440 7.4.15
 #define RCC_PWREN         28   // RCC_APB1ENR1, RM0440 7.4.17
 
-// Bit de PWR_CR3 que deshabilita los pull-down "dead battery" del UCPD (VERIFICAR, ver arriba)
+// Bit de PWR_CR3 que deshabilita los pull-down "dead battery" del UCPD (verificado, ver arriba)
 #define PWR_UCPD1_DBDIS   14
 
 // Bit de llave del bloqueo de configuración (GPIOx_LCKR, RM0440 9.4.8)
@@ -125,8 +129,8 @@ static void Setup_Relojes(void) {
 
 // 2. UCPD "dead battery": PB4 y PB6 tienen un pull-down interno de 5.1 kOhm que se activa
 //    con un nivel alto en PA10 y PA9 respectivamente (DS12589 4.10, Tabla 12, nota 6).
-//    Como PA9/PA10 pueden usarse como USART1 (línea idle en alto), lo deshabilitamos
-//    escribiendo UCPD1_DBDIS = 1 en PWR_CR3.
+//    PA9/PA10 son el USART1 del cable FTDI y su línea en reposo está en alto, así que este
+//    paso es obligatorio: lo deshabilitamos escribiendo UCPD1_DBDIS = 1 en PWR_CR3.
 
 static void Setup_UCPD(void) {
     PWR_CR3 &= ~(MASK(PWR_UCPD1_DBDIS));
@@ -199,11 +203,13 @@ static void Setup_LiberarJTAG(void) {
 
 
 // 6. Pines libres para Green_Card y Arcade: limpios y en analógico sin pull.
-//    PA9 y PA10 quedan aquí como "libres" mientras se decide si se usa USART1/FTDI.
+//    PA2 y PA3: el monitor ya no usa USART2. PA3 sigue unido al TX del VCP del ST-LINK
+//    (SB12 en ON, UM2397 6.7 Tabla 9), así que nunca debe configurarse como salida.
+//    PA9 y PA10: quedan en analógico hasta que FTDI_Init() los configure como USART1.
 
 static void Setup_PinesLibres(void) {
-    // Puerto A: PA0, PA1, PA4, PA7, PA8, PA9, PA10, PA11, PA12
-    const uint8_t pinesA[] = {0, 1, 4, 7, 8, 9, 10, 11, 12};
+    // Puerto A: PA0, PA1, PA2, PA3, PA4, PA7, PA8, PA9, PA10, PA11, PA12
+    const uint8_t pinesA[] = {0, 1, 2, 3, 4, 7, 8, 9, 10, 11, 12};
     // Puerto B: PB0, PB5, PB6, PB7
     const uint8_t pinesB[] = {0, 5, 6, 7};
 
@@ -216,21 +222,25 @@ static void Setup_PinesLibres(void) {
 }
 
 // 7. PB8 / BOOT0: maneja el LED de usuario LD2 (SB7 en ON y SB6 en OFF por defecto,
-//    UM2397 6.6.1 y 6.7 Tabla 9). No sale a los headers y no lo usaremos.
-//    El RM0440 recomienda no dejar PB8 en analógico para limitar el consumo
-//    (RM0440 9.3.15 y nota de 9.4.1; DS12589 4.10 Tabla 12, nota 7).
-//    Lo dejamos como salida push-pull en 0 (LD2 apagado). En cada reset PB8 vuelve
-//    a entrada, por lo que no interfiere con la lectura de BOOT0 (RM0440 9.3.15).
+//    UM2397 6.6.1 y 6.7 Tabla 9). El mismo UM2397 6.6.1 dice que LD2 "is also connected to
+//    the ARDUINO D13 signal" y la Figura 12 marca D13 (CN3-15) como PB3/PB8: en el peor caso
+//    PB8 y PB3 están unidos en D13, y PB3 será SPI1_SCK hacia la LCD.
+//    Por eso PB8 nunca debe manejar la línea: lo dejamos como entrada con pull-down
+//    (MODER = 00 y PUPDR = 10, RM0440 9.4.1 y 9.4.4).
+//    El pull-down (unos 40 kOhm, DS12589 5.3.14 Tabla 53) mantiene D13 en 0 mientras SPI1 no
+//    la maneja, igual que el reposo de SCK en modo 0, y solo carga a PB3 con unos 80 uA
+//    cuando SCK está en alto. LD2 parpadea cuando hay tráfico en SPI1.
+//    Tampoco queda en analógico, como recomiendan RM0440 9.3.15 y DS12589 4.10 Tabla 12, nota 7.
+//    En cada reset PB8 vuelve a su estado de reset, por lo que no interfiere con la lectura de
+//    BOOT0 (RM0440 9.3.15).
+//    Antes PB8 quedaba como salida en 0, lo que chocaría con SPI1_SCK en D13.
 
 static void Setup_PB8(void) {
-    // Limpiamos todo: queda como entrada, sin manejar la línea
+    // Limpiamos todo: queda como entrada flotante, sin manejar la línea
     Pin_Limpiar(GPIOB_BASE, 8);
 
-    // Dato de salida en 0 ANTES de pasar a salida, para que no haya un pulso en alto
-    GPIO_ODR(GPIOB_BASE) &= ~(MASK(8));
-
-    // Modo salida de propósito general (01); OTYPER = 0 (push-pull) ya quedó limpio
-    GPIO_MODER(GPIOB_BASE) |= MASK_VAL(POS2(8), MODE_OUTPUT);
+    // Luego activamos el pull-down (PUPDR = 10); MODER ya quedó en 00 (entrada)
+    GPIO_PUPDR(GPIOB_BASE) |= MASK_VAL(POS2(8), PUPD_DOWN);
 }
 
 // 8. Bloqueo de la configuración de PA13/PA14 (RM0440 9.3.6 y 9.4.8).
@@ -266,7 +276,7 @@ static void Setup_BloquearSWD(void) {
 }
 
 // Rutina principal
-// El orden importa: relojes primero; UCPD antes de que PA9/PA10 puedan quedar en alto;
+// El orden importa: relojes primero; UCPD antes de que PA9/PA10 (USART1/FTDI) queden en alto;
 // SWD restaurado; PA5/PA6 en entrada flotante antes de que PB7/PA15 reciban cualquier
 // función; y el bloqueo al final, cuando PA13/PA14 ya tienen su configuración correcta.
 

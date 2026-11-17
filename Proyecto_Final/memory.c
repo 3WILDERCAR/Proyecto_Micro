@@ -1,6 +1,6 @@
 #include "memory.h"
 #include "monitor.h"
-#include "connect.h"
+#include "ftdi_con.h"   // Antes: connect.h. UART_Tx/UART_Rx (USART2) se cambiaron por FTDI_Tx/FTDI_Rx (USART1, cable FTDI)
 #include <string.h>
 
 #define SRAM1_BASE 0x20000000
@@ -9,11 +9,11 @@
 // Función auxiliar para imprimir 1 byte en Hex (2 caracteres)
 void UART_PrintHex8(uint8_t val) {
     const char hex_chars[] = "0123456789ABCDEF";
-    UART_Tx(hex_chars[(val >> 4) & 0xF]);
-    UART_Tx(hex_chars[val & 0xF]);
+    FTDI_Tx(hex_chars[(val >> 4) & 0xF]);   // Antes: UART_Tx
+    FTDI_Tx(hex_chars[val & 0xF]);          // Antes: UART_Tx
 }
 
-// Rutina para desplegar la memoria (MD)
+// Rutina general que se utilizará para desplegar la memoria de forma "bonita"DD
 void Print_Memory(uint32_t start, uint32_t end) {
     uint8_t *ptr = (uint8_t *)start;
     uint32_t count = end - start;
@@ -44,9 +44,9 @@ void Print_Memory(uint32_t start, uint32_t end) {
                 char c = (char)*(ptr + i + j);
                 // Mostrar el cárácter solo si es imprimible (ASCII 32 al 126)
                 if (c >= 32 && c <= 126) {
-                    UART_Tx(c);
+                    FTDI_Tx(c);   // Antes: UART_Tx
                 } else {
-                    UART_Tx('.'); // Imprimir un punto para los que no son imprimibles
+                    FTDI_Tx('.'); // Imprimir un punto para los que no son imprimibles (antes: UART_Tx)
                 }
             }
 
@@ -89,7 +89,7 @@ void Cmd_MD(char *args) {
 
     // Bucle while para leer la opción del sub-menú y retornar al while original con returns
     while (1) {
-        c = UART_Rx();
+        c = FTDI_Rx();   // Antes: UART_Rx
         if (c == '\r') { // Cuando detectamos enter, procesamos la opción
             UART_Print("\r\n");
             sub_buffer[sub_idx] = '\0';
@@ -132,7 +132,7 @@ void Cmd_MD(char *args) {
         else {
             if (sub_idx < 31) { // Si el mensaje es muy largo el buffer se desbordaría, por lo que lo limitamos a 31 carácteres + 1 para el '\0'
                 sub_buffer[sub_idx++] = c;
-                UART_Tx(c);
+                FTDI_Tx(c);   // Antes: UART_Tx
             }
         }
     }

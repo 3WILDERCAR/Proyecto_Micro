@@ -15,7 +15,7 @@ Cmd_RD:
         push {lr}                   // Hacemos push del LR para preservar el valor de retorno
         push {r0}                   // Guardamos en el stack el valor original de r0 para poder mostrarlo al final
 
-        ldr r0, =cpu_regs           // R0 será quien apunte al arreglo cpu_regs en C
+        ldr r0, =cpu_regs           ; R0 será quien apunte al arreglo cpu_regs en C
         
         // Etapa READ (STORE): Leemos los registros y los escribimos en el arreglo que definimos en C
 

@@ -1,6 +1,11 @@
 #include <stdint.h>
 #include "connect.h"
 
+// OBSOLETO (deprecated): el monitor ya no usa este archivo.
+// Desde que se usa el cable FTDI, la comunicación serial está en ftdi_con.c (USART1 en PA9/PA10).
+// Se conserva sin cambios en el código como registro de la implementación con USART2 (VCP).
+// Sus funciones (UART_Init, UART_Tx, UART_Rx) no se llaman en ninguna parte del proyecto.
+//
 // Comunicación serial del monitor: USART2 en PA2 (TX) y PA3 (RX) hacia el VCP del ST-LINK
 // (UM2397 6.6.4, Tabla 8). 115200 baudios, 8 bits de datos, sin paridad y 1 bit de parada.
 //

@@ -1,10 +1,11 @@
 #include <stdint.h>
 #include "stm32g431xx.h" 
 #include "setup_seguridad.h"
-#include "connect.h"
+#include "ftdi_con.h"   // Antes: connect.h. Ahora el monitor usa USART1 por el cable FTDI
 #include "monitor.h"
 
-void Test_Run(void) {
+void Test_Run(void) 
+{
     while(1) {
         UART_Print("\r\n--- BUCLE DE RUN ---\r\n");
         UART_Print("Se ha transferido el control exitosamente!\r\n");
@@ -14,19 +15,22 @@ void Test_Run(void) {
     }
 }
 
-void Test_Call(void) {
+void Test_Call(void) 
+{
     UART_Print("\r\n--- SUBRUTINA DE CALL ---\r\n");
     UART_Print("Ejecucion completada. Volviendo al monitor!\r\n\r\n");
 }
 
-int main(void) {
+int main(void) 
+{
     
     // Configuración de seguridad y liberación de pines (esquemático Setup_Seguridad)
     // Debe ir antes de cualquier otra inicialización
     Setup_Seguridad();
 
-    // Inicializa el hardware y relojes
-    UART_Init();
+    // Inicializa la comunicación serial por el cable FTDI (USART1 en PA9/PA10)
+    // Antes: UART_Init() con USART2 hacia el VCP del ST-LINK (connect.c, ya no se usa)
+    FTDI_Init();
     
     // Para mostrar el funcionamiento de RUN y CALL
     // Imprimimos las direcciones de las funciones de prueba para poder usarlas luego
