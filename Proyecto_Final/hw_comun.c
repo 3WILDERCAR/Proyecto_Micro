@@ -28,6 +28,17 @@ void RCC_ActivarAPB1(uint32_t bit_reloj, uint32_t bit_reset)
     RCC->APB1RSTR1 &= ~bit_reset;       // Lo liberamos
 }
 
+// Igual que RCC_ActivarAPB1, para los periféricos de APB2 (ej. SPI1)
+// bit_reloj: máscara de RCC_APB2ENR (ej. RCC_APB2ENR_SPI1EN)
+// bit_reset: máscara de RCC_APB2RSTR (ej. RCC_APB2RSTR_SPI1RST)
+void RCC_ActivarAPB2(uint32_t bit_reloj, uint32_t bit_reset)
+{
+    RCC->APB2ENR |= bit_reloj;
+
+    RCC->APB2RSTR |= bit_reset;
+    RCC->APB2RSTR &= ~bit_reset;
+}
+
 // GPIO
 
 // Habilita el reloj del puerto. Aquí solo se setea el bit: limpiarlo primero apagaría por un
@@ -68,6 +79,75 @@ void GPIO_ConfigAF(GPIO_TypeDef *puerto, uint8_t pin, uint8_t af, uint32_t tipo_
     puerto->AFR[afr] |= (((uint32_t)af & 0xFU) << pos4);
 
     puerto->MODER |= (GPIO_MODO_AF << pos2);        // Al final, función alterna
+}
+
+// Configura un pin en modo analógico (MODER = 11) sin pull-up ni pull-down, para ADC o DAC.
+// En analógico el buffer digital y el Schmitt trigger quedan deshabilitados (RM0440 9.3.12).
+// Se limpian los mismos campos que en GPIO_ConfigAF para no depender del estado anterior.
+void GPIO_ConfigAnalogico(GPIO_TypeDef *puerto, uint8_t pin)
+{
+    uint32_t pos2 = (uint32_t)pin * 2U;
+    uint32_t pos4 = ((uint32_t)pin & 7U) * 4U;
+    uint32_t afr = (uint32_t)pin >> 3;
+
+    GPIO_HabilitarReloj(puerto);
+
+    puerto->MODER   &= ~(3U << pos2);
+    puerto->OTYPER  &= ~(1U << pin);
+    puerto->OSPEEDR &= ~(3U << pos2);
+    puerto->PUPDR   &= ~(3U << pos2);               // Sin pull: cargaría la señal analógica
+    puerto->AFR[afr] &= ~(0xFU << pos4);
+
+    puerto->MODER |= (GPIO_MODO_ANALOGICO << pos2);
+}
+
+// Pone un pin de salida en 1 o en 0 con BSRR (RM0440 9.4.7): escribir 1 en BSy pone el pin en 1 y
+// escribir 1 en BRy (bit y + 16) lo pone en 0. Es atómico, así que no hace falta leer ODR.
+void GPIO_Escribir(GPIO_TypeDef *puerto, uint8_t pin, uint8_t valor)
+{
+    if (valor)
+    {
+        puerto->BSRR = (1U << pin);
+    }
+    else
+    {
+        puerto->BSRR = (1U << (pin + 16U));
+    }
+}
+
+// Configura un pin como salida de propósito general push-pull, velocidad baja y sin pull.
+// El nivel inicial se escribe ANTES de cambiar MODER, para que el pin nazca en ese valor.
+void GPIO_ConfigSalida(GPIO_TypeDef *puerto, uint8_t pin, uint8_t valor_inicial)
+{
+    uint32_t pos2 = (uint32_t)pin * 2U;
+    uint32_t pos4 = ((uint32_t)pin & 7U) * 4U;
+    uint32_t afr = (uint32_t)pin >> 3;
+
+    GPIO_HabilitarReloj(puerto);
+
+    puerto->MODER   &= ~(3U << pos2);               // Entrada mientras se configura
+    puerto->OTYPER  &= ~(1U << pin);                // Push-pull
+    puerto->OSPEEDR &= ~(3U << pos2);               // Velocidad baja
+    puerto->PUPDR   &= ~(3U << pos2);               // Sin pull internos
+    puerto->AFR[afr] &= ~(0xFU << pos4);
+
+    GPIO_Escribir(puerto, pin, valor_inicial);      // Nivel inicial en ODR
+
+    puerto->MODER |= (GPIO_MODO_SALIDA << pos2);    // Al final, salida
+}
+
+// Retardo
+
+// Espera activa de al menos 'us' microsegundos con el núcleo a HCLK_HZ. Cada vuelta del ciclo
+// toma varios ciclos de reloj, así que el retardo real es mayor que el pedido (nunca menor).
+void Retardo_us(uint32_t us)
+{
+    volatile uint32_t vueltas = us * (HCLK_HZ / 1000000U);
+
+    while (vueltas > 0)
+    {
+        vueltas--;
+    }
 }
 
 // Timers de propósito general
@@ -170,4 +250,31 @@ void TIM_CanalHabilitar(TIM_TypeDef *tim, uint8_t canal)
 
     tim->CCER &= ~(CCER_CAMPOS_CANAL << desp);
     tim->CCER |= (TIM_CCER_CC1E << desp);
+}
+
+// Compara una palabra de un comando sin distinguir mayúsculas (ver hw_comun.h)
+uint8_t Texto_EsPalabra(const char *str, const char *palabra)
+{
+    uint8_t i = 0;
+
+    while (palabra[i] != '\0')
+    {
+        char c = str[i];
+
+        if (c >= 'A' && c <= 'Z')
+        {
+            c = (char)(c - 'A' + 'a');
+        }
+        if (c != palabra[i])
+        {
+            return 0;
+        }
+        i++;
+    }
+
+    if (str[i] != '\0' && str[i] != ' ')
+    {
+        return 0;
+    }
+    return i;
 }

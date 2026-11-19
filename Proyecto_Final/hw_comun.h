@@ -33,9 +33,21 @@
 // RCC
 void RCC_HSI16_Encender(void);
 void RCC_ActivarAPB1(uint32_t bit_reloj, uint32_t bit_reset);
+void RCC_ActivarAPB2(uint32_t bit_reloj, uint32_t bit_reset);
 
 // GPIO
 void GPIO_ConfigAF(GPIO_TypeDef *puerto, uint8_t pin, uint8_t af, uint32_t tipo_salida);
+void GPIO_ConfigAnalogico(GPIO_TypeDef *puerto, uint8_t pin);
+void GPIO_ConfigSalida(GPIO_TypeDef *puerto, uint8_t pin, uint8_t valor_inicial);
+void GPIO_Escribir(GPIO_TypeDef *puerto, uint8_t pin, uint8_t valor);
+
+// Espera activa aproximada (para retardos cortos de inicialización, no para temporizar con precisión)
+void Retardo_us(uint32_t us);
+
+// Compara una palabra de un comando sin distinguir mayúsculas. La palabra del comando termina en
+// espacio o en fin de cadena; 'palabra' se escribe en minúsculas. Devuelve su largo si coincide,
+// 0 si no. La usan IOMAP, POT2SEG y LCDWATCH.
+uint8_t Texto_EsPalabra(const char *str, const char *palabra);
 
 // Timers de propósito general (TIM2-TIM4), canales 1 a 4
 void TIM_ConfigBase(TIM_TypeDef *tim, uint32_t psc, uint32_t arr);

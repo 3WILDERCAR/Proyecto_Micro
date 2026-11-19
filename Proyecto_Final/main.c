@@ -10,11 +10,12 @@
 #include "Green_Commands/tick.h"
 #include "Green_Commands/sound.h"
 #include "Green_Commands/rgb.h"
+#include "Green_Commands/analog.h"
+#include "Green_Commands/io.h"
+#include "Green_Commands/watch.h"
 
-void Test_Run(void) 
-{
-    while(1) 
-    {
+void Test_Run(void) {
+    while(1) {
         UART_Print("\r\n--- BUCLE DE RUN ---\r\n");
         UART_Print("Se ha transferido el control exitosamente!\r\n");
 
@@ -23,14 +24,12 @@ void Test_Run(void)
     }
 }
 
-void Test_Call(void) 
-{
+void Test_Call(void) {
     UART_Print("\r\n--- SUBRUTINA DE CALL ---\r\n");
     UART_Print("Ejecucion completada. Volviendo al monitor!\r\n\r\n");
 }
 
-int main(void) 
-{
+int main(void) {
 
     // Configuración de seguridad y liberación de pines (esquemático Setup_Seguridad)
     // Debe ir antes de cualquier otra inicialización
@@ -49,13 +48,32 @@ int main(void)
         UART_Print("\r\nAviso: el display (U6) no responde. Revise la fuente de 9 V.\r\n");
     }
 
+    // Pantalla LCD (PCD8544 en SPI1): queda en blanco
+    LCD_Init();
+    Watch_Init();   // LCDWATCH: lista de watches vacía
+
+    // Switches y LEDs (U5). Si no responde se avisa; IOMAP lo reintenta después
+    if (!IO_Init())
+    {
+        UART_Print("\r\nAviso: los switches/LEDs (U5) no responden. Revise la fuente de 9 V.\r\n");
+    }
+
     // Buzzer (TIM4_CH1 en PB6): queda en silencio, con PB6 en 0
     Sound_Init();
 
     // LED RGB (TIM3_CH1-CH3 en PB4/PA7/PB0): queda apagado
     RGB_Init();
 
-    // Tick de SysTick para las tareas en paralelo (multiplexado del display).
+    // ADC1 para el potenciómetro (PA0 = ADC1_IN1)
+    if (!Analog_InitADC())
+    {
+        UART_Print("\r\nAviso: el ADC no respondio al inicializarse.\r\n");
+    }
+
+    // DAC1 canal 1 (PA4 = DAC1_OUT1): queda configurado y apagado hasta el primer VOUT
+    Analog_InitDAC();
+
+    // Tick de SysTick para las tareas en paralelo (multiplexado del display e IOMAP).
     // Va después de las inicializaciones que usan el bus I2C
     Tick_Init();
 
@@ -70,8 +88,7 @@ int main(void)
     // Transfiere el control al sistema del Monitor
     Monitor_Run();
 
-    while(1) 
-    {
+    while(1) {
         // Nunca debería llegar aquí por el bucle infinito en Monitor_Run
     }
 }
