@@ -5,7 +5,7 @@
 #include "tick.h"
 #include "analog.h"
 #include "watch.h"
-#include "../monitor.h"   // UART_Print, UART_PrintDec, ParseDec
+#include "monitor.h"   // UART_Print, UART_PrintDec, ParseDec
 
 // Display de 7 segmentos multi-dígito (DS1, 4 dígitos, cátodo común con transistores Q1-Q4)
 // manejado por el expansor U6 (MCP23017, dirección 0x21) en el bus I2C1.

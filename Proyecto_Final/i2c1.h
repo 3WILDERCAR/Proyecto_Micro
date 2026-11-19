@@ -3,12 +3,12 @@
 
 #include <stdint.h>
 
-// Driver del bus I2C1 (PA15 = SCL, PB7 = SDA, AF4) a 100 kHz, y escritura de registros de los
+// Driver del bus I2C1 (PA15 = SCL, PB7 = SDA, AF4) a 100 kHz, y lectura/escritura de registros de los
 // expansores MCP23017 U5 y U6 de Green_Card (AyudaProgra, "Pines de los MCP23017").
 //
-// IMPORTANTE: I2C1_Write no es reentrante. Después de la inicialización, todo el tráfico del bus
-// debe hacerse desde un solo contexto (el tick de SysTick, ver tick.c), o el programa principal
-// debe detener el tick antes de usar el bus.
+// IMPORTANTE: las funciones del bus no son reentrantes. Después de la inicialización, el tráfico
+// del bus lo hace el tick de SysTick (display e IOMAP, ver tick.c). Si el programa principal
+// necesita usar el bus, debe rodear el acceso con Tick_Bloquear() / Tick_Desbloquear().
 
 // Direcciones de 7 bits de los expansores (AyudaProgra, tabla de U5 y U6)
 #define MCP_U5_ADDR     0x20    // LEDs (puerto A) y switches (puerto B)
@@ -33,6 +33,8 @@
 
 void I2C1_Init(void);
 uint8_t I2C1_Write(uint8_t addr7, const uint8_t *data, uint8_t len);
+uint8_t I2C1_WriteRead(uint8_t addr7, uint8_t reg, uint8_t *buf, uint8_t len);
 uint8_t MCP23017_WriteRegs(uint8_t addr7, uint8_t reg, const uint8_t *vals, uint8_t len);
+uint8_t MCP23017_ReadRegs(uint8_t addr7, uint8_t reg, uint8_t *vals, uint8_t len);
 
 #endif /* I2C1_H */

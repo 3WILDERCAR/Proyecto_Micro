@@ -1,6 +1,6 @@
 #include "hw_comun.h"
 #include "sound.h"
-#include "../monitor.h"   // UART_Print, UART_PrintDec, ParseDec
+#include "monitor.h"   // UART_Print, UART_PrintDec, ParseDec
 
 // Buzzer CEM-1203(42) manejado por TIM4_CH1 en PB6 (CN4-9, D6), AF2, push-pull
 // (AyudaProgra, tabla de la NUCLEO-G431KB).

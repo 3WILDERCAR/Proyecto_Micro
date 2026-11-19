@@ -2,7 +2,7 @@
 #include "watch.h"
 #include "display.h"
 #include "tick.h"
-#include "../monitor.h"   // UART_Print, UART_PrintHex32, UART_PrintDec, ParseHex
+#include "monitor.h"   // UART_Print, UART_PrintHex32, UART_PrintDec, ParseHex
 
 // Monitoreo de direcciones de memoria en la pantalla LCD (LCDWATCH).
 //

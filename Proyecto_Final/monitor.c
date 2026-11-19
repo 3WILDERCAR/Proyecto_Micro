@@ -5,12 +5,12 @@
 #include <stdint.h>
 
 // Módulos de los comandos adicionales (fondo verde)
-#include "Green_Commands/io.h"
-#include "Green_Commands/display.h"
-#include "Green_Commands/analog.h"
-#include "Green_Commands/sound.h"
-#include "Green_Commands/rgb.h"
-#include "Green_Commands/watch.h"
+#include "io.h"
+#include "display.h"
+#include "analog.h"
+#include "sound.h"
+#include "rgb.h"
+#include "watch.h"
 
 extern void Cmd_RM(uint32_t reg_idx, uint32_t val);
 extern void Cmd_RUN(uint32_t addr);

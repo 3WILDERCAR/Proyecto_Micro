@@ -2,7 +2,7 @@
 #include "analog.h"
 #include "display.h"
 #include "tick.h"
-#include "../monitor.h"   // UART_Print, UART_PrintDec, ParseDec
+#include "monitor.h"   // UART_Print, UART_PrintDec, ParseDec
 
 // Conversiones analógico-digital y digital-analógico, y monitoreo continuo del potenciómetro.
 //

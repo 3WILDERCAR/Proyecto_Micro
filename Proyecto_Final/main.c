@@ -5,14 +5,14 @@
 #include "monitor.h"
 
 // Drivers de los comandos adicionales (fondo verde)
-#include "Green_Commands/i2c1.h"
-#include "Green_Commands/display.h"
-#include "Green_Commands/tick.h"
-#include "Green_Commands/sound.h"
-#include "Green_Commands/rgb.h"
-#include "Green_Commands/analog.h"
-#include "Green_Commands/io.h"
-#include "Green_Commands/watch.h"
+#include "i2c1.h"
+#include "display.h"
+#include "tick.h"
+#include "sound.h"
+#include "rgb.h"
+#include "analog.h"
+#include "io.h"
+#include "watch.h"
 
 void Test_Run(void) {
     while(1) {

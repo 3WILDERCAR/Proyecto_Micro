@@ -3,7 +3,7 @@
 #include "io.h"
 #include "i2c1.h"
 #include "tick.h"
-#include "../monitor.h"   // UART_Print, UART_PrintDec, ParseDec
+#include "monitor.h"   // UART_Print, UART_PrintDec, ParseDec
 
 // Entradas y salidas digitales en el expansor U5 (MCP23017, dirección 0x20) del bus I2C1
 // (AyudaProgra, "Pines de los MCP23017"):

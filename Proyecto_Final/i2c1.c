@@ -1,7 +1,8 @@
 #include "hw_comun.h"
 #include "i2c1.h"
 
-// Driver del bus I2C1 en modo maestro, solo escritura, 100 kHz (modo estándar).
+// Driver del bus I2C1 en modo maestro, 100 kHz (modo estándar): escritura y lectura de registros
+// (lectura con RESTART entre el número de registro y los datos).
 //
 // Pines (AyudaProgra, tabla de la NUCLEO-G431KB; DS12589 4.11, Tabla 13):
 //  - PA15 = I2C1_SCL (CN3-7, A5), AF4, open-drain, sin pull-up ni pull-down interno
@@ -180,6 +181,83 @@ uint8_t I2C1_Write(uint8_t addr7, const uint8_t *data, uint8_t len)
 
     I2C1->ICR = I2C_ICR_STOPCF;
     return I2C1_OK;
+}
+
+// Lee len bytes del registro reg del esclavo addr7 con un RESTART entre la escritura y la lectura:
+// START, dirección + W, reg (AUTOEND = 0, termina con TC y SCL retenido),
+// RESTART, dirección + R, len bytes y STOP automático (AUTOEND = 1: NACK + STOP tras el último).
+uint8_t I2C1_WriteRead(uint8_t addr7, uint8_t reg, uint8_t *buf, uint8_t len)
+{
+    uint32_t restante = I2C_TIMEOUT;
+
+    if (len == 0)
+    {
+        return I2C1_ERROR;
+    }
+
+    // Esperamos a que el bus esté libre
+    while (I2C1->ISR & I2C_ISR_BUSY)
+    {
+        if (restante == 0)
+        {
+            return I2C1_Fallo();
+        }
+        restante--;
+    }
+
+    I2C1->ICR = I2C_LIMPIAR_TODO;
+
+    // Fase 1: escritura de 1 byte (el número de registro) sin STOP al final (AUTOEND = 0)
+    I2C1->CR2 &= ~(I2C_CR2_SADD | I2C_CR2_RD_WRN | I2C_CR2_ADD10 |
+                   I2C_CR2_NBYTES | I2C_CR2_RELOAD | I2C_CR2_AUTOEND);
+    I2C1->CR2 |= ((((uint32_t)addr7 << 1) & I2C_CR2_SADD) |
+                  (1U << I2C_CR2_NBYTES_Pos));
+    I2C1->CR2 |= I2C_CR2_START;
+
+    if (!I2C1_WaitFlag(I2C_ISR_TXIS))
+    {
+        return I2C1_Fallo();
+    }
+    I2C1->TXDR = reg;
+
+    // TC: el byte se envió y SCL queda retenido esperando el RESTART
+    if (!I2C1_WaitFlag(I2C_ISR_TC))
+    {
+        return I2C1_Fallo();
+    }
+
+    // Fase 2: lectura de len bytes con STOP automático. Escribir START limpia TC y manda el RESTART
+    I2C1->CR2 &= ~(I2C_CR2_NBYTES | I2C_CR2_AUTOEND);
+    I2C1->CR2 |= (I2C_CR2_RD_WRN | ((uint32_t)len << I2C_CR2_NBYTES_Pos) | I2C_CR2_AUTOEND);
+    I2C1->CR2 |= I2C_CR2_START;
+
+    for (uint8_t i = 0; i < len; i++)
+    {
+        if (!I2C1_WaitFlag(I2C_ISR_RXNE))
+        {
+            return I2C1_Fallo();
+        }
+        buf[i] = (uint8_t)I2C1->RXDR;   // Leer RXDR limpia RXNE
+    }
+
+    if (!I2C1_WaitFlag(I2C_ISR_STOPF))
+    {
+        return I2C1_Fallo();
+    }
+
+    I2C1->ICR = I2C_ICR_STOPCF;
+    return I2C1_OK;
+}
+
+// Lee len registros consecutivos del MCP23017 a partir de reg (el puntero avanza solo con
+// IOCON.SEQOP = 0, DS20001952E 3.5.6).
+uint8_t MCP23017_ReadRegs(uint8_t addr7, uint8_t reg, uint8_t *vals, uint8_t len)
+{
+    if (len == 0 || len > MCP_MAX_REGS)
+    {
+        return I2C1_ERROR;
+    }
+    return I2C1_WriteRead(addr7, reg, vals, len);
 }
 
 // Escribe len registros consecutivos del MCP23017 a partir de reg.

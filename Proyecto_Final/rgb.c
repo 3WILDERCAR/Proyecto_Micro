@@ -1,6 +1,6 @@
 #include "hw_comun.h"
 #include "rgb.h"
-#include "../monitor.h"   // UART_Print, UART_PrintHex32
+#include "monitor.h"   // UART_Print, UART_PrintHex32
 
 // LED RGB manejado con PWM de TIM3 (AyudaProgra, tabla de la NUCLEO-G431KB):
 //  - RGB_R: PB4 (CN4-15, D12), AF2 = TIM3_CH1
