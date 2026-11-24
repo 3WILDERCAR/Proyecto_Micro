@@ -4,6 +4,7 @@
 #include "io.h"
 #include "analog.h"
 #include "watch.h"
+#include "arcade.h"
 
 // Tick del sistema con el SysTick del Cortex-M4 (PM0214, System timer).
 // SysTick y NVIC_SetPriority vienen de core_cm4.h, que se incluye a través de stm32g431xx.h.
@@ -23,6 +24,8 @@
 //  - LCDWATCH: una lectura de memoria cada 10 ms y, si el valor cambió, una línea de la LCD por
 //    SPI1 (86 bytes a 2 MHz, unos 0.45 ms). Su contador arranca desfasado del de IOMAP para que
 //    nunca les toque en el mismo tick.
+//  - ARCADE: una tarea pequeña por tick en un ciclo de 10 ticks (un paso del juego, un banco de la
+//    LCD por SPI1 o una lectura del teclado por I2C).
 //  El peor caso de una interrupción es alrededor de 1.3 ms (display + IOMAP), menor que el
 //  periodo de 2 ms; con LCDWATCH es alrededor de 1 ms (display + POT2SEG + una línea).
 
@@ -92,4 +95,6 @@ void SysTick_Handler(void)
         cuenta_watch = 0;
         Watch_Actualizar(); // Un watch de LCDWATCH -> LCD (solo si su valor cambió)
     }
+
+    Arcade_Actualizar();    // Breakout: una tarea pequeña por tick (no hace nada si no está activo)
 }
