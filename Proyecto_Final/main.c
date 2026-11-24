@@ -14,8 +14,10 @@
 #include "io.h"
 #include "watch.h"
 
-void Test_Run(void) {
-    while(1) {
+void Test_Run(void) 
+{
+    while(1) 
+    {
         UART_Print("\r\n--- BUCLE DE RUN ---\r\n");
         UART_Print("Se ha transferido el control exitosamente!\r\n");
 
@@ -24,13 +26,14 @@ void Test_Run(void) {
     }
 }
 
-void Test_Call(void) {
+void Test_Call(void) 
+{
     UART_Print("\r\n--- SUBRUTINA DE CALL ---\r\n");
     UART_Print("Ejecucion completada. Volviendo al monitor!\r\n\r\n");
 }
 
-int main(void) {
-
+int main(void) 
+{
     /* Seguridad y pines libres (primero) */
     Setup_Seguridad();
 
@@ -43,7 +46,7 @@ int main(void) {
     /* Display de 7 segmentos (U6) */
     if (!Segment_Init())
     {
-        UART_Print("\r\nAviso: el display (U6) no responde. Revise la fuente de 9 V.\r\n");
+        //UART_Print("\r\nAviso: el display (U6) no responde. Revise la fuente de 9 V.\r\n");
     }
 
     /* LCD y LCDWATCH */
@@ -53,7 +56,7 @@ int main(void) {
     /* Switches y LEDs (U5) */
     if (!IO_Init())
     {
-        UART_Print("\r\nAviso: los switches/LEDs (U5) no responden. Revise la fuente de 9 V.\r\n");
+        //UART_Print("\r\nAviso: los switches/LEDs (U5) no responden. Revise la fuente de 9 V.\r\n");
     }
 
     /* Buzzer */
@@ -65,7 +68,7 @@ int main(void) {
     /* ADC */
     if (!Analog_InitADC())
     {
-        UART_Print("\r\nAviso: el ADC no respondio al inicializarse.\r\n");
+        //UART_Print("\r\nAviso: el ADC no respondio al inicializarse.\r\n");
     }
 
     /* DAC */
@@ -84,7 +87,8 @@ int main(void) {
     /* Monitor */
     Monitor_Run();
 
-    while(1) {
+    while(1) 
+    {
         /* No se llega aquí */
     }
 }
