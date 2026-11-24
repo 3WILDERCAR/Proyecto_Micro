@@ -20,7 +20,6 @@
 #define ARC_FILA_TECLAS         4       /* Fila de * y # */
 #define ARC_REBOTE_LECTURAS     2       /* Lecturas para aceptar una tecla */
 
-#define ARC_VIDAS               3
 #define ARC_RAPIDEZ_INICIAL     13      /* 13/16 = 0.81 píxeles por paso de 20 ms (unos 41 píxeles/s) */
 #define ARC_RAPIDEZ_MAXIMA      17      /* 17/16 = 1.06 píxeles por paso */
 
@@ -57,9 +56,7 @@
 typedef enum
 {
     ARC_ESPERANDO = 0,      /* Bola sobre la barra */
-    ARC_JUGANDO,
-    ARC_GAMEOVER,
-    ARC_GANO
+    ARC_JUGANDO
 } ArcEstado_t;
 
 /* ---------- Estado (se cambia desde el tick o con el tick bloqueado) ---------- */
@@ -69,7 +66,6 @@ static uint8_t arc_fase = 0;                /* Fase del paso */
 static ArcEstado_t arc_estado = ARC_ESPERANDO;
 
 static uint8_t arc_ladrillos[ARC_LAD_FILAS];    /* Bit n = ladrillo n en pie */
-static uint8_t arc_vidas = 0;
 static uint8_t arc_destruidos = 0;
 
 static int32_t arc_px = 0;                  /* Barra (borde izquierdo) */
@@ -82,7 +78,7 @@ static uint8_t arc_inicio = 0;
 
 static uint8_t arc_fija_sucia = 0;
 static uint8_t arc_pendientes = 0;          /* Bancos por enviar */
-static uint8_t arc_capa_fija[ARC_BANCOS][ARC_ANCHO];    /* Vidas, ladrillos o mensaje */
+static uint8_t arc_capa_fija[ARC_BANCOS][ARC_ANCHO];    /* Ladrillos y mensaje */
 static uint8_t arc_cuadro[ARC_BANCOS][ARC_ANCHO];       /* Capa fija + barra + bola */
 static uint8_t arc_enviado[ARC_BANCOS][ARC_ANCHO];      /* Último cuadro enviado */
 
@@ -163,34 +159,10 @@ static void Arc_TextoCentrado(uint8_t (*buf)[ARC_ANCHO], uint8_t banco, const ch
     Arc_Texto(buf, banco, (ARC_ANCHO - (6 * (int32_t)strlen(texto))) / 2, texto);
 }
 
-/* Pantalla final: título */
-static void Arc_PantallaFinal(const char *titulo)
-{
-    Arc_TextoCentrado(arc_capa_fija, 1, titulo);
-    Arc_TextoCentrado(arc_capa_fija, 4, "* O # JUEGA");
-}
-
-/* Capa fija: vidas y ladrillos, o pantalla final */
+/* Capa fija: ladrillos y aviso de saque */
 static void Arc_RedibujarFija(void)
 {
     memset(arc_capa_fija, 0, sizeof(arc_capa_fija));
-
-    if (arc_estado == ARC_GAMEOVER)
-    {
-        Arc_PantallaFinal("GAME OVER");
-        return;
-    }
-    if (arc_estado == ARC_GANO)
-    {
-        Arc_PantallaFinal("GANASTE!");
-        return;
-    }
-
-    /* Vidas */
-    for (uint8_t v = 0; v < arc_vidas; v++)
-    {
-        Arc_Rect(arc_capa_fija, 63 + (7 * v), 2, 4, 4);
-    }
 
     /* Ladrillos */
     for (uint8_t fila = 0; fila < ARC_LAD_FILAS; fila++)
@@ -216,11 +188,8 @@ static void Arc_Componer(void)
 {
     memcpy(arc_cuadro, arc_capa_fija, sizeof(arc_cuadro));
 
-    if (arc_estado == ARC_ESPERANDO || arc_estado == ARC_JUGANDO)
-    {
-        Arc_Rect(arc_cuadro, arc_px, ARC_PALETA_Y, ARC_PALETA_W, ARC_PALETA_H);
-        Arc_Rect(arc_cuadro, arc_bx >> ARC_SUB, arc_by >> ARC_SUB, ARC_BOLA, ARC_BOLA);
-    }
+    Arc_Rect(arc_cuadro, arc_px, ARC_PALETA_Y, ARC_PALETA_W, ARC_PALETA_H);
+    Arc_Rect(arc_cuadro, arc_bx >> ARC_SUB, arc_by >> ARC_SUB, ARC_BOLA, ARC_BOLA);
 }
 
 
@@ -294,13 +263,13 @@ static void Arc_BolaSobreBarra(void)
     arc_vy = 0;
 }
 
+/* Ladrillos completos y bola sobre la barra */
 static void Arc_NuevoJuego(void)
 {
     for (uint8_t fila = 0; fila < ARC_LAD_FILAS; fila++)
     {
         arc_ladrillos[fila] = (uint8_t)((1U << ARC_LAD_COLS) - 1U);
     }
-    arc_vidas = ARC_VIDAS;
     arc_destruidos = 0;
     arc_estado = ARC_ESPERANDO;
     Arc_BolaSobreBarra();
@@ -457,25 +426,19 @@ static void Arc_Paso(void)
         case ARC_JUGANDO:
             if (Arc_MoverBola())
             {
-                arc_vidas--;
-                arc_estado = (arc_vidas == 0) ? ARC_GAMEOVER : ARC_ESPERANDO;
+                /* Bola perdida: nueva jugada con los ladrillos que quedan */
+                arc_estado = ARC_ESPERANDO;
                 Arc_BolaSobreBarra();
                 arc_fija_sucia = 1;
             }
             else if (arc_destruidos >= ARC_LAD_TOTAL)
             {
-                arc_estado = ARC_GANO;
-                arc_fija_sucia = 1;
+                /* Sin ladrillos: se vuelven a poner todos */
+                Arc_NuevoJuego();
             }
             break;
 
-        case ARC_GAMEOVER:
-        case ARC_GANO:
         default:
-            if (arc_inicio)
-            {
-                Arc_NuevoJuego();
-            }
             break;
     }
     arc_inicio = 0;
