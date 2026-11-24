@@ -3,33 +3,37 @@
 
 #include <stdint.h>
 
-// Display de 7 segmentos multi-dígito y pantalla LCD.
+/* Display de 7 segmentos y pantalla LCD */
 
-// Inicialización de periféricos (separada de la ejecución de los comandos)
-uint8_t Segment_Init(void);     // Devuelve 1 si U6 respondió, 0 si no
-void LCD_Init(void);            // SPI1 + PCD8544; deja la pantalla en blanco
+/* Tamaño de la LCD: 84 columnas x 6 bancos de 8 píxeles */
+#define LCD_ANCHO           84
+#define LCD_BANCOS          6
 
-// Multiplexado del display: muestra un dígito por llamada. Se llama desde SysTick_Handler.
+/* Inicialización */
+uint8_t Segment_Init(void);     /* 1 si U6 respondió */
+void LCD_Init(void);
+
+/* Multiplexado, cada tick */
 void Segment_Refresh(void);
 
-// Uso del display desde otros módulos (ej. POT2SEG). Las funciones Mostrar y Apagar solo cambian
-// lo que el tick muestra y se pueden llamar desde el tick; Segment_Asegurar usa el bus y se llama
-// solo desde el programa principal.
-uint8_t Segment_Asegurar(void);             // Inicializa U6 si no está en línea; 1 si quedó listo
-void Segment_MostrarDecimal(int32_t num);   // -999 a 9999, alineado a la derecha
-void Segment_MostrarHex(uint32_t valor);    // 0x000 a 0xFFF, como "7A3h"
-void Segment_Apagar(void);                  // Apaga el display y detiene el multiplexado
+/* Uso del display desde otros módulos */
+uint8_t Segment_Asegurar(void);             /* Inicializa U6 si hace falta */
+void Segment_MostrarDecimal(int32_t num);   /* -999 a 9999 */
+void Segment_MostrarHex(uint32_t valor);    /* 0x000 a 0xFFF */
+void Segment_Apagar(void);
 
-// Uso de la LCD desde otros módulos (ej. LCDWATCH). Usan SPI1: el programa principal solo las
-// llama con el tick bloqueado (Tick_Bloquear), o desde el tick mismo.
-void LCD_Borrar(void);                                          // Pantalla completa en blanco
-void LCD_EscribirLinea(uint8_t linea, const char *texto);       // Línea 0-5, fuente 6x8, 14 caracteres
-void LCD_EscribirLineaChica(uint8_t linea, const char *texto);  // Línea 0-5, fuente 4x8, 21 caracteres
-                                                                // (solo 0-9, A-F, h, ':', '-' y espacio)
+/* Fila del teclado en U6 (1 a 4, 0 = ninguna) */
+uint8_t Segment_ElegirFilaTeclado(uint8_t fila);
 
-// Comandos. args apunta al texto que sigue al nombre del comando, ya sin espacios iniciales
-// (mismo convenio que Cmd_MD, Cmd_MM y Cmd_BF en memory.h)
-void Cmd_SEGMENT(char *args);   // SEGMENT num
-void Cmd_LCD(char *args);       // LCD string
+/* Uso de la LCD desde otros módulos (con el tick bloqueado o desde el tick) */
+void LCD_Borrar(void);
+void LCD_EscribirLinea(uint8_t linea, const char *texto);       /* 14 caracteres */
+void LCD_EscribirLineaChica(uint8_t linea, const char *texto);  /* 21 caracteres */
+void LCD_EscribirBanco(uint8_t banco, const uint8_t columnas[LCD_ANCHO]);
+const uint8_t *LCD_Glifo(char c);
+
+/* Comandos */
+void Cmd_SEGMENT(char *args);   /* SEGMENT num */
+void Cmd_LCD(char *args);       /* LCD string */
 
 #endif /* DISPLAY_H */

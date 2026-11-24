@@ -1,13 +1,13 @@
         .syntax unified
         .cpu cortex-m4
         .thumb
-        
+
         .global Cmd_RD
         .global Cmd_RM
         .extern cpu_regs     // Referencia al arreglo global en C
         .extern Print_RD     // Referencia a la función de impresión en C
 
-        .section .text 
+        .section .text
         .type Cmd_RD, %function
         .type Cmd_RM, %function
 
@@ -15,8 +15,8 @@ Cmd_RD:
         push {lr}                   // Hacemos push del LR para preservar el valor de retorno
         push {r0}                   // Guardamos en el stack el valor original de r0 para poder mostrarlo al final
 
-        ldr r0, =cpu_regs           ; R0 será quien apunte al arreglo cpu_regs en C
-        
+        ldr r0, =cpu_regs           // R0 será quien apunte al arreglo cpu_regs en C
+
         // Etapa READ (STORE): Leemos los registros y los escribimos en el arreglo que definimos en C
 
         str r1, [r0, #4]
@@ -41,13 +41,13 @@ Cmd_RD:
         mov r1, sp                  // Leemos el Stack Pointer actual (registro 13)
         add r1, r1, #4              // Le sumamos 4 para compensar el "push {lr}" del principio y así poder mostrar tener el SP real
         str r1, [r0, #52]           // Guardamos SP en el arreglo
-        
+
         ldr r1, [sp]                // Leemos el LR original directamente desde el tope del stack debido al push inicial
         str r1, [r0, #56]           // Guardamos LR (registro 14)
-        
+
         mov r1, pc                  // Leemos el Program Counter
         str r1, [r0, #60]           // Guardamos PC (registro 15)
-        
+
         mrs r1, xpsr                // Leemos el Program Status Register (instrucción "MRS" - Move to Register from Special register) y Usamos eXtended PSR
         str r1, [r0, #64]           // Usamos xpsr en lugar de psr para darle a entender al compi que buscamos guardar PSR completo APSR, IPSR y EPSR (registro 16)
 
@@ -60,7 +60,7 @@ Cmd_RD:
 
 Cmd_RM:
         push {lr}
-        
+
         // r0 contiene el indice del registro (0 al 16)
         // r1 contiene el dato a escribir
 
@@ -98,7 +98,7 @@ Cmd_RM:
         beq Set_pc
         cmp r0, #16
         beq Set_psr
-        
+
         b RM_end                 // Si hay un error, salimos
 
 Set_r0:

@@ -1,10 +1,10 @@
 #include <stdint.h>
 #include "stm32g431xx.h"
 #include "setup_seguridad.h"
-#include "ftdi_con.h"   // Antes: connect.h. Ahora el monitor usa USART1 por el cable FTDI
+#include "ftdi_con.h"
 #include "monitor.h"
 
-// Drivers de los comandos adicionales (fondo verde)
+/* Comandos adicionales */
 #include "i2c1.h"
 #include "display.h"
 #include "tick.h"
@@ -19,7 +19,7 @@ void Test_Run(void) {
         UART_Print("\r\n--- BUCLE DE RUN ---\r\n");
         UART_Print("Se ha transferido el control exitosamente!\r\n");
 
-        // Retardo simple para no saturar la terminal de "EL CPU HA...."
+        /* Retardo */
         for (volatile uint32_t i = 0; i < 1000000; i++);
     }
 }
@@ -31,64 +31,60 @@ void Test_Call(void) {
 
 int main(void) {
 
-    // Configuración de seguridad y liberación de pines (esquemático Setup_Seguridad)
-    // Debe ir antes de cualquier otra inicialización
+    /* Seguridad y pines libres (primero) */
     Setup_Seguridad();
 
-    // Inicializa la comunicación serial por el cable FTDI (USART1 en PA9/PA10)
-    // Antes: UART_Init() con USART2 hacia el VCP del ST-LINK (connect.c, ya no se usa)
+    /* Serial por el cable FTDI (USART1) */
     FTDI_Init();
 
-    // Bus I2C1 (PA15/PB7) hacia los expansores U5 y U6 de Green_Card
+    /* Bus I2C1 */
     I2C1_Init();
 
-    // Display de 7 segmentos (U6). Si no responde se avisa; SEGMENT lo reintenta después
+    /* Display de 7 segmentos (U6) */
     if (!Segment_Init())
     {
         UART_Print("\r\nAviso: el display (U6) no responde. Revise la fuente de 9 V.\r\n");
     }
 
-    // Pantalla LCD (PCD8544 en SPI1): queda en blanco
+    /* LCD y LCDWATCH */
     LCD_Init();
-    Watch_Init();   // LCDWATCH: lista de watches vacía
+    Watch_Init();
 
-    // Switches y LEDs (U5). Si no responde se avisa; IOMAP lo reintenta después
+    /* Switches y LEDs (U5) */
     if (!IO_Init())
     {
         UART_Print("\r\nAviso: los switches/LEDs (U5) no responden. Revise la fuente de 9 V.\r\n");
     }
 
-    // Buzzer (TIM4_CH1 en PB6): queda en silencio, con PB6 en 0
+    /* Buzzer */
     Sound_Init();
 
-    // LED RGB (TIM3_CH1-CH3 en PB4/PA7/PB0): queda apagado
+    /* LED RGB */
     RGB_Init();
 
-    // ADC1 para el potenciómetro (PA0 = ADC1_IN1)
+    /* ADC */
     if (!Analog_InitADC())
     {
         UART_Print("\r\nAviso: el ADC no respondio al inicializarse.\r\n");
     }
 
-    // DAC1 canal 1 (PA4 = DAC1_OUT1): queda configurado y apagado hasta el primer VOUT
+    /* DAC */
     Analog_InitDAC();
 
-    // Tick de SysTick para las tareas en paralelo (multiplexado del display e IOMAP).
-    // Va después de las inicializaciones que usan el bus I2C
+    /* Tick (después de todo lo que usa el bus) */
     Tick_Init();
 
-    // Para mostrar el funcionamiento de RUN y CALL
-    // Imprimimos las direcciones de las funciones de prueba para poder usarlas luego
+    /* Direcciones de prueba para RUN y CALL */
     UART_Print("\r\nDirección de Test_Run: ");
     UART_PrintHex32((uint32_t)&Test_Run);
     UART_Print("\r\nDirección de Test_Call: ");
     UART_PrintHex32((uint32_t)&Test_Call);
     UART_Print("\r\n");
 
-    // Transfiere el control al sistema del Monitor
+    /* Monitor */
     Monitor_Run();
 
     while(1) {
-        // Nunca debería llegar aquí por el bucle infinito en Monitor_Run
+        /* No se llega aquí */
     }
 }

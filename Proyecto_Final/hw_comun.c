@@ -1,36 +1,29 @@
 #include "hw_comun.h"
 
-// Rutinas de hardware compartidas por los módulos de Green_Commands.
-// Los registros y bits vienen de stm32g431xx.h (CMSIS de ST).
+/* Rutinas de hardware compartidas */
 
-// RCC
+/* ---------- RCC ---------- */
 
-// Enciende HSI16 y espera a que esté estable (RM0440 7.4.1).
-// Solo se setea: apagarlo detendría el reloj del sistema.
+/* Enciende HSI16 y espera a que esté listo */
 void RCC_HSI16_Encender(void)
 {
     RCC->CR |= RCC_CR_HSION;
     while (!(RCC->CR & RCC_CR_HSIRDY))
     {
-        // Esperamos a que HSI16 esté listo
+        /* Espera */
     }
 }
 
-// Habilita el reloj de un periférico de APB1 y lo reinicia desde el RCC, para dejar todos sus
-// registros en su valor de reset sin importar lo que hubiera antes.
-// bit_reloj: máscara de RCC_APB1ENR1 (ej. RCC_APB1ENR1_TIM3EN)
-// bit_reset: máscara de RCC_APB1RSTR1 (ej. RCC_APB1RSTR1_TIM3RST)
+/* Reloj y reset de un periférico de APB1 */
 void RCC_ActivarAPB1(uint32_t bit_reloj, uint32_t bit_reset)
 {
     RCC->APB1ENR1 |= bit_reloj;
 
-    RCC->APB1RSTR1 |= bit_reset;        // Activamos el reset
-    RCC->APB1RSTR1 &= ~bit_reset;       // Lo liberamos
+    RCC->APB1RSTR1 |= bit_reset;
+    RCC->APB1RSTR1 &= ~bit_reset;
 }
 
-// Igual que RCC_ActivarAPB1, para los periféricos de APB2 (ej. SPI1)
-// bit_reloj: máscara de RCC_APB2ENR (ej. RCC_APB2ENR_SPI1EN)
-// bit_reset: máscara de RCC_APB2RSTR (ej. RCC_APB2RSTR_SPI1RST)
+/* Reloj y reset de un periférico de APB2 */
 void RCC_ActivarAPB2(uint32_t bit_reloj, uint32_t bit_reset)
 {
     RCC->APB2ENR |= bit_reloj;
@@ -39,10 +32,9 @@ void RCC_ActivarAPB2(uint32_t bit_reloj, uint32_t bit_reset)
     RCC->APB2RSTR &= ~bit_reset;
 }
 
-// GPIO
+/* ---------- GPIO ---------- */
 
-// Habilita el reloj del puerto. Aquí solo se setea el bit: limpiarlo primero apagaría por un
-// instante el puerto que ya usan otros periféricos (ej. GPIOA con el USART1 del FTDI).
+/* Reloj del puerto */
 static void GPIO_HabilitarReloj(GPIO_TypeDef *puerto)
 {
     if (puerto == GPIOA)
@@ -55,22 +47,18 @@ static void GPIO_HabilitarReloj(GPIO_TypeDef *puerto)
     }
 }
 
-// Configura un pin en función alterna, en el orden que pide AyudaProgra (igual que ftdi_con.c):
-// MODER = 00 primero para que el pin no maneje la línea, se limpian OTYPER, OSPEEDR, PUPDR y AFR,
-// se escribe el tipo de salida y AFR, y al final MODER = 10.
-// Velocidad baja y sin pull-up ni pull-down, suficiente para todos los usos de Green_Card.
-// tipo_salida: GPIO_PUSH_PULL o GPIO_OPEN_DRAIN
+/* Pin en función alterna */
 void GPIO_ConfigAF(GPIO_TypeDef *puerto, uint8_t pin, uint8_t af, uint32_t tipo_salida)
 {
-    uint32_t pos2 = (uint32_t)pin * 2U;             // Campo de 2 bits en MODER, OSPEEDR, PUPDR
-    uint32_t pos4 = ((uint32_t)pin & 7U) * 4U;      // Campo de 4 bits en AFR[0] (0-7) o AFR[1] (8-15)
+    uint32_t pos2 = (uint32_t)pin * 2U;
+    uint32_t pos4 = ((uint32_t)pin & 7U) * 4U;
     uint32_t afr = (uint32_t)pin >> 3;
 
     GPIO_HabilitarReloj(puerto);
 
-    puerto->MODER   &= ~(3U << pos2);               // Entrada mientras se configura
-    puerto->OSPEEDR &= ~(3U << pos2);               // Velocidad baja
-    puerto->PUPDR   &= ~(3U << pos2);               // Sin pull internos
+    puerto->MODER   &= ~(3U << pos2);               /* Entrada mientras se configura */
+    puerto->OSPEEDR &= ~(3U << pos2);
+    puerto->PUPDR   &= ~(3U << pos2);
 
     puerto->OTYPER &= ~(1U << pin);
     puerto->OTYPER |= ((tipo_salida & 1U) << pin);
@@ -78,12 +66,10 @@ void GPIO_ConfigAF(GPIO_TypeDef *puerto, uint8_t pin, uint8_t af, uint32_t tipo_
     puerto->AFR[afr] &= ~(0xFU << pos4);
     puerto->AFR[afr] |= (((uint32_t)af & 0xFU) << pos4);
 
-    puerto->MODER |= (GPIO_MODO_AF << pos2);        // Al final, función alterna
+    puerto->MODER |= (GPIO_MODO_AF << pos2);
 }
 
-// Configura un pin en modo analógico (MODER = 11) sin pull-up ni pull-down, para ADC o DAC.
-// En analógico el buffer digital y el Schmitt trigger quedan deshabilitados (RM0440 9.3.12).
-// Se limpian los mismos campos que en GPIO_ConfigAF para no depender del estado anterior.
+/* Pin analógico */
 void GPIO_ConfigAnalogico(GPIO_TypeDef *puerto, uint8_t pin)
 {
     uint32_t pos2 = (uint32_t)pin * 2U;
@@ -95,14 +81,13 @@ void GPIO_ConfigAnalogico(GPIO_TypeDef *puerto, uint8_t pin)
     puerto->MODER   &= ~(3U << pos2);
     puerto->OTYPER  &= ~(1U << pin);
     puerto->OSPEEDR &= ~(3U << pos2);
-    puerto->PUPDR   &= ~(3U << pos2);               // Sin pull: cargaría la señal analógica
+    puerto->PUPDR   &= ~(3U << pos2);
     puerto->AFR[afr] &= ~(0xFU << pos4);
 
     puerto->MODER |= (GPIO_MODO_ANALOGICO << pos2);
 }
 
-// Pone un pin de salida en 1 o en 0 con BSRR (RM0440 9.4.7): escribir 1 en BSy pone el pin en 1 y
-// escribir 1 en BRy (bit y + 16) lo pone en 0. Es atómico, así que no hace falta leer ODR.
+/* Escribe 1 o 0 en un pin (BSRR) */
 void GPIO_Escribir(GPIO_TypeDef *puerto, uint8_t pin, uint8_t valor)
 {
     if (valor)
@@ -115,8 +100,7 @@ void GPIO_Escribir(GPIO_TypeDef *puerto, uint8_t pin, uint8_t valor)
     }
 }
 
-// Configura un pin como salida de propósito general push-pull, velocidad baja y sin pull.
-// El nivel inicial se escribe ANTES de cambiar MODER, para que el pin nazca en ese valor.
+/* Pin de salida push-pull con su valor inicial */
 void GPIO_ConfigSalida(GPIO_TypeDef *puerto, uint8_t pin, uint8_t valor_inicial)
 {
     uint32_t pos2 = (uint32_t)pin * 2U;
@@ -125,21 +109,40 @@ void GPIO_ConfigSalida(GPIO_TypeDef *puerto, uint8_t pin, uint8_t valor_inicial)
 
     GPIO_HabilitarReloj(puerto);
 
-    puerto->MODER   &= ~(3U << pos2);               // Entrada mientras se configura
-    puerto->OTYPER  &= ~(1U << pin);                // Push-pull
-    puerto->OSPEEDR &= ~(3U << pos2);               // Velocidad baja
-    puerto->PUPDR   &= ~(3U << pos2);               // Sin pull internos
+    puerto->MODER   &= ~(3U << pos2);
+    puerto->OTYPER  &= ~(1U << pin);
+    puerto->OSPEEDR &= ~(3U << pos2);
+    puerto->PUPDR   &= ~(3U << pos2);
     puerto->AFR[afr] &= ~(0xFU << pos4);
 
-    GPIO_Escribir(puerto, pin, valor_inicial);      // Nivel inicial en ODR
+    GPIO_Escribir(puerto, pin, valor_inicial);      /* Valor antes de ser salida */
 
-    puerto->MODER |= (GPIO_MODO_SALIDA << pos2);    // Al final, salida
+    puerto->MODER |= (GPIO_MODO_SALIDA << pos2);
 }
 
-// Retardo
+/* Pin de entrada con pull */
+void GPIO_ConfigEntrada(GPIO_TypeDef *puerto, uint8_t pin, uint32_t pull)
+{
+    uint32_t pos2 = (uint32_t)pin * 2U;
+    uint32_t pos4 = ((uint32_t)pin & 7U) * 4U;
+    uint32_t afr = (uint32_t)pin >> 3;
 
-// Espera activa de al menos 'us' microsegundos con el núcleo a HCLK_HZ. Cada vuelta del ciclo
-// toma varios ciclos de reloj, así que el retardo real es mayor que el pedido (nunca menor).
+    GPIO_HabilitarReloj(puerto);
+
+    puerto->MODER   &= ~(3U << pos2);
+    puerto->OTYPER  &= ~(1U << pin);
+    puerto->OSPEEDR &= ~(3U << pos2);
+    puerto->AFR[afr] &= ~(0xFU << pos4);
+
+    puerto->PUPDR &= ~(3U << pos2);
+    puerto->PUPDR |= ((pull & 3U) << pos2);
+}
+
+/* ---------- Retardo ---------- */
+
+/* Espera de al menos 'us' microsegundos:
+   vueltas = us x 16 (ciclos de 16 MHz en 1 us). Cada vuelta tarda varios ciclos,
+   así que la espera real es mayor que la pedida, nunca menor. */
 void Retardo_us(uint32_t us)
 {
     volatile uint32_t vueltas = us * (HCLK_HZ / 1000000U);
@@ -150,29 +153,27 @@ void Retardo_us(uint32_t us)
     }
 }
 
-// Timers de propósito general
+/* ---------- Timers ---------- */
 
-// Campos de un canal en CCMR1/CCMR2 tomando el canal 1 como referencia. En TIM_CCMR1_OC1M el
-// archivo de ST ya incluye OC1M[3] (bit 16), que no es contiguo con OC1M[2:0] (bits 6:4).
+/* Campos de un canal en CCMR y CCER (referencia: canal 1) */
 #define CCMR_CAMPOS_CANAL   (TIM_CCMR1_CC1S | TIM_CCMR1_OC1FE | TIM_CCMR1_OC1PE | \
                              TIM_CCMR1_OC1M | TIM_CCMR1_OC1CE)
 
-// Campos de un canal en CCER tomando el canal 1 como referencia
 #define CCER_CAMPOS_CANAL   (TIM_CCER_CC1E | TIM_CCER_CC1P | TIM_CCER_CC1NP)
 
-// CCMR1 contiene los canales 1 y 2, CCMR2 los canales 3 y 4 (RM0440 30.5)
+/* CCMR1: canales 1 y 2. CCMR2: canales 3 y 4 */
 static volatile uint32_t *TIM_RegistroCCMR(TIM_TypeDef *tim, uint8_t canal)
 {
     return (canal <= 2) ? &tim->CCMR1 : &tim->CCMR2;
 }
 
-// Los canales 1 y 3 ocupan los bits 7:0 (y 16), los canales 2 y 4 los bits 15:8 (y 24)
+/* Desplazamiento del canal dentro de CCMR */
 static uint32_t TIM_DesplazamientoCCMR(uint8_t canal)
 {
     return ((canal == 2) || (canal == 4)) ? 8U : 0U;
 }
 
-// Convierte un modo OCxM[3:0] a sus bits del canal 1 (OC1M[2:0] en 6:4, OC1M[3] en el bit 16)
+/* Bits de OCxM (el bit 3 va aparte) */
 static uint32_t TIM_BitsModo(uint32_t modo)
 {
     uint32_t bits = (modo & 7U) << TIM_CCMR1_OC1M_Pos;
@@ -184,21 +185,18 @@ static uint32_t TIM_BitsModo(uint32_t modo)
     return bits;
 }
 
-// Configura la base de tiempo: contador detenido, hacia arriba, alineado al borde, con precarga
-// de ARR (ARPE), y los valores de PSC y ARR. No arranca el contador.
+/* Base de tiempo: PSC y ARR, contador detenido */
 void TIM_ConfigBase(TIM_TypeDef *tim, uint32_t psc, uint32_t arr)
 {
     tim->CR1 &= ~(TIM_CR1_CEN | TIM_CR1_UDIS | TIM_CR1_URS | TIM_CR1_OPM |
                   TIM_CR1_DIR | TIM_CR1_CMS | TIM_CR1_ARPE);
     tim->CR1 |= TIM_CR1_ARPE;
 
-    tim->PSC = psc;     // Registros numéricos: se escribe el valor completo
+    tim->PSC = psc;
     tim->ARR = arr;
 }
 
-// Configura un canal (1 a 4) como salida (CCxS = 00) con precarga de CCRx (OCxPE = 1) y el modo
-// indicado. Los valores precargados pasan a los registros sombra con el siguiente evento de
-// actualización (bit UG de EGR o desborde del contador).
+/* Canal como salida con precarga y el modo indicado */
 void TIM_CanalSalida(TIM_TypeDef *tim, uint8_t canal, uint32_t modo)
 {
     volatile uint32_t *ccmr;
@@ -216,8 +214,7 @@ void TIM_CanalSalida(TIM_TypeDef *tim, uint8_t canal, uint32_t modo)
     *ccmr |= ((TIM_CCMR1_OC1PE | TIM_BitsModo(modo)) << desp);
 }
 
-// Cambia solo el modo OCxM de un canal ya configurado. OCxM no tiene precarga: el cambio se
-// aplica de inmediato (ej. "force inactive" baja la salida al instante).
+/* Cambia solo el modo del canal (efecto inmediato) */
 void TIM_CanalModo(TIM_TypeDef *tim, uint8_t canal, uint32_t modo)
 {
     volatile uint32_t *ccmr;
@@ -235,8 +232,7 @@ void TIM_CanalModo(TIM_TypeDef *tim, uint8_t canal, uint32_t modo)
     *ccmr |= (TIM_BitsModo(modo) << desp);
 }
 
-// Habilita la salida de un canal (CCxE = 1) con polaridad activa en alto (CCxP = 0, CCxNP = 0).
-// En CCER cada canal ocupa 4 bits: el canal n empieza en el bit 4 * (n - 1) (RM0440 30.5).
+/* Habilita la salida del canal, activa en alto */
 void TIM_CanalHabilitar(TIM_TypeDef *tim, uint8_t canal)
 {
     uint32_t desp;
@@ -252,7 +248,7 @@ void TIM_CanalHabilitar(TIM_TypeDef *tim, uint8_t canal)
     tim->CCER |= (TIM_CCER_CC1E << desp);
 }
 
-// Compara una palabra de un comando sin distinguir mayúsculas (ver hw_comun.h)
+/* Compara una palabra del comando sin distinguir mayúsculas */
 uint8_t Texto_EsPalabra(const char *str, const char *palabra)
 {
     uint8_t i = 0;

@@ -3,52 +3,34 @@
 #include "io.h"
 #include "i2c1.h"
 #include "tick.h"
-#include "monitor.h"   // UART_Print, UART_PrintDec, ParseDec
+#include "monitor.h"
 
-// Entradas y salidas digitales en el expansor U5 (MCP23017, dirección 0x20) del bus I2C1
-// (AyudaProgra, "Pines de los MCP23017"):
-//  - Puerto A: GPA0-GPA7 = OUT0-OUT7, LEDs D3-D10 (bit n = OUTn). Activos en bajo: 0 = LED encendido.
-//  - Puerto B: GPB0-GPB7 = IN0-IN7, switches SW2-SW9 (bit n = INn). Switch hacia GND = 0;
-//    hacia el tiro 1 = 1, que lo da el pull-up interno (GPPUB = 0xFF es obligatorio, porque el
-//    tiro 1 del SS-12E17 quedó libre).
-//
-// Lógica: el estado de una salida es el de su entrada (1 = LED encendido), o el contrario con
-// "not". Como los LEDs son activos en bajo, el valor que se escribe en OLATA es el complemento.
-//
-// Funcionamiento no bloqueante: IOMAP e IOUNMAP solo modifican la tabla de mapeos. La tarea
-// IO_Actualizar() corre en el tick (cada 10 ms): lee GPIOB, calcula los LEDs y escribe OLATA
-// solo si cambiaron. Si U5 deja de responder se marca fuera de línea y la tarea deja de usar el
-// bus; el siguiente IOMAP lo vuelve a inicializar.
-//
-// Cada salida tiene como máximo una entrada asignada (un IOMAP nuevo sobre la misma salida
-// reemplaza al anterior). Una misma entrada puede manejar varias salidas.
+/* Switches (GPB, IN0-7) y LEDs (GPA, OUT0-7, activos en bajo) en U5 */
 
 #define IO_CANALES          8
 
-// Configuración de U5 (AyudaProgra, tabla de U5)
-#define U5_IODIRA           0x00    // LEDs: salidas
-#define U5_IODIRB           0xFF    // Switches: entradas
-#define U5_GPPUA            0x00    // Sin pull-up en los LEDs
-#define U5_GPPUB            0xFF    // Pull-up en los switches (obligatorio)
-#define U5_LEDS_APAGADOS    0xFF    // OLATA: 1 = LED apagado
+/* Configuración de U5 */
+#define U5_IODIRA           0x00    /* LEDs: salidas */
+#define U5_IODIRB           0xFF    /* Switches: entradas */
+#define U5_GPPUA            0x00
+#define U5_GPPUB            0xFF    /* Pull-up en los switches */
+#define U5_LEDS_APAGADOS    0xFF
 
-// Un mapeo por salida
+/* Un mapeo por salida */
 typedef struct
 {
-    uint8_t activo;         // 1 si la salida tiene una entrada asignada
-    uint8_t entrada;        // 0 a 7
-    uint8_t invertido;      // 1 con el modificador "not"
+    uint8_t activo;
+    uint8_t entrada;
+    uint8_t invertido;      /* "not" */
 } IO_Mapeo_t;
 
-// Estado compartido entre el monitor y la interrupción del tick
+/* Estado compartido con el tick */
 static volatile IO_Mapeo_t io_mapa[IO_CANALES];
-static volatile uint8_t io_activo = 0;          // 1 si hay al menos un mapeo
-static volatile uint8_t io_en_linea = 0;        // 1 si U5 respondió en la última transferencia
-static uint8_t io_olat_actual = U5_LEDS_APAGADOS;   // Último valor escrito en OLATA
+static volatile uint8_t io_activo = 0;
+static volatile uint8_t io_en_linea = 0;
+static uint8_t io_olat_actual = U5_LEDS_APAGADOS;
 
-// Inicialización de U5. Primero OLATA en 0xFF para que los LEDs nazcan apagados, luego las
-// pull-ups y al final IODIR (AyudaProgra: "se escribe OLAT antes que IODIR").
-// Si el tick ya está corriendo, quien llama debe haberlo bloqueado.
+/* Inicialización de U5: OLAT, pull-ups y al final IODIR */
 uint8_t IO_Init(void)
 {
     const uint8_t olata    = U5_LEDS_APAGADOS;
@@ -75,8 +57,7 @@ uint8_t IO_Init(void)
     return 1;
 }
 
-// Calcula el valor de OLATA (activo en bajo) a partir de los switches y la tabla de mapeos.
-// Las salidas sin mapeo quedan apagadas.
+/* Cálculo de los LEDs a partir de los switches */
 static uint8_t IO_CalcularLeds(uint8_t switches)
 {
     uint8_t encendidos = 0;
@@ -95,10 +76,10 @@ static uint8_t IO_CalcularLeds(uint8_t switches)
         }
     }
 
-    return (uint8_t)~encendidos;    // LEDs activos en bajo
+    return (uint8_t)~encendidos;    /* Activos en bajo */
 }
 
-// Tarea de fondo (desde SysTick_Handler): switches -> LEDs
+/* Tarea de fondo: switches -> LEDs */
 void IO_Actualizar(void)
 {
     uint8_t switches;
@@ -109,7 +90,7 @@ void IO_Actualizar(void)
         return;
     }
 
-    // Leemos el puerto de los switches (GPIOB refleja el nivel de los pines)
+    /* Lectura de los switches */
     if (MCP23017_ReadRegs(MCP_U5_ADDR, MCP_GPIOB, &switches, 1) != I2C1_OK)
     {
         io_en_linea = 0;
@@ -118,7 +99,7 @@ void IO_Actualizar(void)
 
     olat = IO_CalcularLeds(switches);
 
-    // Solo escribimos si algún LED cambió, para no ocupar el bus de más
+    /* Escritura solo si cambió */
     if (olat != io_olat_actual)
     {
         if (MCP23017_WriteRegs(MCP_U5_ADDR, MCP_OLATA, &olat, 1) != I2C1_OK)
@@ -130,8 +111,7 @@ void IO_Actualizar(void)
     }
 }
 
-// Si U5 no está en línea, lo inicializa con el tick bloqueado (el tick también usa el bus).
-// Devuelve 1 si U5 quedó en línea.
+/* Inicializa U5 si hace falta */
 static uint8_t IO_AsegurarU5(void)
 {
     uint8_t resultado;
@@ -148,10 +128,7 @@ static uint8_t IO_AsegurarU5(void)
     return resultado;
 }
 
-// Comando: IOMAP in out [not] [all]
-// Asigna el estado de la entrada digital in (switch 0-7) a la salida digital out (LED 0-7).
-// "not" invierte el mapeo; "all" mapea todos los switches a sus LEDs (INn -> OUTn).
-// El mapeo opera en paralelo con el monitor (tarea del tick), no bloquea.
+/* Comando: IOMAP in out [not] [all] */
 void Cmd_IOMAP(char *args)
 {
     int32_t numeros[2];
@@ -160,7 +137,7 @@ void Cmd_IOMAP(char *args)
     uint8_t todos = 0;
     char *ptr = args;
 
-    // Recorremos las palabras: números (in, out) y los modificadores not / all
+    /* Lectura de argumentos */
     while (*ptr != '\0')
     {
         uint8_t largo;
@@ -190,7 +167,7 @@ void Cmd_IOMAP(char *args)
         }
     }
 
-    // Sin "all" se necesitan in y out; con "all" se permiten 0 o 2 números (se ignoran)
+    /* Validación */
     if ((!todos && cantidad != 2) || (todos && cantidad == 1))
     {
         UART_Print("Error de sintaxis. Uso correcto: IOMAP in out [not] [all]  o  IOMAP all [not]\r\n");
@@ -210,7 +187,7 @@ void Cmd_IOMAP(char *args)
         return;
     }
 
-    // Actualizamos la tabla con el tick bloqueado para que no lea un mapeo a medias
+    /* Tabla de mapeos */
     Tick_Bloquear();
     if (todos)
     {
@@ -249,8 +226,7 @@ void Cmd_IOMAP(char *args)
     UART_Print("\r\n");
 }
 
-// Comando: IOUNMAP
-// Revierte todas las asignaciones de IOMAP y apaga los LEDs.
+/* Comando: IOUNMAP */
 void Cmd_IOUNMAP(char *args)
 {
     const uint8_t apagados = U5_LEDS_APAGADOS;
@@ -270,7 +246,7 @@ void Cmd_IOUNMAP(char *args)
     }
     io_activo = 0;
 
-    // Apagamos los LEDs (el tick ya no los toca porque no hay mapeos)
+    /* LEDs apagados */
     if (io_en_linea)
     {
         resultado = MCP23017_WriteRegs(MCP_U5_ADDR, MCP_OLATA, &apagados, 1);

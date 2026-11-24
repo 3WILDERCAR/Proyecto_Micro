@@ -1,31 +1,19 @@
 #include "hw_comun.h"
 #include "i2c1.h"
 
-// Driver del bus I2C1 en modo maestro, 100 kHz (modo estándar): escritura y lectura de registros
-// (lectura con RESTART entre el número de registro y los datos).
-//
-// Pines (AyudaProgra, tabla de la NUCLEO-G431KB; DS12589 4.11, Tabla 13):
-//  - PA15 = I2C1_SCL (CN3-7, A5), AF4, open-drain, sin pull-up ni pull-down interno
-//  - PB7  = I2C1_SDA (CN3-8, A4), AF4, open-drain, sin pull-up ni pull-down interno
-//  Las pull-ups son externas (R25 y R26, 4.7k a +3V3_IO).
-//  PA6 (unido a A5 por SB3) y PA5 (unido a A4 por SB2) ya quedaron como entradas flotantes
-//  en Setup_Seguridad(), así que no interfieren con el bus.
-//
-// Reloj: HSI16 (16 MHz) seleccionado en RCC_CCIPR.I2C1SEL, igual que el USART1 de ftdi_con.c,
-// para que el valor de TIMINGR no dependa del reloj del sistema.
-//
-// Manejo de errores: cada espera tiene un límite de iteraciones. Si el esclavo no responde
-// (NACK), hay error de bus o arbitraje, o se agota el tiempo, se reinicia el periférico por
-// software y la función devuelve I2C1_ERROR. Así un expansor apagado (fuente de 9 V sin
-// conectar) nunca deja al monitor colgado.
+/* I2C1 maestro a 100 kHz: PA15 = SCL, PB7 = SDA (AF4, open-drain) */
 
-// Pines del bus y su función alterna
-#define PIN_SCL           15   // PA15
-#define PIN_SDA           7    // PB7
-#define AF4_I2C1          4    // AF4 = I2C1_SCL / I2C1_SDA en PA15 y PB7
+#define PIN_SCL           15   /* PA15 */
+#define PIN_SDA           7    /* PB7 */
+#define AF4_I2C1          4
 
-// Temporización para 100 kHz con fI2CCLK = 16 MHz (RM0440, Tabla 360):
-// PRESC = 0x3, SCLDEL = 0x4, SDADEL = 0x2, SCLH = 0x0F, SCLL = 0x13 -> TIMINGR = 0x30420F13
+/* TIMINGR para 100 kHz con reloj de 16 MHz:
+   PRESC = 3   -> tPRESC = (3 + 1) / 16 MHz = 250 ns
+   SCLL  = 19  -> SCL en bajo (19 + 1) x 250 ns = 5.0 us
+   SCLH  = 15  -> SCL en alto (15 + 1) x 250 ns = 4.0 us
+   Periodo = 5.0 + 4.0 us + tiempos de sincronización = unos 10 us -> 100 kHz
+   SDADEL = 2  -> retardo de SDA 2 x 250 ns = 0.5 us
+   SCLDEL = 4  -> preparación de SDA (4 + 1) x 250 ns = 1.25 us */
 #define I2C_TIMING_100KHZ ((0x3U  << I2C_TIMINGR_PRESC_Pos)  | \
                            (0x4U  << I2C_TIMINGR_SCLDEL_Pos) | \
                            (0x2U  << I2C_TIMINGR_SDADEL_Pos) | \
@@ -35,12 +23,10 @@
 #define I2C_ERRORES       (I2C_ISR_NACKF | I2C_ISR_BERR | I2C_ISR_ARLO)
 #define I2C_LIMPIAR_TODO  (I2C_ICR_NACKCF | I2C_ICR_STOPCF | I2C_ICR_BERRCF | I2C_ICR_ARLOCF)
 
-// Límite de iteraciones de cada espera. Un byte a 100 kHz tarda unos 90 us; con el núcleo a
-// 16 MHz este límite equivale a algunos milisegundos, de sobra para cualquier paso normal.
+/* Límite de cada espera */
 #define I2C_TIMEOUT       4000U
 
-// Reinicio por software del I2C1 (RM0440, I2C software reset): PE = 0 libera SCL y SDA y reinicia
-// las máquinas de estado y las banderas. PE debe quedar en 0 al menos 3 ciclos de APB.
+/* Reinicio por software (PE = 0 y luego 1) */
 static void I2C1_Reset(void)
 {
     volatile uint32_t lectura;
@@ -48,10 +34,10 @@ static void I2C1_Reset(void)
     I2C1->CR1 &= ~I2C_CR1_PE;
     while (I2C1->CR1 & I2C_CR1_PE)
     {
-        // Esperamos a que PE se lea en 0
+        /* Espera */
     }
 
-    // Lecturas extra para asegurar los 3 ciclos de APB con PE en 0
+    /* PE en 0 al menos 3 ciclos */
     lectura = I2C1->CR1;
     lectura = I2C1->CR1;
     lectura = I2C1->CR1;
@@ -60,9 +46,7 @@ static void I2C1_Reset(void)
     I2C1->CR1 |= I2C_CR1_PE;
 }
 
-// Espera a que se encienda la bandera indicada en I2C_ISR.
-// Devuelve 1 si se encendió; 0 si antes apareció un error (NACK, BERR, ARLO) o se agotó el tiempo.
-// Los errores se revisan primero: así un NACK en el último byte no se confunde con un STOP normal.
+/* Espera una bandera de ISR: 1 si llegó, 0 si hubo error o se agotó el tiempo */
 static uint8_t I2C1_WaitFlag(uint32_t bandera)
 {
     uint32_t restante = I2C_TIMEOUT;
@@ -84,9 +68,7 @@ static uint8_t I2C1_WaitFlag(uint32_t bandera)
     return 0;
 }
 
-// Recuperación después de un error. Con un NACK el hardware genera el STOP solo (RM0440, I2C
-// controller transmitter: "a STOP condition is automatically sent"), así que esperamos un
-// momento a que termine antes de reiniciar.
+/* Recuperación después de un error */
 static uint8_t I2C1_Fallo(void)
 {
     uint32_t restante = I2C_TIMEOUT;
@@ -99,37 +81,35 @@ static uint8_t I2C1_Fallo(void)
         }
     }
 
-    I2C1->ICR = I2C_LIMPIAR_TODO;   // ICR solo se escribe: 1 limpia la bandera, 0 no hace nada
+    I2C1->ICR = I2C_LIMPIAR_TODO;
     I2C1_Reset();
     return I2C1_ERROR;
 }
 
 void I2C1_Init(void)
 {
-    // Reloj del I2C1 y reinicio desde el RCC
+    /* Reloj y reset del I2C1 */
     RCC_ActivarAPB1(RCC_APB1ENR1_I2C1EN, RCC_APB1RSTR1_I2C1RST);
 
-    // HSI16 como reloj del I2C1: I2C1SEL (bits 13:12 de RCC_CCIPR) = 10
+    /* HSI16 como reloj del I2C1 */
     RCC_HSI16_Encender();
     RCC->CCIPR &= ~RCC_CCIPR_I2C1SEL;
     RCC->CCIPR |= RCC_CCIPR_I2C1SEL_1;
 
-    // Pines del bus en open-drain
+    /* Pines */
     GPIO_ConfigAF(GPIOA, PIN_SCL, AF4_I2C1, GPIO_OPEN_DRAIN);
     GPIO_ConfigAF(GPIOB, PIN_SDA, AF4_I2C1, GPIO_OPEN_DRAIN);
 
-    // Configuración del periférico con PE = 0 (TIMINGR, ANFOFF y DNF solo se escriben así)
+    /* Filtros y tiempos con PE = 0 */
     I2C1->CR1 &= ~I2C_CR1_PE;
-    I2C1->CR1 &= ~(I2C_CR1_ANFOFF | I2C_CR1_DNF);   // Filtro analógico encendido, sin filtro digital
+    I2C1->CR1 &= ~(I2C_CR1_ANFOFF | I2C_CR1_DNF);
 
-    I2C1->TIMINGR = I2C_TIMING_100KHZ;              // Registro completo (bits 27:24 reservados en 0)
+    I2C1->TIMINGR = I2C_TIMING_100KHZ;
 
-    // Habilitamos el periférico
     I2C1->CR1 |= I2C_CR1_PE;
 }
 
-// Escribe len bytes al esclavo addr7 (dirección de 7 bits) en una sola transacción:
-// START, dirección + W, los len bytes y STOP automático (AUTOEND = 1).
+/* Escribe len bytes al esclavo (START, datos, STOP) */
 uint8_t I2C1_Write(uint8_t addr7, const uint8_t *data, uint8_t len)
 {
     uint32_t restante = I2C_TIMEOUT;
@@ -139,7 +119,7 @@ uint8_t I2C1_Write(uint8_t addr7, const uint8_t *data, uint8_t len)
         return I2C1_ERROR;
     }
 
-    // Esperamos a que el bus esté libre
+    /* Bus libre */
     while (I2C1->ISR & I2C_ISR_BUSY)
     {
         if (restante == 0)
@@ -149,21 +129,18 @@ uint8_t I2C1_Write(uint8_t addr7, const uint8_t *data, uint8_t len)
         restante--;
     }
 
-    // Limpiamos banderas de una transferencia anterior
     I2C1->ICR = I2C_LIMPIAR_TODO;
 
-    // Dirección, sentido (escritura), número de bytes y AUTOEND. En modo de 7 bits la dirección
-    // va corrida un bit: 0x40 para U5 y 0x42 para U6 (AyudaProgra, I2C1)
+    /* Dirección, escritura, número de bytes y AUTOEND */
     I2C1->CR2 &= ~(I2C_CR2_SADD | I2C_CR2_RD_WRN | I2C_CR2_ADD10 |
                    I2C_CR2_NBYTES | I2C_CR2_RELOAD | I2C_CR2_AUTOEND);
     I2C1->CR2 |= ((((uint32_t)addr7 << 1) & I2C_CR2_SADD) |
                   ((uint32_t)len << I2C_CR2_NBYTES_Pos) |
                   I2C_CR2_AUTOEND);
 
-    // Generamos el START (los demás campos ya no se pueden cambiar mientras START = 1)
     I2C1->CR2 |= I2C_CR2_START;
 
-    // Enviamos cada byte cuando TXIS indica que TXDR está libre
+    /* Datos */
     for (uint8_t i = 0; i < len; i++)
     {
         if (!I2C1_WaitFlag(I2C_ISR_TXIS))
@@ -173,7 +150,7 @@ uint8_t I2C1_Write(uint8_t addr7, const uint8_t *data, uint8_t len)
         I2C1->TXDR = data[i];
     }
 
-    // Con AUTOEND el hardware genera el STOP después del último byte
+    /* STOP */
     if (!I2C1_WaitFlag(I2C_ISR_STOPF))
     {
         return I2C1_Fallo();
@@ -183,9 +160,7 @@ uint8_t I2C1_Write(uint8_t addr7, const uint8_t *data, uint8_t len)
     return I2C1_OK;
 }
 
-// Lee len bytes del registro reg del esclavo addr7 con un RESTART entre la escritura y la lectura:
-// START, dirección + W, reg (AUTOEND = 0, termina con TC y SCL retenido),
-// RESTART, dirección + R, len bytes y STOP automático (AUTOEND = 1: NACK + STOP tras el último).
+/* Lee len bytes desde el registro reg (escritura, RESTART y lectura) */
 uint8_t I2C1_WriteRead(uint8_t addr7, uint8_t reg, uint8_t *buf, uint8_t len)
 {
     uint32_t restante = I2C_TIMEOUT;
@@ -195,7 +170,7 @@ uint8_t I2C1_WriteRead(uint8_t addr7, uint8_t reg, uint8_t *buf, uint8_t len)
         return I2C1_ERROR;
     }
 
-    // Esperamos a que el bus esté libre
+    /* Bus libre */
     while (I2C1->ISR & I2C_ISR_BUSY)
     {
         if (restante == 0)
@@ -207,7 +182,7 @@ uint8_t I2C1_WriteRead(uint8_t addr7, uint8_t reg, uint8_t *buf, uint8_t len)
 
     I2C1->ICR = I2C_LIMPIAR_TODO;
 
-    // Fase 1: escritura de 1 byte (el número de registro) sin STOP al final (AUTOEND = 0)
+    /* Escritura del número de registro, sin STOP */
     I2C1->CR2 &= ~(I2C_CR2_SADD | I2C_CR2_RD_WRN | I2C_CR2_ADD10 |
                    I2C_CR2_NBYTES | I2C_CR2_RELOAD | I2C_CR2_AUTOEND);
     I2C1->CR2 |= ((((uint32_t)addr7 << 1) & I2C_CR2_SADD) |
@@ -220,13 +195,12 @@ uint8_t I2C1_WriteRead(uint8_t addr7, uint8_t reg, uint8_t *buf, uint8_t len)
     }
     I2C1->TXDR = reg;
 
-    // TC: el byte se envió y SCL queda retenido esperando el RESTART
     if (!I2C1_WaitFlag(I2C_ISR_TC))
     {
         return I2C1_Fallo();
     }
 
-    // Fase 2: lectura de len bytes con STOP automático. Escribir START limpia TC y manda el RESTART
+    /* Lectura con RESTART y STOP automático */
     I2C1->CR2 &= ~(I2C_CR2_NBYTES | I2C_CR2_AUTOEND);
     I2C1->CR2 |= (I2C_CR2_RD_WRN | ((uint32_t)len << I2C_CR2_NBYTES_Pos) | I2C_CR2_AUTOEND);
     I2C1->CR2 |= I2C_CR2_START;
@@ -237,7 +211,7 @@ uint8_t I2C1_WriteRead(uint8_t addr7, uint8_t reg, uint8_t *buf, uint8_t len)
         {
             return I2C1_Fallo();
         }
-        buf[i] = (uint8_t)I2C1->RXDR;   // Leer RXDR limpia RXNE
+        buf[i] = (uint8_t)I2C1->RXDR;
     }
 
     if (!I2C1_WaitFlag(I2C_ISR_STOPF))
@@ -249,8 +223,7 @@ uint8_t I2C1_WriteRead(uint8_t addr7, uint8_t reg, uint8_t *buf, uint8_t len)
     return I2C1_OK;
 }
 
-// Lee len registros consecutivos del MCP23017 a partir de reg (el puntero avanza solo con
-// IOCON.SEQOP = 0, DS20001952E 3.5.6).
+/* Lee registros consecutivos del MCP23017 */
 uint8_t MCP23017_ReadRegs(uint8_t addr7, uint8_t reg, uint8_t *vals, uint8_t len)
 {
     if (len == 0 || len > MCP_MAX_REGS)
@@ -260,9 +233,7 @@ uint8_t MCP23017_ReadRegs(uint8_t addr7, uint8_t reg, uint8_t *vals, uint8_t len
     return I2C1_WriteRead(addr7, reg, vals, len);
 }
 
-// Escribe len registros consecutivos del MCP23017 a partir de reg.
-// Con IOCON.SEQOP = 0 (valor por defecto) el puntero de registro avanza solo después de cada
-// byte (DS20001952E 3.5.6), así que basta enviar la dirección del primero.
+/* Escribe registros consecutivos del MCP23017 */
 uint8_t MCP23017_WriteRegs(uint8_t addr7, uint8_t reg, const uint8_t *vals, uint8_t len)
 {
     uint8_t trama[MCP_MAX_REGS + 1];

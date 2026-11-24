@@ -2,55 +2,33 @@
 #include "watch.h"
 #include "display.h"
 #include "tick.h"
-#include "monitor.h"   // UART_Print, UART_PrintHex32, UART_PrintDec, ParseHex
+#include "Arcade.h"
+#include "monitor.h"
 
-// Monitoreo de direcciones de memoria en la pantalla LCD (LCDWATCH).
-//
-// Distribución de la pantalla (84 x 48, 6 bancos de 8 píxeles):
-//  - Línea 0: título "LCDWATCH" con la fuente normal.
-//  - Línea 1: en blanco.
-//  - Líneas 2 a 5: un watch por línea con la fuente chica (21 caracteres), por ejemplo
-//        "1 20000000:       FFh"     (hex, byte)
-//        "2 20000004:4294967295"     (dec, word)
-//    Número del watch, dirección en hex de 8 dígitos, ':' y el valor alineado a la derecha en
-//    10 caracteres. El hex lleva 2, 4 u 8 dígitos según el tamaño y termina en 'h' (igual que
-//    POT2SEG en el display); el decimal es sin signo.
-//  La fuente normal (14 caracteres por línea) no alcanza: dirección + valor necesitan hasta 19.
-//
-// Tiempo real sin bloquear: SysTick_Handler llama a Watch_Actualizar() cada WATCH_PERIODO_TICKS.
-// Cada llamada lee UN watch y redibuja su línea solo si el valor cambió (unos 0.4 ms de SPI1),
-// así cada watch se revisa cada 4 x 10 ms = 40 ms con cuatro watches.
-//
-// Uso compartido de SPI1: el tick y el programa principal (comandos LCD y LCDWATCH) usan la LCD.
-// El programa principal la usa solo con el tick bloqueado (Tick_Bloquear), igual que el bus I2C1.
-//
-// Direcciones válidas: una lectura de una dirección que no existe (ej. 0x30000000) produce un
-// BusFault; dentro del tick eso dejaría al monitor en HardFault. Por eso el comando prueba la
-// dirección una vez antes de agregarla (Watch_Probar) y exige alineación para hw y w: una lectura
-// desalineada en la zona de periféricos produce un UsageFault (PM0214, "Unaligned access").
+/* LCDWATCH: título en la línea 0 y un watch por línea (2 a 5) con la fuente chica */
 
 #define WATCH_MAX               4
 #define WATCH_LINEA_TITULO      0
-#define WATCH_PRIMERA_LINEA     2       // Watch n (0 a 3) en la línea 2 + n
-#define WATCH_ANCHO_VALOR       10      // Caracteres del valor: 4294967295 es el más largo
-#define WATCH_LARGO_LINEA       21      // "n AAAAAAAA:" (11) + valor (10)
+#define WATCH_PRIMERA_LINEA     2       /* Watch n en la línea 2 + n */
+#define WATCH_ANCHO_VALOR       10
+#define WATCH_LARGO_LINEA       21
 
 typedef struct
 {
     uint32_t direccion;
-    uint32_t mostrado;      // Último valor dibujado en la pantalla
-    uint8_t tamano;         // 1 (b), 2 (hw) o 4 (w) bytes
-    uint8_t hex;            // 1 = hexadecimal, 0 = decimal sin signo
-    uint8_t usado;          // 1 si la ranura tiene un watch
+    uint32_t mostrado;      /* Último valor dibujado */
+    uint8_t tamano;         /* 1, 2 o 4 bytes */
+    uint8_t hex;
+    uint8_t usado;
 } Watch_t;
 
-// Solo se modifican con el tick bloqueado; el tick las lee
+/* Lista de watches (se cambia con el tick bloqueado) */
 static Watch_t watches[WATCH_MAX];
-static volatile uint8_t watch_activo = 0;   // 1 si la pantalla está en modo LCDWATCH
-static uint8_t watch_siguiente = 0;         // Ranura del próximo watch (la más vieja)
-static uint8_t watch_revisar = 0;           // Ranura que revisa el tick (solo la usa el tick)
+static volatile uint8_t watch_activo = 0;
+static uint8_t watch_siguiente = 0;         /* Ranura más vieja */
+static uint8_t watch_revisar = 0;           /* Ranura que revisa el tick */
 
-// Lee el valor de la dirección con el tamaño de acceso indicado
+/* Lee la dirección con el tamaño indicado */
 static uint32_t Watch_Leer(uint32_t direccion, uint8_t tamano)
 {
     if (tamano == 4)
@@ -64,18 +42,14 @@ static uint32_t Watch_Leer(uint32_t direccion, uint8_t tamano)
     return *((volatile uint8_t *)direccion);
 }
 
-// Prueba si la dirección se puede leer sin un BusFault. Devuelve 1 si sí.
-// Técnica de PM0214 (registro CCR, bit BFHFNMIGN): con FAULTMASK = 1 el procesador corre con
-// prioridad -1 y, con BFHFNMIGN = 1, un BusFault de una lectura no genera excepción: la lectura
-// termina con un valor cualquiera y el error queda anotado en BFSR (parte de SCB->CFSR).
-// BFSR se limpia escribiendo 1 en sus bits.
+/* Prueba si la dirección se puede leer sin BusFault: 1 si sí */
 static uint8_t Watch_Probar(uint32_t direccion, uint8_t tamano)
 {
     uint32_t errores;
 
-    SCB->CFSR = SCB_CFSR_BUSFAULTSR_Msk;        // Limpia errores anteriores del bus
+    SCB->CFSR = SCB_CFSR_BUSFAULTSR_Msk;
 
-    __disable_fault_irq();                      // FAULTMASK = 1
+    __disable_fault_irq();
     SCB->CCR |= SCB_CCR_BFHFNMIGN_Msk;
     __DSB();
     __ISB();
@@ -88,18 +62,17 @@ static uint8_t Watch_Probar(uint32_t direccion, uint8_t tamano)
     SCB->CCR &= ~SCB_CCR_BFHFNMIGN_Msk;
     __DSB();
     __ISB();
-    __enable_fault_irq();                       // FAULTMASK = 0
+    __enable_fault_irq();
 
     if (errores != 0)
     {
-        SCB->CFSR = errores;                    // Deja BFSR limpio
+        SCB->CFSR = errores;
         return 0;
     }
     return 1;
 }
 
-// Escribe el valor en texto, alineado a la derecha en WATCH_ANCHO_VALOR caracteres (con espacios
-// a la izquierda) y terminado en '\0'
+/* Valor en texto, alineado a la derecha */
 static void Watch_FormatearValor(uint32_t valor, uint8_t tamano, uint8_t hex, char texto[WATCH_ANCHO_VALOR + 1])
 {
     const char digitos_hex[] = "0123456789ABCDEF";
@@ -130,7 +103,7 @@ static void Watch_FormatearValor(uint32_t valor, uint8_t tamano, uint8_t hex, ch
     }
 }
 
-// Dibuja la línea completa de la ranura n con el valor dado
+/* Dibuja la línea de un watch */
 static void Watch_Dibujar(uint8_t n, uint32_t valor)
 {
     const char digitos_hex[] = "0123456789ABCDEF";
@@ -149,8 +122,7 @@ static void Watch_Dibujar(uint8_t n, uint32_t valor)
     LCD_EscribirLineaChica((uint8_t)(WATCH_PRIMERA_LINEA + n), linea);
 }
 
-// Lee una dirección escrita en hexadecimal (con o sin 0x, de 1 a 8 dígitos) que termina en
-// espacio o en fin de cadena. Devuelve cuántos caracteres usó, o 0 si no es válida.
+/* Lee una dirección hex; devuelve los caracteres usados o 0 */
 static uint8_t Watch_LeerDireccion(const char *str, uint32_t *direccion)
 {
     uint8_t usados = 0;
@@ -181,12 +153,11 @@ static uint8_t Watch_LeerDireccion(const char *str, uint32_t *direccion)
         return 0;
     }
 
-    *direccion = ParseHex(str);     // ParseHex ignora el 0x y se detiene en el espacio
+    *direccion = ParseHex(str);
     return (uint8_t)(usados + digitos);
 }
 
-// Inicialización: lista de watches vacía. LCDWATCH no configura periféricos propios: usa la LCD
-// que ya inicializó LCD_Init.
+/* Inicialización: lista vacía */
 void Watch_Init(void)
 {
     for (uint8_t i = 0; i < WATCH_MAX; i++)
@@ -198,8 +169,7 @@ void Watch_Init(void)
     watch_activo = 0;
 }
 
-// Tarea de fondo (desde SysTick_Handler): revisa el siguiente watch en uso y redibuja su línea si
-// el valor cambió. A lo sumo una línea por llamada.
+/* Tarea de fondo: revisa un watch y redibuja su línea si cambió */
 void Watch_Actualizar(void)
 {
     if (!watch_activo)
@@ -232,16 +202,13 @@ uint8_t Watch_Activo(void)
     return watch_activo;
 }
 
-// Borra la lista; el próximo LCDWATCH vuelve a preparar la pantalla
+/* Borra la lista de watches */
 void Watch_Detener(void)
 {
     Watch_Init();
 }
 
-// Comando: LCDWATCH addr [{dec|hex}] [{b|hw|w}]
-// Agrega un watch a la LCD (hasta cuatro; el quinto sobreescribe el más viejo). Las opciones se
-// aceptan en cualquier orden y sin distinguir mayúsculas. Por omisión: dec y b (las primeras de
-// cada lista, igual que POT2SEG).
+/* Comando: LCDWATCH addr [{dec|hex}] [{b|hw|w}] */
 void Cmd_LCDWATCH(char *args)
 {
     uint32_t direccion;
@@ -263,7 +230,7 @@ void Cmd_LCDWATCH(char *args)
     }
     args += largo;
 
-    // Opciones
+    /* Opciones */
     while (1)
     {
         while (*args == ' ')
@@ -322,12 +289,17 @@ void Cmd_LCDWATCH(char *args)
         return;
     }
 
-    // Pantalla y lista con el tick bloqueado (SPI1 y la lista se comparten con el tick)
+    /* Pantalla y lista con el tick bloqueado */
     Tick_Bloquear();
 
     if (!watch_activo)
     {
-        // Primer watch: la pantalla deja de mostrar lo que hubiera (ej. el texto de LCD)
+        /* Primer watch: pantalla limpia y título */
+        if (Arcade_Activo())
+        {
+            Arcade_Detener();
+            UART_Print("ARCADE detenido.\r\n");
+        }
         Watch_Init();
         LCD_Borrar();
         LCD_EscribirLinea(WATCH_LINEA_TITULO, "LCDWATCH");
@@ -349,7 +321,7 @@ void Cmd_LCDWATCH(char *args)
 
     Tick_Desbloquear();
 
-    // Confirmación en la terminal, ej. "Watch 1: 0x20000000 (b, hex) = FFh"
+    /* Confirmación */
     Watch_FormatearValor(valor, tamano, hex, texto_valor);
     largo = 0;
     while (texto_valor[largo] == ' ')

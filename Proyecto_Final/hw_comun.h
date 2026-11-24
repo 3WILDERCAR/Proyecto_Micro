@@ -2,54 +2,51 @@
 #define HW_COMUN_H
 
 #include <stdint.h>
-#include "stm32g431xx.h"   // CMSIS de ST: estructuras de los periféricos (RCC->CR, TIM3->CCR1,
-                           // GPIOA->MODER...), sus direcciones y las máscaras de bits (RCC_CR_HSION,
-                           // TIM_CR1_CEN, I2C_CR2_START...). También incluye core_cm4.h (SysTick, NVIC).
+#include "stm32g431xx.h"   /* Registros y bits de ST (CMSIS) */
 
-// Definiciones y rutinas de hardware compartidas por los módulos de Green_Commands.
-// Antes cada módulo repetía sus propias direcciones, offsets y bits; ahora todo sale del
-// archivo oficial de ST y aquí solo queda lo que no está en él.
+/* Definiciones y rutinas compartidas */
 
-// Reloj del sistema: tras el reset corre con HSI16 y los prescalers de AHB y APB no dividen
-// (RM0440, RCC_CFGR con valor de reset 0x00000005). Con el prescaler de APB en 1, el reloj de los
-// timers es igual al del bus (RM0440 7.2.13), así que HCLK = PCLK1 = reloj de TIM3/TIM4 = 16 MHz.
-// Si en el futuro se cambia el reloj del sistema, hay que ajustar este valor.
+/* Reloj del sistema: HSI16 sin divisores */
 #define HCLK_HZ             16000000U
 
-// Valores de los campos de 2 bits de GPIOx_MODER (RM0440 9.4.1)
+/* Modos de GPIOx_MODER */
 #define GPIO_MODO_ENTRADA   0U
 #define GPIO_MODO_SALIDA    1U
 #define GPIO_MODO_AF        2U
 #define GPIO_MODO_ANALOGICO 3U
 
-// Valores de GPIOx_OTYPER (RM0440 9.4.2)
+/* Valores de GPIOx_PUPDR */
+#define GPIO_SIN_PULL       0U
+#define GPIO_PULL_UP        1U
+#define GPIO_PULL_DOWN      2U
+
+/* Valores de GPIOx_OTYPER */
 #define GPIO_PUSH_PULL      0U
 #define GPIO_OPEN_DRAIN     1U
 
-// Modos de salida de un canal de timer, OCxM[3:0] (RM0440 30.4)
-#define TIM_OCM_FORZAR_BAJO 4U      // 0100: force inactive level
-#define TIM_OCM_PWM1        6U      // 0110: PWM modo 1 (salida en 1 mientras CNT < CCRx)
+/* Modos de salida de un canal de timer (OCxM) */
+#define TIM_OCM_FORZAR_BAJO 4U
+#define TIM_OCM_PWM1        6U
 
-// RCC
+/* RCC */
 void RCC_HSI16_Encender(void);
 void RCC_ActivarAPB1(uint32_t bit_reloj, uint32_t bit_reset);
 void RCC_ActivarAPB2(uint32_t bit_reloj, uint32_t bit_reset);
 
-// GPIO
+/* GPIO */
 void GPIO_ConfigAF(GPIO_TypeDef *puerto, uint8_t pin, uint8_t af, uint32_t tipo_salida);
 void GPIO_ConfigAnalogico(GPIO_TypeDef *puerto, uint8_t pin);
 void GPIO_ConfigSalida(GPIO_TypeDef *puerto, uint8_t pin, uint8_t valor_inicial);
+void GPIO_ConfigEntrada(GPIO_TypeDef *puerto, uint8_t pin, uint32_t pull);
 void GPIO_Escribir(GPIO_TypeDef *puerto, uint8_t pin, uint8_t valor);
 
-// Espera activa aproximada (para retardos cortos de inicialización, no para temporizar con precisión)
+/* Retardo aproximado */
 void Retardo_us(uint32_t us);
 
-// Compara una palabra de un comando sin distinguir mayúsculas. La palabra del comando termina en
-// espacio o en fin de cadena; 'palabra' se escribe en minúsculas. Devuelve su largo si coincide,
-// 0 si no. La usan IOMAP, POT2SEG y LCDWATCH.
+/* Compara una palabra del comando (sin mayúsculas); devuelve su largo o 0 */
 uint8_t Texto_EsPalabra(const char *str, const char *palabra);
 
-// Timers de propósito general (TIM2-TIM4), canales 1 a 4
+/* Timers TIM2-TIM4 */
 void TIM_ConfigBase(TIM_TypeDef *tim, uint32_t psc, uint32_t arr);
 void TIM_CanalSalida(TIM_TypeDef *tim, uint8_t canal, uint32_t modo);
 void TIM_CanalModo(TIM_TypeDef *tim, uint8_t canal, uint32_t modo);

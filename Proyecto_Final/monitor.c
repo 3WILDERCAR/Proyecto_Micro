@@ -11,7 +11,7 @@
 #include "sound.h"
 #include "rgb.h"
 #include "watch.h"
-#include "arcade.h"
+#include "Arcade.h"
 
 extern void Cmd_RM(uint32_t reg_idx, uint32_t val);
 extern void Cmd_RUN(uint32_t addr);
@@ -158,38 +158,32 @@ void Print_RD(void) {
 }
 
 
-// Tabla de los comandos adicionales (fondo verde)
-// Cada entrada relaciona el nombre que se escribe en la terminal con la función de su módulo
-// en Green_Commands. Están en el orden de implementación del proyecto.
+/* Tabla de los comandos adicionales */
 typedef struct
 {
-    const char *nombre;             // Texto del comando, en mayúsculas
-    void (*funcion)(char *args);    // Función del módulo que lo ejecuta
+    const char *nombre;
+    void (*funcion)(char *args);
 } GreenCmd_t;
 
 static const GreenCmd_t green_cmds[] =
 {
-    {"SEGMENT",  Cmd_SEGMENT},      // display.c
-    {"SOUND",    Cmd_SOUND},        // sound.c
-    {"MUTE",     Cmd_MUTE},         // sound.c
-    {"RGBOUT",   Cmd_RGBOUT},       // rgb.c
-    {"VIN",      Cmd_VIN},          // analog.c
-    {"VOUT",     Cmd_VOUT},         // analog.c
-    {"IOMAP",    Cmd_IOMAP},        // io.c
-    {"IOUNMAP",  Cmd_IOUNMAP},      // io.c
-    {"LCD",      Cmd_LCD},          // display.c
-    {"POT2SEG",  Cmd_POT2SEG},      // analog.c
-    {"LCDWATCH", Cmd_LCDWATCH},     // watch.c
-    {"ARCADE",   Cmd_ARCADE}        // arcade.c
+    {"SEGMENT",  Cmd_SEGMENT},      /* display.c */
+    {"SOUND",    Cmd_SOUND},        /* sound.c */
+    {"MUTE",     Cmd_MUTE},         /* sound.c */
+    {"RGBOUT",   Cmd_RGBOUT},       /* rgb.c */
+    {"VIN",      Cmd_VIN},          /* analog.c */
+    {"VOUT",     Cmd_VOUT},         /* analog.c */
+    {"IOMAP",    Cmd_IOMAP},        /* io.c */
+    {"IOUNMAP",  Cmd_IOUNMAP},      /* io.c */
+    {"LCD",      Cmd_LCD},          /* display.c */
+    {"POT2SEG",  Cmd_POT2SEG},      /* analog.c */
+    {"LCDWATCH", Cmd_LCDWATCH},     /* watch.c */
+    {"ARCADE",   Cmd_ARCADE}        /* Arcade.c */
 };
 
 #define GREEN_CMDS_COUNT (sizeof(green_cmds) / sizeof(green_cmds[0]))
 
-// Busca el contenido de cmd_buffer en la tabla de comandos verdes.
-// Si lo encuentra, llama a su función pasándole los argumentos (sin espacios iniciales)
-// y devuelve 1. Si no lo encuentra, devuelve 0.
-// A diferencia de los comandos básicos, aquí se exige que el nombre esté completo (seguido de
-// un espacio o del fin de la línea), para que "LCD" no se confunda con "LCDWATCH".
+/* Busca y ejecuta un comando adicional: 1 si lo encontró */
 static uint8_t Monitor_ParseGreen(void)
 {
     for (uint32_t i = 0; i < GREEN_CMDS_COUNT; i++)
@@ -203,7 +197,7 @@ static uint8_t Monitor_ParseGreen(void)
 
             while (*ptr == ' ')
             {
-                ptr++; // Saltamos los espacios después del nombre del comando
+                ptr++;
             }
 
             green_cmds[i].funcion(ptr);

@@ -2,75 +2,45 @@
 #include "analog.h"
 #include "display.h"
 #include "tick.h"
-#include "monitor.h"   // UART_Print, UART_PrintDec, ParseDec
+#include "monitor.h"
 
-// Conversiones analógico-digital y digital-analógico, y monitoreo continuo del potenciómetro.
-//
-// Entrada analógica (AyudaProgra, tabla de la NUCLEO-G431KB):
-//  - POT: PA0 (CN3-12, A0), modo analógico, ADC1_IN1 (canal 1 de ADC1).
-//
-// ADC1 (RM0440 cap. 21):
-//  - Reloj síncrono adc_hclk/1 (CKMODE = 01) = 16 MHz. Solo se permite con el prescaler de AHB
-//    sin dividir, que es el valor tras reset (ver hw_comun.h).
-//  - Conversión única por software (CONT = 0, EXTEN = 00), canal 1 en modo single-ended.
-//  - Tiempo de muestreo de 640.5 ciclos (SMP = 111, 40 us), el más largo, porque no se conoce la
-//    impedancia del potenciómetro. Conversión total = muestreo + 12.5 ciclos (unos 41 us).
-//  - Resolución por conversión: RES solo se puede cambiar con ADSTART = 0 (sin conversión en
-//    curso), lo cual se cumple porque en modo único ADSTART se limpia solo al terminar.
-//  - Voltaje: VREF+ = VDDA = 3.3 V en la NUCLEO-G431KB.
-//
-// Salida analógica (AyudaProgra, tabla de la NUCLEO-G431KB):
-//  - DAC_OUT: PA4 (CN3-9, A3), modo analógico, DAC1_OUT1 (canal 1 de DAC1).
-//
-// DAC1 (RM0440 cap. 22):
-//  - MODE1 = 000: modo normal con el buffer de salida encendido, conectado al pin externo.
-//    MODE1 solo se puede escribir con EN1 = 0, así que se configura antes de habilitar.
-//  - Sin disparo (TEN1 = 0): el dato escrito en DHR pasa a DOR un ciclo después.
-//  - V = VREF+ * DOR / 4096. En 8 bits el dato ocupa los bits 11:4 de DOR, así que el fondo de
-//    escala es 2^res (256 o 4096), no 2^res - 1.
-//  - Con el buffer encendido la salida solo es válida entre 0.2 V y VREF+ - 0.2 V con carga de
-//    5 kOhm o más (AyudaProgra, "DAC"; DS12589 5.3.19): VOUT limita el valor a ese rango.
-//  - El canal se habilita con el primer VOUT; hasta entonces PA4 queda en analógico (alta impedancia).
-//
-// POT2SEG (no bloqueante): Pot2Seg_Actualizar() corre en el tick cada POT_PERIODO_TICKS (20 ms),
-// hace una conversión de 12 bits (unos 41 us) y la manda al display: en decimal (0-4095) o en
-// hexadecimal (000h-FFFh). Como el tick también usa el ADC, VIN bloquea el tick durante su conversión.
+/* ADC1 (potenciómetro en PA0), DAC1 (PA4) y POT2SEG */
 
-#define PIN_POT             0       // PA0
-#define CANAL_POT           1       // ADC1_IN1
+#define PIN_POT             0       /* PA0 */
+#define CANAL_POT           1       /* ADC1_IN1 */
 
-#define ADC_SMP_640_5       7U      // SMPx = 111: 640.5 ciclos de ADC
+/* Muestreo de 640.5 ciclos a 16 MHz = 40 us; con los 12.5 ciclos de conversión
+   son 653 ciclos = unos 41 us por lectura */
+#define ADC_SMP_640_5       7U
 
-// Referencia del ADC en décimas de milivoltio (3.3 V = 33000), para imprimir 4 decimales
+/* Referencia de 3.3 V en décimas de mV: 3.3 V = 3300 mV = 33000 décimas (4 decimales al imprimir) */
 #define VREF_DECIMAS_MV     33000U
 
-// Arranque del regulador del ADC: el tiempo máximo está en la hoja de datos (tADCVREG_STUP,
-// unas decenas de microsegundos). Se espera con amplio margen porque solo ocurre una vez.
+/* Espera del regulador del ADC */
 #define ADC_ARRANQUE_US     100U
 
-// Límite de iteraciones para las esperas del ADC (calibración, ADRDY, EOC). Una conversión
-// tarda unos 41 us; el límite equivale a varios milisegundos.
+/* Límite de las esperas */
 #define ADC_TIMEOUT         100000U
 
-#define PIN_DAC             4       // PA4 (DAC1_OUT1)
+#define PIN_DAC             4       /* PA4 */
 
-// Rango válido de la salida con el buffer encendido, en décimas de milivoltio
-#define DAC_MIN_DECIMAS_MV  2000U                               // 0.2 V
-#define DAC_MAX_DECIMAS_MV  (VREF_DECIMAS_MV - 2000U)           // 3.1 V
+/* Rango del DAC con buffer, en décimas de mV: 0.2 V = 2000; 3.3 V - 0.2 V = 3.1 V = 31000 */
+#define DAC_MIN_DECIMAS_MV  2000U
+#define DAC_MAX_DECIMAS_MV  (VREF_DECIMAS_MV - 2000U)
 
 #define DAC_TIMEOUT         100000U
 
-static uint8_t adc_listo = 0;       // 1 si Analog_InitADC terminó bien
-static uint8_t dac_listo = 0;       // 1 si Analog_InitDAC ya configuró el DAC
-static uint8_t dac_encendido = 0;   // 1 después de habilitar el canal (primer VOUT)
+static uint8_t adc_listo = 0;
+static uint8_t dac_listo = 0;
+static uint8_t dac_encendido = 0;
 
-// Estado de POT2SEG, compartido con la interrupción del tick
-static volatile uint8_t pot_activo = 0;     // 1 con POT2SEG on
-static volatile uint8_t pot_hex = 0;        // 1 = hexadecimal, 0 = decimal
+/* Estado de POT2SEG */
+static volatile uint8_t pot_activo = 0;
+static volatile uint8_t pot_hex = 0;        /* 1 = hexadecimal */
 
-#define ADC_RES_12_BITS     0U      // Código RES[1:0] = 00
+#define ADC_RES_12_BITS     0U
 
-// Espera a que (ADC1->CR & mascara) sea igual a 'valor'. Devuelve 1 si se cumplió, 0 si se agotó el tiempo.
+/* Espera un valor en ADC1->CR: 1 si se cumplió */
 static uint8_t ADC_EsperarCR(uint32_t mascara, uint32_t valor)
 {
     uint32_t restante = ADC_TIMEOUT;
@@ -86,7 +56,7 @@ static uint8_t ADC_EsperarCR(uint32_t mascara, uint32_t valor)
     return 1;
 }
 
-// Espera a que se encienda una bandera de ADC1->ISR. Devuelve 1 si se encendió, 0 si se agotó el tiempo.
+/* Espera una bandera de ADC1->ISR: 1 si se encendió */
 static uint8_t ADC_EsperarISR(uint32_t bandera)
 {
     uint32_t restante = ADC_TIMEOUT;
@@ -102,33 +72,32 @@ static uint8_t ADC_EsperarISR(uint32_t bandera)
     return 1;
 }
 
-// Inicialización del ADC1 para el potenciómetro, en el orden de RM0440 cap. 21:
-// reloj, salir de deep-power-down, regulador, calibración, habilitación y configuración del canal.
+/* Inicialización del ADC1 */
 uint8_t Analog_InitADC(void)
 {
     adc_listo = 0;
 
-    // Reloj de ADC1/ADC2 (bus AHB2) y reinicio desde el RCC
+    /* Reloj y reset del ADC */
     RCC->AHB2ENR |= RCC_AHB2ENR_ADC12EN;
     RCC->AHB2RSTR |= RCC_AHB2RSTR_ADC12RST;
     RCC->AHB2RSTR &= ~RCC_AHB2RSTR_ADC12RST;
 
-    // Reloj síncrono adc_hclk/1: CKMODE (bits 17:16 de ADC12_CCR) = 01
+    /* Reloj síncrono del ADC */
     ADC12_COMMON->CCR &= ~ADC_CCR_CKMODE;
     ADC12_COMMON->CCR |= ADC_CCR_CKMODE_0;
 
-    // PA0 en analógico
+    /* Pin */
     GPIO_ConfigAnalogico(GPIOA, PIN_POT);
 
-    // Salimos de deep-power-down (DEEPPWD vale 1 tras reset) y encendemos el regulador
+    /* Regulador del ADC */
     ADC1->CR &= ~ADC_CR_DEEPPWD;
     ADC1->CR |= ADC_CR_ADVREGEN;
     Retardo_us(ADC_ARRANQUE_US);
 
-    // Canal 1 en modo single-ended. DIFSEL solo se puede escribir con ADEN = 0
+    /* Canal single-ended */
     ADC1->DIFSEL &= ~(1U << CANAL_POT);
 
-    // Calibración single-ended (ADCALDIF = 0) con el ADC deshabilitado (ADEN = 0)
+    /* Calibración */
     ADC1->CR &= ~ADC_CR_ADCALDIF;
     ADC1->CR |= ADC_CR_ADCAL;
     if (!ADC_EsperarCR(ADC_CR_ADCAL, 0))
@@ -136,10 +105,9 @@ uint8_t Analog_InitADC(void)
         return 0;
     }
 
-    // ADEN no se puede setear durante 4 ciclos de ADC después de que ADCAL baja
     Retardo_us(1);
 
-    // Habilitación: limpiamos ADRDY (se escribe 1), ADEN = 1 y esperamos ADRDY
+    /* Habilitación */
     ADC1->ISR = ADC_ISR_ADRDY;
     ADC1->CR |= ADC_CR_ADEN;
     if (!ADC_EsperarISR(ADC_ISR_ADRDY))
@@ -148,16 +116,15 @@ uint8_t Analog_InitADC(void)
     }
     ADC1->ISR = ADC_ISR_ADRDY;
 
-    // CFGR: alineado a la derecha, conversión única, disparo por software; si hubiera overrun
-    // se conserva el dato más nuevo (OVRMOD = 1). La resolución se escribe en cada conversión.
+    /* Conversión única por software */
     ADC1->CFGR &= ~(ADC_CFGR_RES | ADC_CFGR_ALIGN | ADC_CFGR_CONT | ADC_CFGR_EXTEN | ADC_CFGR_OVRMOD);
     ADC1->CFGR |= ADC_CFGR_OVRMOD;
 
-    // Tiempo de muestreo del canal 1 (SMP1, bits 5:3 de SMPR1)
+    /* Tiempo de muestreo */
     ADC1->SMPR1 &= ~ADC_SMPR1_SMP1;
     ADC1->SMPR1 |= (ADC_SMP_640_5 << ADC_SMPR1_SMP1_Pos);
 
-    // Secuencia regular de una sola conversión (L = 0) con el canal 1 en la primera posición
+    /* Secuencia de un canal */
     ADC1->SQR1 &= ~(ADC_SQR1_L | ADC_SQR1_SQ1);
     ADC1->SQR1 |= ((uint32_t)CANAL_POT << ADC_SQR1_SQ1_Pos);
 
@@ -165,28 +132,26 @@ uint8_t Analog_InitADC(void)
     return 1;
 }
 
-// Convierte la resolución en bits (12, 10, 8 o 6) a su código RES[1:0].
-// Devuelve 0 si la resolución no es válida.
+/* Código RES de la resolución */
 static uint8_t ADC_CodigoResolucion(int32_t bits, uint32_t *codigo)
 {
     switch (bits)
     {
-        case 12: *codigo = 0U; return 1;   // 00
-        case 10: *codigo = 1U; return 1;   // 01
-        case 8:  *codigo = 2U; return 1;   // 10
-        case 6:  *codigo = 3U; return 1;   // 11
+        case 12: *codigo = 0U; return 1;
+        case 10: *codigo = 1U; return 1;
+        case 8:  *codigo = 2U; return 1;
+        case 6:  *codigo = 3U; return 1;
         default: return 0;
     }
 }
 
-// Hace una conversión del potenciómetro con la resolución indicada (código RES[1:0]).
-// Bloquea hasta que termina (unos 41 us). Devuelve 1 y el valor en *lectura, o 0 si falla.
+/* Una conversión con la resolución indicada */
 static uint8_t ADC_Convertir(uint32_t codigo_res, uint32_t *lectura)
 {
     ADC1->CFGR &= ~ADC_CFGR_RES;
     ADC1->CFGR |= (codigo_res << ADC_CFGR_RES_Pos);
 
-    // Limpiamos banderas anteriores (se escribe 1) y arrancamos la conversión
+    /* Banderas y arranque */
     ADC1->ISR = (ADC_ISR_EOC | ADC_ISR_EOS | ADC_ISR_OVR);
     ADC1->CR |= ADC_CR_ADSTART;
 
@@ -195,41 +160,40 @@ static uint8_t ADC_Convertir(uint32_t codigo_res, uint32_t *lectura)
         return 0;
     }
 
-    *lectura = ADC1->DR;                // Leer DR limpia EOC
+    *lectura = ADC1->DR;
     return 1;
 }
 
-// Inicialización del DAC1 canal 1 (PA4). Deja todo configurado pero el canal apagado (EN1 = 0).
+/* Inicialización del DAC1 (canal apagado) */
 void Analog_InitDAC(void)
 {
     dac_encendido = 0;
 
-    // Reloj del DAC1 (bus AHB2) y reinicio desde el RCC
+    /* Reloj y reset del DAC */
     RCC->AHB2ENR |= RCC_AHB2ENR_DAC1EN;
     RCC->AHB2RSTR |= RCC_AHB2RSTR_DAC1RST;
     RCC->AHB2RSTR &= ~RCC_AHB2RSTR_DAC1RST;
 
-    // PA4 en analógico antes de habilitar el canal
+    /* Pin */
     GPIO_ConfigAnalogico(GPIOA, PIN_DAC);
 
-    // Canal apagado mientras se configura
+    /* Canal apagado */
     DAC1->CR &= ~DAC_CR_EN1;
 
-    // MCR: MODE1 = 000 (buffer encendido, pin externo) y HFSEL = 00 (AHB a menos de 80 MHz)
+    /* Modo normal con buffer */
     DAC1->MCR &= ~(DAC_MCR_MODE1 | DAC_MCR_HFSEL);
 
-    // CR: sin disparo, sin generador de ondas, sin DMA y fuera de modo calibración
+    /* Sin disparo ni DMA */
     DAC1->CR &= ~(DAC_CR_TEN1 | DAC_CR_TSEL1 | DAC_CR_WAVE1 | DAC_CR_MAMP1 |
                   DAC_CR_DMAEN1 | DAC_CR_DMAUDRIE1 | DAC_CR_CEN1);
 
-    // Dato inicial en 0
+    /* Dato inicial */
     DAC1->DHR12R1 = 0;
 
     dac_listo = 1;
 }
 
-// Habilita el canal 1 (EN1 = 1) y espera a que la interfaz acepte datos (DAC1RDY).
-// Devuelve 1 si quedó listo, 0 si se agotó el tiempo.
+/* Habilita el canal del DAC */
 static uint8_t DAC_Encender(void)
 {
     uint32_t restante = DAC_TIMEOUT;
@@ -248,9 +212,7 @@ static uint8_t DAC_Encender(void)
     return 1;
 }
 
-// Lee un voltaje decimal positivo con hasta 4 decimales (ej. "2", "1.5", "0.25", "3.1000") y lo
-// devuelve en décimas de milivoltio. Termina en espacio o fin de cadena.
-// Devuelve cuántos caracteres se usaron, o 0 si el texto no es válido.
+/* Lee un voltaje con hasta 4 decimales (en décimas de mV) */
 static uint8_t Analog_LeerVoltaje(const char *str, uint32_t *decimas_mv)
 {
     const char *inicio = str;
@@ -263,7 +225,7 @@ static uint8_t Analog_LeerVoltaje(const char *str, uint32_t *decimas_mv)
     {
         if (digitos_ent >= 2)
         {
-            return 0;   // Más de 99 V no tiene sentido y evita desbordes
+            return 0;
         }
         enteros = (enteros * 10U) + (uint32_t)(*str - '0');
         digitos_ent++;
@@ -277,7 +239,7 @@ static uint8_t Analog_LeerVoltaje(const char *str, uint32_t *decimas_mv)
         {
             if (digitos_dec >= 4)
             {
-                return 0;   // Más de 4 decimales
+                return 0;
             }
             fraccion = (fraccion * 10U) + (uint32_t)(*str - '0');
             digitos_dec++;
@@ -290,7 +252,7 @@ static uint8_t Analog_LeerVoltaje(const char *str, uint32_t *decimas_mv)
         return 0;
     }
 
-    // Completamos la fracción a 4 decimales (ej. ".5" -> 5000)
+    /* Fracción a 4 decimales: ".5" -> 5 -> 5000, así 1.5 V = 1 x 10000 + 5000 = 15000 décimas de mV */
     while (digitos_dec < 4)
     {
         fraccion *= 10U;
@@ -301,7 +263,7 @@ static uint8_t Analog_LeerVoltaje(const char *str, uint32_t *decimas_mv)
     return (uint8_t)(str - inicio);
 }
 
-// Imprime un valor en décimas de milivoltio como voltios con 4 decimales (ej. 16502 -> "1.6502")
+/* Imprime décimas de mV como voltios */
 static void Analog_PrintVoltaje(uint32_t decimas_mv)
 {
     uint32_t enteros = decimas_mv / 10000U;
@@ -310,7 +272,7 @@ static void Analog_PrintVoltaje(uint32_t decimas_mv)
     UART_PrintDec((int32_t)enteros);
     UART_Print(".");
 
-    // Ceros a la izquierda para completar los 4 decimales
+    /* Ceros de los decimales */
     if (decimales < 1000U)
     {
         UART_Print("0");
@@ -326,9 +288,7 @@ static void Analog_PrintVoltaje(uint32_t decimas_mv)
     UART_PrintDec((int32_t)decimales);
 }
 
-// Comando: VIN [res]
-// Conversión AD del potenciómetro con resolución res (6, 8, 10 o 12 bits; default: 8 bits).
-// Imprime el voltaje a 4 dígitos de detalle (V con 4 decimales). Blocking.
+/* Comando: VIN [res] */
 void Cmd_VIN(char *args)
 {
     int32_t bits = 8;
@@ -337,7 +297,7 @@ void Cmd_VIN(char *args)
     uint32_t maximo;
     uint32_t decimas_mv;
 
-    // Resolución opcional
+    /* Resolución */
     if (*args != '\0')
     {
         uint8_t usados = ParseDec(args, &bits);
@@ -367,8 +327,7 @@ void Cmd_VIN(char *args)
         return;
     }
 
-    // El tick también usa el ADC (POT2SEG), así que se bloquea mientras VIN lo usa.
-    // Si el ADC no quedó listo al arrancar, lo reintentamos una vez
+    /* Conversión con el tick bloqueado */
     Tick_Bloquear();
     if (!adc_listo && !Analog_InitADC())
     {
@@ -384,7 +343,10 @@ void Cmd_VIN(char *args)
     }
     Tick_Desbloquear();
 
-    // V = lectura * VREF / (2^res - 1), en décimas de milivoltio y redondeado
+    /* Cálculo del voltaje:
+       V = lectura x 3.3 V / (2^res - 1)
+       En décimas de mV: lectura x 33000 / maximo; se suma maximo / 2 para redondear.
+       Ej. 8 bits, lectura 128: 128 x 33000 / 255 = 16565 -> 1.6565 V */
     maximo = (1U << bits) - 1U;
     decimas_mv = ((lectura * VREF_DECIMAS_MV) + (maximo / 2U)) / maximo;
 
@@ -399,9 +361,7 @@ void Cmd_VIN(char *args)
     UART_Print(" bits)\r\n");
 }
 
-// Comando: VOUT voltage [res]
-// Conversión DA para sacar el nivel voltage (V, hasta 4 decimales) con resolución res
-// (8 o 12 bits; default: 8 bits). Limita el valor a 0.2 V - 3.1 V. Blocking.
+/* Comando: VOUT voltage [res] */
 void Cmd_VOUT(char *args)
 {
     uint32_t pedido;
@@ -421,7 +381,7 @@ void Cmd_VOUT(char *args)
         return;
     }
 
-    // Resolución opcional
+    /* Resolución */
     ptr = args + usados;
     while (*ptr == ' ')
     {
@@ -463,16 +423,17 @@ void Cmd_VOUT(char *args)
         return;
     }
 
-    // Código = V * 2^res / VREF, redondeado. Los límites se calculan en códigos para que la
-    // salida real nunca quede fuera de 0.2 V - 3.1 V: el mínimo se redondea hacia arriba y
-    // el máximo hacia abajo.
+    /* Cálculo del código del DAC:
+       código = V x 2^res / 3.3 V, redondeado (se suma 33000 / 2 antes de dividir).
+       Ej. 1.65 V en 12 bits: 16500 x 4096 / 33000 = 2048
+       El mínimo (0.2 V) se redondea hacia arriba y el máximo (3.1 V) hacia abajo,
+       para que la salida nunca quede fuera del rango. */
     escala = 1U << bits;
     codigo = ((pedido * escala) + (VREF_DECIMAS_MV / 2U)) / VREF_DECIMAS_MV;
     codigo_min = ((DAC_MIN_DECIMAS_MV * escala) + VREF_DECIMAS_MV - 1U) / VREF_DECIMAS_MV;
     codigo_max = (DAC_MAX_DECIMAS_MV * escala) / VREF_DECIMAS_MV;
 
-    // Solo se avisa si el voltaje pedido está fuera del rango. Si está justo en el borde (ej. 0.2 V
-    // en 12 bits), el redondeo puede dar un código un paso afuera y se corrige sin aviso.
+    /* Límite de 0.2 V a 3.1 V */
     if (pedido < DAC_MIN_DECIMAS_MV || pedido > DAC_MAX_DECIMAS_MV)
     {
         UART_Print("Aviso: con el buffer encendido el DAC solo da 0.2 V a 3.1 V; se limito el valor.\r\n");
@@ -495,7 +456,8 @@ void Cmd_VOUT(char *args)
         DAC1->DHR12R1 = codigo;
     }
 
-    // Voltaje que realmente sale: V = VREF * código / 2^res
+    /* Voltaje de salida: V = código x 3.3 V / 2^res (en décimas de mV, redondeado).
+       Ej. 2048 en 12 bits: 2048 x 33000 / 4096 = 16500 -> 1.6500 V */
     salida = ((codigo * VREF_DECIMAS_MV) + (escala / 2U)) / escala;
 
     UART_Print("VOUT: ");
@@ -509,7 +471,7 @@ void Cmd_VOUT(char *args)
     UART_Print(" bits)\r\n");
 }
 
-// Tarea de fondo de POT2SEG (desde SysTick_Handler): una conversión de 12 bits al display
+/* Tarea de fondo de POT2SEG */
 void Pot2Seg_Actualizar(void)
 {
     uint32_t lectura;
@@ -521,7 +483,7 @@ void Pot2Seg_Actualizar(void)
 
     if (!ADC_Convertir(ADC_RES_12_BITS, &lectura))
     {
-        return;     // Se reintenta en el siguiente periodo
+        return;
     }
 
     if (pot_hex)
@@ -539,16 +501,28 @@ uint8_t Pot2Seg_Activo(void)
     return pot_activo;
 }
 
-// Detiene POT2SEG sin tocar el display (quien llama decide qué mostrar después)
+/* Detiene POT2SEG */
 void Pot2Seg_Detener(void)
 {
     pot_activo = 0;
 }
 
-// Comando: POT2SEG {on|off} [{dec|hex}]
-// Arranca o para el despliegue en el display de 7 segmentos de la conversión AD (12 bits) del
-// potenciómetro, en decimal (default) o hexadecimal. Opera en paralelo con el monitor (tarea del
-// tick cada 20 ms), no bloquea. Con "on" mientras ya está activo, solo cambia el formato.
+uint8_t Analog_ADCListo(void)
+{
+    return adc_listo;
+}
+
+/* Lectura de 12 bits para otros módulos */
+uint8_t Analog_LeerPot12(uint32_t *lectura)
+{
+    if (!adc_listo)
+    {
+        return 0;
+    }
+    return ADC_Convertir(ADC_RES_12_BITS, lectura);
+}
+
+/* Comando: POT2SEG {on|off} [{dec|hex}] */
 void Cmd_POT2SEG(char *args)
 {
     uint8_t encender;
@@ -576,7 +550,7 @@ void Cmd_POT2SEG(char *args)
         ptr++;
     }
 
-    // Formato opcional (solo con "on")
+    /* Formato */
     if (*ptr != '\0')
     {
         if (encender && (largo = Texto_EsPalabra(ptr, "dec")) != 0)
@@ -616,7 +590,7 @@ void Cmd_POT2SEG(char *args)
         return;
     }
 
-    // Encender: el ADC y el display deben estar listos
+    /* ADC y display listos */
     if (!adc_listo)
     {
         uint8_t listo;

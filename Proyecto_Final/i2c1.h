@@ -3,18 +3,14 @@
 
 #include <stdint.h>
 
-// Driver del bus I2C1 (PA15 = SCL, PB7 = SDA, AF4) a 100 kHz, y lectura/escritura de registros de los
-// expansores MCP23017 U5 y U6 de Green_Card (AyudaProgra, "Pines de los MCP23017").
-//
-// IMPORTANTE: las funciones del bus no son reentrantes. Después de la inicialización, el tráfico
-// del bus lo hace el tick de SysTick (display e IOMAP, ver tick.c). Si el programa principal
-// necesita usar el bus, debe rodear el acceso con Tick_Bloquear() / Tick_Desbloquear().
+/* Bus I2C1 (PA15 = SCL, PB7 = SDA) y expansores MCP23017.
+   Desde el programa principal se usa con el tick bloqueado. */
 
-// Direcciones de 7 bits de los expansores (AyudaProgra, tabla de U5 y U6)
-#define MCP_U5_ADDR     0x20    // LEDs (puerto A) y switches (puerto B)
-#define MCP_U6_ADDR     0x21    // Segmentos (puerto A) y selección de dígitos (puerto B)
+/* Direcciones de los expansores */
+#define MCP_U5_ADDR     0x20    /* LEDs y switches */
+#define MCP_U6_ADDR     0x21    /* Segmentos y dígitos */
 
-// Registros del MCP23017 con IOCON.BANK = 0, valor tras reset (DS20001952E 3.5, Tabla 3-5)
+/* Registros del MCP23017 (BANK = 0) */
 #define MCP_IODIRA      0x00
 #define MCP_IODIRB      0x01
 #define MCP_GPPUA       0x0C
@@ -24,11 +20,11 @@
 #define MCP_OLATA       0x14
 #define MCP_OLATB       0x15
 
-// Resultado de las transferencias
+/* Resultado */
 #define I2C1_OK         0
 #define I2C1_ERROR      1
 
-// Máximo de registros consecutivos que se escriben en una sola transacción
+/* Máximo de registros por escritura */
 #define MCP_MAX_REGS    8
 
 void I2C1_Init(void);
