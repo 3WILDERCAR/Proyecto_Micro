@@ -62,9 +62,6 @@ typedef enum
     ARC_GANO
 } ArcEstado_t;
 
-/* Puntos por fila de ladrillos */
-static const uint8_t arc_puntos_fila[ARC_LAD_FILAS] = {40, 30, 20, 10};
-
 /* ---------- Estado (se cambia desde el tick o con el tick bloqueado) ---------- */
 
 static volatile uint8_t arc_activo = 0;
@@ -72,7 +69,6 @@ static uint8_t arc_fase = 0;                /* Fase del paso */
 static ArcEstado_t arc_estado = ARC_ESPERANDO;
 
 static uint8_t arc_ladrillos[ARC_LAD_FILAS];    /* Bit n = ladrillo n en pie */
-static uint32_t arc_puntos = 0;
 static uint8_t arc_vidas = 0;
 static uint8_t arc_destruidos = 0;
 
@@ -86,7 +82,7 @@ static uint8_t arc_inicio = 0;
 
 static uint8_t arc_fija_sucia = 0;
 static uint8_t arc_pendientes = 0;          /* Bancos por enviar */
-static uint8_t arc_capa_fija[ARC_BANCOS][ARC_ANCHO];    /* Marcador, ladrillos o mensaje */
+static uint8_t arc_capa_fija[ARC_BANCOS][ARC_ANCHO];    /* Vidas, ladrillos o mensaje */
 static uint8_t arc_cuadro[ARC_BANCOS][ARC_ANCHO];       /* Capa fija + barra + bola */
 static uint8_t arc_enviado[ARC_BANCOS][ARC_ANCHO];      /* Último cuadro enviado */
 
@@ -167,40 +163,14 @@ static void Arc_TextoCentrado(uint8_t (*buf)[ARC_ANCHO], uint8_t banco, const ch
     Arc_Texto(buf, banco, (ARC_ANCHO - (6 * (int32_t)strlen(texto))) / 2, texto);
 }
 
-/* Número a texto; devuelve los dígitos */
-static uint8_t Arc_FormatearNumero(char *dst, uint32_t n)
-{
-    char tmp[11];
-    uint8_t k = 0;
-
-    do
-    {
-        tmp[k++] = (char)('0' + (n % 10U));
-        n /= 10U;
-    } while (n > 0 && k < 10);
-
-    for (uint8_t i = 0; i < k; i++)
-    {
-        dst[i] = tmp[k - 1 - i];
-    }
-    dst[k] = '\0';
-    return k;
-}
-
-/* Pantalla final: título y puntaje */
+/* Pantalla final: título */
 static void Arc_PantallaFinal(const char *titulo)
 {
-    char numero[11];
-    uint8_t digitos = Arc_FormatearNumero(numero, arc_puntos);
-    int32_t x0 = (ARC_ANCHO - (6 * (7 + (int32_t)digitos))) / 2;
-
     Arc_TextoCentrado(arc_capa_fija, 1, titulo);
-    Arc_Texto(arc_capa_fija, 2, x0, "PUNTOS ");
-    Arc_Texto(arc_capa_fija, 2, x0 + 42, numero);
     Arc_TextoCentrado(arc_capa_fija, 4, "* O # JUEGA");
 }
 
-/* Capa fija: marcador y ladrillos, o pantalla final */
+/* Capa fija: vidas y ladrillos, o pantalla final */
 static void Arc_RedibujarFija(void)
 {
     memset(arc_capa_fija, 0, sizeof(arc_capa_fija));
@@ -216,18 +186,10 @@ static void Arc_RedibujarFija(void)
         return;
     }
 
-    /* Marcador y vidas */
+    /* Vidas */
+    for (uint8_t v = 0; v < arc_vidas; v++)
     {
-        char numero[11];
-
-        Arc_Texto(arc_capa_fija, 0, 0, "PTS");
-        Arc_FormatearNumero(numero, arc_puntos);
-        Arc_Texto(arc_capa_fija, 0, 24, numero);
-
-        for (uint8_t v = 0; v < arc_vidas; v++)
-        {
-            Arc_Rect(arc_capa_fija, 63 + (7 * v), 2, 4, 4);
-        }
+        Arc_Rect(arc_capa_fija, 63 + (7 * v), 2, 4, 4);
     }
 
     /* Ladrillos */
@@ -338,7 +300,6 @@ static void Arc_NuevoJuego(void)
     {
         arc_ladrillos[fila] = (uint8_t)((1U << ARC_LAD_COLS) - 1U);
     }
-    arc_puntos = 0;
     arc_vidas = ARC_VIDAS;
     arc_destruidos = 0;
     arc_estado = ARC_ESPERANDO;
@@ -376,7 +337,6 @@ static uint8_t Arc_ChocaLadrillo(int32_t px, int32_t py)
         if (arc_ladrillos[fila] & (1U << col))
         {
             arc_ladrillos[fila] &= (uint8_t)~(1U << col);
-            arc_puntos += arc_puntos_fila[fila];
             arc_destruidos++;
             arc_fija_sucia = 1;
             return 1;
