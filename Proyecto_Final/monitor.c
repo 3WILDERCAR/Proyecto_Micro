@@ -11,6 +11,7 @@
 #include "sound.h"
 #include "rgb.h"
 #include "watch.h"
+#include "arcade.h"
 
 extern void Cmd_RM(uint32_t reg_idx, uint32_t val);
 extern void Cmd_RUN(uint32_t addr);
@@ -178,7 +179,8 @@ static const GreenCmd_t green_cmds[] =
     {"IOUNMAP",  Cmd_IOUNMAP},      // io.c
     {"LCD",      Cmd_LCD},          // display.c
     {"POT2SEG",  Cmd_POT2SEG},      // analog.c
-    {"LCDWATCH", Cmd_LCDWATCH}      // watch.c
+    {"LCDWATCH", Cmd_LCDWATCH},     // watch.c
+    {"ARCADE",   Cmd_ARCADE}        // arcade.c
 };
 
 #define GREEN_CMDS_COUNT (sizeof(green_cmds) / sizeof(green_cmds[0]))
